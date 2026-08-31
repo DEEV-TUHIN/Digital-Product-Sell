@@ -1,1322 +1,455 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Google AI Flow - Veo 3.1 Ultra</title>
-  <link rel="icon" type="image/png" href="https://i.ibb.co.com/Jww7yVmP/Google-flow-Logo-PNG-SVG-Vector-1.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(145deg, #f6f9fc 0%, #e9f1f8 100%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-      line-height: 1.5;
-    }
-
-    .card {
-      max-width: 880px;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-radius: 48px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
-      padding: 2.5rem 3rem;
-      transition: all 0.2s ease;
-    }
-
-    @media (max-width: 640px) {
-      .card {
-        padding: 1.8rem 1.5rem;
-        border-radius: 32px;
-      }
-    }
-
-    .badge {
-      display: inline-block;
-      background: #0b1e33;
-      color: #b9d0f0;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-      padding: 0.35rem 1rem;
-      border-radius: 100px;
-      margin-bottom: 1.5rem;
-      border: 1px solid #2a405a;
-    }
-
-    h1 {
-      font-size: 2.8rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      color: #0a1a2b;
-      margin-bottom: 0.75rem;
-      line-height: 1.1;
-    }
-
-    .highlight {
-      background: linear-gradient(135deg, #2563eb, #7c3aed);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-
-    .subhead {
-      font-size: 1.2rem;
-      color: #2c3e50;
-      max-width: 80%;
-      margin-bottom: 2.5rem;
-      font-weight: 400;
-      border-left: 4px solid #2563eb;
-      padding-left: 1.2rem;
-    }
-
-    @media (max-width: 640px) {
-      h1 { font-size: 2rem; }
-      .subhead { font-size: 1rem; max-width: 100%; }
-    }
-
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.2rem;
-      margin: 2.5rem 0 2.8rem 0;
-    }
-
-    .feature-item {
-      background: white;
-      padding: 1rem 1.2rem;
-      border-radius: 20px;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.02);
-      border: 1px solid rgba(0,0,0,0.04);
-      transition: 0.2s;
-    }
-
-    .feature-item i {
-      font-size: 1.5rem;
-      color: #2563eb;
-      width: 2rem;
-    }
-
-    .feature-item span {
-      font-weight: 600;
-      color: #0f293f;
-      font-size: 0.95rem;
-    }
-
-    .price-section {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 1rem 1.5rem;
-      margin-bottom: 1.8rem;
-      background: #f2f7fd;
-      padding: 1.2rem 1.8rem;
-      border-radius: 40px;
-      border: 1px solid #dce7f5;
-    }
-
-    .price-main {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: #0a1e30;
-    }
-
-    .price-main small {
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: #3d5a78;
-    }
-
-    .price-original {
-      font-size: 1.2rem;
-      color: #7e8f9f;
-      text-decoration: line-through;
-      font-weight: 500;
-    }
-
-    .price-badge {
-      background: #dc2626;
-      color: white;
-      font-weight: 700;
-      font-size: 0.85rem;
-      padding: 0.2rem 1rem;
-      border-radius: 100px;
-      letter-spacing: 0.02em;
-    }
-
-    .order-details-box {
-      background: white;
-      border-radius: 24px;
-      padding: 1.8rem 2rem;
-      margin: 1.8rem 0 2rem 0;
-      border: 1px solid #dce7f5;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-    }
-
-    .order-details-box h3 {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #0a1e30;
-      margin-bottom: 1.2rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-    }
-
-    .order-details-box h3 i {
-      color: #2563eb;
-    }
-
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #2c4a6a;
-      margin-bottom: 0.3rem;
-    }
-
-    .form-group input {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      border: 1.5px solid #e2edf7;
-      border-radius: 14px;
-      font-size: 1rem;
-      font-family: 'Inter', sans-serif;
-      transition: 0.2s;
-      background: #fafcff;
-      color: #0a1e30;
-    }
-
-    .form-group input:focus {
-      outline: none;
-      border-color: #2563eb;
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
-      background: white;
-    }
-
-    .form-group input::placeholder {
-      color: #a0b8ce;
-    }
-
-    .order-btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.8rem;
-      background: #0b1e33;
-      color: white;
-      border: none;
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      font-weight: 700;
-      border-radius: 60px;
-      cursor: pointer;
-      width: 100%;
-      transition: 0.2s ease;
-      box-shadow: 0 8px 20px rgba(11, 30, 51, 0.25);
-      margin-top: 0.5rem;
-    }
-
-    .order-btn:hover {
-      background: #1a3450;
-      transform: scale(1.01);
-      box-shadow: 0 12px 28px rgba(11, 30, 51, 0.35);
-    }
-
-    .order-btn i {
-      font-size: 1.1rem;
-    }
-
-    .secure-note {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      margin-top: 1.5rem;
-      color: #3e5a77;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-
-    .secure-note i {
-      color: #16a34a;
-    }
-
-    .footer-note {
-      margin-top: 2.5rem;
-      border-top: 1px solid #d0dfee;
-      padding-top: 1.5rem;
-      font-size: 0.8rem;
-      color: #54708f;
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .footer-note a {
-      color: #2563eb;
-      text-decoration: none;
-      font-weight: 500;
-    }
-
-    .footer-note a:hover {
-      text-decoration: underline;
-    }
-
-    /* Payment Modal */
-    .payment-modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      z-index: 9999;
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-    }
-
-    .payment-modal-overlay.active {
-      display: flex;
-      animation: fadeInModal 0.3s ease;
-    }
-
-    @keyframes fadeInModal {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .payment-modal {
-      background: white;
-      border-radius: 32px;
-      max-width: 540px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 2rem;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.3);
-      position: relative;
-    }
-
-    .payment-modal::-webkit-scrollbar {
-      width: 6px;
-    }
-    .payment-modal::-webkit-scrollbar-track {
-      background: #f0f5fa;
-      border-radius: 10px;
-    }
-    .payment-modal::-webkit-scrollbar-thumb {
-      background: #cbdae8;
-      border-radius: 10px;
-    }
-
-    .payment-modal-close {
-      position: absolute;
-      top: 1rem;
-      right: 1.2rem;
-      background: none;
-      border: none;
-      font-size: 1.8rem;
-      color: #94a9c2;
-      cursor: pointer;
-      transition: 0.2s;
-      line-height: 1;
-    }
-
-    .payment-modal-close:hover {
-      color: #0a1e30;
-      transform: rotate(90deg);
-    }
-
-    .modal-header {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .modal-header .brand-logo {
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, #0b5e42, #1a8a5c);
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 1.6rem;
-      font-weight: 800;
-      flex-shrink: 0;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .modal-header .brand-text {
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: #0a1e30;
-    }
-
-    .modal-header .brand-text small {
-      font-weight: 400;
-      color: #5a7a94;
-      font-size: 0.75rem;
-      display: block;
-    }
-
-    .view-details-link {
-      display: inline-block;
-      color: #2563eb;
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      cursor: pointer;
-      text-decoration: none;
-      background: none;
-      border: none;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .view-details-link:hover {
-      text-decoration: underline;
-    }
-
-    .payment-category {
-      display: flex;
-      gap: 0.8rem;
-      margin: 1.2rem 0 1.5rem 0;
-      background: #f2f7fd;
-      padding: 0.5rem;
-      border-radius: 16px;
-      border: 1px solid #dce7f5;
-    }
-
-    .payment-category-btn {
-      flex: 1;
-      padding: 0.7rem 0.5rem;
-      border: none;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: 0.2s;
-      background: transparent;
-      color: #3d5a78;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .payment-category-btn.active {
-      background: white;
-      color: #0a1e30;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-    }
-
-    .payment-category-btn:hover:not(.active) {
-      background: rgba(255,255,255,0.5);
-    }
-
-    .payment-methods {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .payment-method {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem 1.2rem;
-      border-radius: 16px;
-      border: 2px solid #e8f0f8;
-      cursor: pointer;
-      transition: 0.2s;
-      background: #fafcff;
-    }
-
-    .payment-method:hover {
-      border-color: #2563eb;
-      background: #f0f7ff;
-    }
-
-    .payment-method.selected {
-      border-color: #2563eb;
-      background: #eef4ff;
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-    }
-
-    .payment-method .method-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1rem;
-      font-weight: 700;
-      flex-shrink: 0;
-      color: white;
-    }
-
-    .payment-method .method-info {
-      flex: 1;
-    }
-
-    .payment-method .method-info h4 {
-      font-size: 1rem;
-      color: #0a1e30;
-    }
-
-    .payment-method .method-info p {
-      font-size: 0.75rem;
-      color: #5a7a94;
-    }
-
-    .payment-method .check-mark {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      border: 2px solid #cbdae8;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: 0.2s;
-      flex-shrink: 0;
-    }
-
-    .payment-method.selected .check-mark {
-      border-color: #2563eb;
-      background: #2563eb;
-    }
-
-    .payment-method.selected .check-mark::after {
-      content: '\f00c';
-      font-family: 'Font Awesome 6 Free';
-      font-weight: 900;
-      color: white;
-      font-size: 0.6rem;
-    }
-
-    .method-bkash .method-icon { background: #e2136e; }
-    .method-bkash.selected { border-color: #e2136e; background: #fdf0f6; }
-    .method-bkash.selected .check-mark { border-color: #e2136e; background: #e2136e; }
-
-    .method-nagad .method-icon { background: #f26522; }
-    .method-nagad.selected { border-color: #f26522; background: #fef5ed; }
-    .method-nagad.selected .check-mark { border-color: #f26522; background: #f26522; }
-
-    .method-rocket .method-icon { background: #7c3aed; }
-    .method-rocket.selected { border-color: #7c3aed; background: #f3edff; }
-    .method-rocket.selected .check-mark { border-color: #7c3aed; background: #7c3aed; }
-
-    .payment-methods.hidden {
-      display: none;
-    }
-
-    .txn-box {
-      background: #f8fbff;
-      border-radius: 16px;
-      padding: 1.5rem;
-      border: 1px solid #dce7f5;
-      margin-top: 1rem;
-    }
-
-    .txn-box .instructions {
-      background: #f0f7ff;
-      padding: 1rem;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      color: #1a3a5a;
-      margin-bottom: 1rem;
-      border-left: 4px solid #2563eb;
-    }
-
-    .txn-box .instructions .phone-number {
-      background: white;
-      padding: 0.3rem 0.8rem;
-      border-radius: 8px;
-      font-weight: 700;
-      color: #0a1e30;
-      display: inline-block;
-      margin: 0.3rem 0;
-      border: 1px dashed #b8d0e5;
-      font-size: 1rem;
-    }
-
-    .txn-box .instructions .amount {
-      font-weight: 700;
-      color: #dc2626;
-    }
-
-    .txn-input-group {
-      display: flex;
-      gap: 0.8rem;
-      margin-top: 0.8rem;
-      flex-wrap: wrap;
-    }
-
-    .txn-input-group input {
-      flex: 1;
-      padding: 0.8rem 1rem;
-      border: 1.5px solid #e2edf7;
-      border-radius: 12px;
-      font-size: 0.95rem;
-      font-family: 'Inter', sans-serif;
-      min-width: 150px;
-    }
-
-    .txn-input-group input:focus {
-      outline: none;
-      border-color: #2563eb;
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
-    }
-
-    .verify-btn {
-      padding: 0.8rem 1.8rem;
-      background: #0b1e33;
-      color: white;
-      border: none;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 0.95rem;
-      cursor: pointer;
-      transition: 0.2s;
-      font-family: 'Inter', sans-serif;
-      white-space: nowrap;
-    }
-
-    .verify-btn:hover {
-      background: #1a3450;
-    }
-
-    .verify-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .verify-status {
-      margin-top: 0.8rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      padding: 0.5rem;
-      border-radius: 8px;
-      text-align: center;
-    }
-
-    .verify-status.success {
-      color: #16a34a;
-      background: #e6f7ed;
-    }
-
-    .verify-status.error {
-      color: #dc2626;
-      background: #fde8e8;
-    }
-
-    .verify-status.loading {
-      color: #2563eb;
-      background: #eef4ff;
-    }
-
-    .bank-transfer-info {
-      background: #f8fbff;
-      border-radius: 16px;
-      padding: 1.5rem;
-      border: 1px solid #dce7f5;
-      margin-top: 1rem;
-    }
-
-    .bank-transfer-info .bank-details {
-      background: #f0f7ff;
-      padding: 1rem;
-      border-radius: 12px;
-      font-size: 0.85rem;
-      color: #1a3a5a;
-      border-left: 4px solid #0b5e42;
-    }
-
-    .bank-transfer-info .bank-details .highlight-text {
-      font-weight: 700;
-      color: #0b5e42;
-    }
-
-    .bank-transfer-info .bank-details .amount-highlight {
-      font-weight: 700;
-      color: #dc2626;
-    }
-
-    .modal-footer-total {
-      margin-top: 1.5rem;
-      padding-top: 1rem;
-      border-top: 1px solid #e8f0f8;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .modal-footer-total .total-label {
-      font-weight: 600;
-      color: #3d5a78;
-    }
-
-    .modal-footer-total .total-price {
-      font-size: 1.3rem;
-      font-weight: 800;
-      color: #0a1e30;
-    }
-
-    .confirm-payment-btn {
-      width: 100%;
-      margin-top: 1rem;
-      padding: 1rem;
-      background: linear-gradient(135deg, #2563eb, #7c3aed);
-      color: white;
-      border: none;
-      border-radius: 60px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: 0.2s;
-      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
-      font-family: 'Inter', sans-serif;
-    }
-
-    .confirm-payment-btn:hover:not(:disabled) {
-      transform: scale(1.01);
-      box-shadow: 0 12px 30px rgba(37, 99, 235, 0.4);
-    }
-
-    .confirm-payment-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-      transform: none;
-    }
-
-    /* WhatsApp floating button */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: #25D366;
-      color: white;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-      cursor: pointer;
-      transition: 0.3s;
-      z-index: 999;
-      text-decoration: none;
-      border: none;
-    }
-
-    .whatsapp-float:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 30px rgba(37, 211, 102, 0.6);
-    }
-
-    @media (max-width: 640px) {
-      .whatsapp-float {
-        width: 50px;
-        height: 50px;
-        font-size: 1.6rem;
-        bottom: 20px;
-        right: 20px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">Ahosan Service</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    <style>
+        .swiper { width: 100%; aspect-ratio: 21/9; max-height: 380px; border-radius: 1.5rem; }
+        .swiper-slide { display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;}
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; position: absolute; z-index: -1; }
+        .payment-card-radio:checked + label {
+            border-color: #4f46e5;
+            background-color: #f5f3ff;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.15);
+        }
+    </style>
 </head>
-<body>
-  <!-- WhatsApp Floating Button -->
-  <a href="https://wa.me/8801714673241" target="_blank" class="whatsapp-float" title="WhatsApp এ যোগাযোগ করুন">
-    <i class="fab fa-whatsapp"></i>
-  </a>
+<body class="bg-gray-50 text-gray-800 antialiased flex flex-col min-h-screen relative">
 
-  <div class="card" id="mainCard">
-    <div class="badge">
-      <i class="fas fa-bolt" style="margin-right: 6px;"></i> সীমিত সময়ের অফার
+    <div id="toastContainer" class="fixed top-5 right-5 z-50 space-y-2"></div>
+
+    <!-- Payment Failed Modal -->
+    <div id="paymentFailedModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl w-full max-w-sm p-8 text-center shadow-2xl">
+            <div class="w-20 h-20 bg-red-100 text-red-500 rounded-full flex items-center justify-center text-4xl mx-auto mb-4">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+            <h3 class="text-xl font-extrabold text-gray-900 mb-2">পেমেন্ট অসম্পূর্ণ!</h3>
+            <p class="text-sm text-gray-500 mb-6">আপনার অর্ডারটি কনফার্ম করা সম্ভব হয়নি। কোনো সমস্যা হলে দয়া করে আমাদের সাপোর্ট টিমের সাথে দ্রুত যোগাযোগ করুন।</p>
+            <a id="failSupportBtn" href="#" target="_blank" class="w-full inline-flex items-center justify-center gap-2 bg-emerald-500 text-white font-bold py-3.5 rounded-2xl hover:bg-emerald-600 transition shadow-lg">
+                <i class="fa-brands fa-whatsapp text-xl"></i> হোয়াটসঅ্যাপে মেসেজ দিন
+            </a>
+            <button onclick="document.getElementById('paymentFailedModal').classList.add('hidden')" class="mt-4 text-xs font-bold text-gray-400 hover:text-gray-600">বন্ধ করুন</button>
+        </div>
     </div>
 
-    <h1>
-      <span class="highlight">Google AI Flow</span><br>
-      Veo 3.1 Ultra
-    </h1>
-    <div class="subhead">
-      বিশ্বের সবচেয়ে শক্তিশালী AI ভিডিও মডেল — এখন আপনার হাতে। 
-      এক ক্লিকেই আনলক করুন অসীম ক্রিয়েটিভিটি।
+    <header class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-40 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
+            <a href="#" class="flex items-center gap-2">
+                <img id="siteLogo" src="" class="w-10 h-10 object-cover rounded-xl shadow-sm hidden" alt="Logo">
+                <div id="defaultLogoIcon" class="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-md">A</div>
+                <span id="siteName" class="text-xl font-extrabold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">Ahosan Service</span>
+            </a>
+
+            <div class="flex-1 max-w-md hidden md:block">
+                <div class="relative">
+                    <input type="text" id="searchInput" placeholder="সাবস্ক্রিপশন খুঁজুন (Ex: ChatGPT, Gemini)..." class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 bg-gray-50">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-gray-400"></i>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button onclick="toggleTrackModal()" class="text-xs md:text-sm font-semibold text-gray-700 hover:text-indigo-600 bg-gray-100 px-3.5 py-2 rounded-full transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-truck-fast text-indigo-600"></i>
+                    <span>অর্ডার ট্র্যাক</span>
+                </button>
+                <button onclick="toggleCartModal()" class="relative p-2.5 bg-indigo-50 text-indigo-600 rounded-full hover:bg-indigo-600 hover:text-white transition">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="cartCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold shadow">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section id="home" class="max-w-7xl mx-auto px-4 py-4 w-full">
+        <div class="swiper mySwiper shadow-lg border border-gray-100">
+            <div class="swiper-wrapper" id="sliderContainer">
+                <div class="swiper-slide bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-8 flex flex-col items-start justify-center">
+                    <span class="bg-white/20 backdrop-blur-md px-3.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-2 text-white border border-white/20">🔥 হট সাবস্ক্রিপশন</span>
+                    <h2 class="text-3xl md:text-5xl font-black mb-2 text-white">Digital Ai Subscriptions</h2>
+                    <p class="text-indigo-100 max-w-lg mb-6 text-sm md:text-base">সাশ্রয়ী মূল্যে ১০০% গ্যারান্টিযুক্ত সার্ভিস গ্রহণ করুন।</p>
+                </div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+
+    <main id="products" class="max-w-7xl mx-auto px-4 py-8 flex-1 w-full">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+            <div>
+                <h3 class="text-2xl font-black text-gray-900">সকল প্রোডাক্ট</h3>
+                <p class="text-xs text-gray-500 mt-1">আপনার প্রয়োজনীয় প্রিমিয়াম সাবস্ক্রিপশন বাছাই করুন</p>
+            </div>
+            <div class="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 text-xs font-semibold">
+                <button onclick="filterCategory('all')" class="cat-btn bg-indigo-600 text-white px-4 py-2 rounded-full transition shadow-sm">সব প্রোডাক্ট</button>
+                <button onclick="filterCategory('ai')" class="cat-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition">AI Tools</button>
+                <button onclick="filterCategory('design')" class="cat-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-full hover:bg-gray-300 transition">Design & Media</button>
+            </div>
+        </div>
+        
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        </div>
+    </main>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="fixed inset-0 bg-black/60 z-50 hidden backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl w-full max-w-md p-6 max-h-[90vh] flex flex-col shadow-2xl">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h4 class="text-lg font-bold flex items-center gap-2">
+                    <i class="fa-solid fa-cart-shopping text-indigo-600"></i> আপনার কার্ট
+                </h4>
+                <button onclick="toggleCartModal()" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="cartItems" class="flex-1 overflow-y-auto py-4 space-y-3"></div>
+            <div class="border-t pt-4 space-y-3">
+                <div class="flex gap-2">
+                    <input type="text" id="couponInput" placeholder="কুপন কোড (যদি থাকে)" class="flex-1 border rounded-xl px-3 py-1.5 text-xs outline-none focus:ring-2 focus:ring-indigo-500">
+                    <button onclick="applyCoupon()" class="bg-gray-800 text-white text-xs px-4 py-1.5 rounded-xl hover:bg-black font-semibold">এপ্লাই</button>
+                </div>
+                <div class="space-y-1 text-sm pt-2">
+                    <div class="flex justify-between text-gray-500 text-xs"><span>সাবটোটাল:</span><span id="cartSubtotal">৳০</span></div>
+                    <div class="flex justify-between text-emerald-600 text-xs font-semibold"><span>ডিসকাউন্ট:</span><span id="cartDiscount">- ৳০</span></div>
+                    <div class="flex justify-between font-extrabold text-lg text-gray-900 border-t pt-2"><span>সর্বমোট:</span><span id="cartTotal" class="text-indigo-600">৳০</span></div>
+                </div>
+                <button onclick="openCheckoutModal()" id="checkoutBtn" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-2xl shadow-lg hover:bg-indigo-700 transition disabled:opacity-50" disabled>অর্ডার করতে এগিয়ে যান</button>
+            </div>
+        </div>
     </div>
 
-    <div class="features-grid">
-      <div class="feature-item">
-        <i class="fas fa-film"></i>
-        <span>HD রেজুলেশন</span>
-      </div>
-      <div class="feature-item">
-        <i class="fas fa-clock"></i>
-        <span>ফার্স্ট রেসপন্স</span>
-      </div>
-      <div class="feature-item">
-        <i class="fas fa-pen-fancy"></i>
-        <span>প্রম্পট কন্ট্রোল</span>
-      </div>
-      <div class="feature-item">
-        <i class="fas fa-infinity"></i>
-        <span>আনলিমিটেড</span>
-      </div>
-    </div>
-
-    <div class="price-section">
-      <div class="price-main">
-        $499 <small>মাত্র</small>
-      </div>
-      <div class="price-original">
-        $1999
-      </div>
-      <div class="price-badge">
-        <i class="fas fa-tag"></i> 75% ছাড়
-      </div>
-    </div>
-
-    <div class="order-details-box">
-      <h3><i class="fas fa-clipboard-list"></i> অর্ডার ডিটেইলস</h3>
-      <div class="form-group">
-        <label for="fullName"><i class="fas fa-user" style="color:#2563eb; margin-right:6px;"></i> ফুল নাম</label>
-        <input type="text" id="fullName" placeholder="আপনার পুরো নাম লিখুন" required>
-      </div>
-      <div class="form-group">
-        <label for="whatsapp"><i class="fab fa-whatsapp" style="color:#25D366; margin-right:6px;"></i> হোয়াটসঅ্যাপ নাম্বার</label>
-        <input type="tel" id="whatsapp" placeholder="০১XXX-XXXXXX" required>
-      </div>
-      <div class="form-group">
-        <label for="email"><i class="fas fa-envelope" style="color:#2563eb; margin-right:6px;"></i> ইমেইল এড্রেস</label>
-        <input type="email" id="email" placeholder="আপনার ইমেইল লিখুন" required>
-      </div>
-      <button class="order-btn" id="orderNowBtn">
-        <i class="fas fa-shopping-cart"></i> এখনই অর্ডার করুন
-        <i class="fas fa-arrow-right"></i>
-      </button>
-    </div>
-
-    <div class="secure-note">
-      <i class="fas fa-shield-alt"></i> 
-      <span>🔒 আনলিমিটেড ক্রেডিট  · ৩০ দিনের গ্যারান্টি</span>
-    </div>
-
-    <div class="footer-note">
-      <span>© 2026 · <strong>Ahosan Emon</strong></span>
-      <span>
-        <a href="#"><i class="fas fa-question-circle"></i> সাহায্য</a> · 
-        <a href="#"><i class="fas fa-file-contract"></i> শর্তাবলী</a>
-      </span>
-    </div>
-  </div>
-
-  <!-- Payment Modal -->
-  <div class="payment-modal-overlay" id="paymentModal">
-    <div class="payment-modal">
-      <button class="payment-modal-close" id="modalCloseBtn">&times;</button>
-
-      <div class="modal-header">
-        <div class="brand-logo">AP</div>
-        <div class="brand-text">
-          Ahosan Pay
-          <small>Secure Payment Gateway</small>
-        </div>
-      </div>
-
-      <button class="view-details-link" id="viewDetailsLink">
-        <i class="fas fa-eye"></i> ভিউ ডিটেলস
-      </button>
-
-      <div class="payment-category">
-        <button class="payment-category-btn active" data-category="mobile">মোবাইল ব্যাংকিং</button>
-        <button class="payment-category-btn" data-category="bank">ব্যাংক ট্রান্সফার</button>
-      </div>
-
-      <div class="payment-methods" id="paymentMethods">
-        <div class="payment-method method-bkash selected" data-method="bkash">
-          <div class="method-icon">বি</div>
-          <div class="method-info">
-            <h4>বিকাশ</h4>
-            <p>মোবাইল ব্যাংকিং</p>
-          </div>
-          <div class="check-mark"></div>
-        </div>
-
-        <div class="payment-method method-nagad" data-method="nagad">
-          <div class="method-icon">ন</div>
-          <div class="method-info">
-            <h4>নগদ</h4>
-            <p>মোবাইল ব্যাংকিং</p>
-          </div>
-          <div class="check-mark"></div>
-        </div>
-
-        <div class="payment-method method-rocket" data-method="rocket">
-          <div class="method-icon">র</div>
-          <div class="method-info">
-            <h4>রকেট</h4>
-            <p>মোবাইল ব্যাংকিং</p>
-          </div>
-          <div class="check-mark"></div>
-        </div>
-      </div>
-
-      <div class="bank-transfer-info" id="bankTransferInfo" style="display:none;">
-        <div class="bank-details">
-          <strong>🏦 ব্যাংক ট্রান্সফার নির্দেশনা</strong><br><br>
-          ব্যাংক: <span class="highlight-text">Islami Bank Bangladesh</span><br>
-          শাখা: Chachkoir Br,Natore<br>
-          অ্যাকাউন্ট নাম: <span class="highlight-text">MD EMON ALI</span><br>
-          অ্যাকাউন্ট নম্বর: <span class="highlight-text">2050-286-67-00153409</span><br>
-          রাউটিং নম্বর: 125690311<br>
-          পরিমাণ: <span class="amount-highlight">৭৯৯ টাকা</span><br><br>
-          <strong>ট্রান্সফার করার পর Transaction ID দিন এবং VERIFY করুন।</strong>
-        </div>
-
-        <div class="txn-input-group" style="margin-top:1rem;">
-          <input type="text" id="bankTransactionId" placeholder="ট্রান্সজেকশন আইডি দিন" required>
-          <button class="verify-btn" id="bankVerifyBtn">ভেরিফাই করুন</button>
-        </div>
-        <div class="verify-status" id="bankVerifyStatus"></div>
-      </div>
-
-      <div class="txn-box" id="txnBox">
-        <div class="instructions" id="instructions">
-          <strong>📌 টাকা পাঠানোর ৫-১০ সেকেন্ড পর ভেরিফাই করবেন।</strong><br><br>
-          <strong>Instructions:</strong><br>
-          <span id="methodInstructions">*247# ডায়াল করে আপনার BKASH মোবাইল মেনুতে যান অথবা BKASH অ্যাপে যান।<br>
-          "Send Money" -এ ক্লিক করুন।<br>
-          প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুন:<br>
-          <span class="phone-number">01738347116</span><br>
-          পরিমাণ: <span class="amount">799 টাকা</span> দিয়ে SUBMIT করুন।</span>
-          <br><br>
-          <strong>এখন উপরের বক্সে আপনার Transaction ID দিন এবং VERIFY করুন।</strong>
-        </div>
-
-        <div class="txn-input-group">
-          <input type="text" id="transactionId" placeholder="ট্রান্সজেকশন আইডি দিন" required>
-          <button class="verify-btn" id="verifyBtn">ভেরিফাই করুন</button>
-        </div>
-        <div class="verify-status" id="verifyStatus"></div>
-      </div>
-
-      <div class="modal-footer-total">
-        <span class="total-label">মোট পরিশোধ</span>
-        <span class="total-price">৳৭৯৯</span>
-      </div>
-
-      <button class="confirm-payment-btn" id="confirmPaymentBtn" disabled>
-        <i class="fas fa-check-circle"></i> পেমেন্ট কনফর্ম করুন
-      </button>
-    </div>
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // ============ TELEGRAM BOT CONFIG ============
-      const BOT_TOKEN = '8734192435:AAHooD6euA6DtBQ1nvkChjUssj_OkJUCQ6Y';
-      const CHAT_ID = '6194873241';
-
-      // ============ YOUR WHATSAPP NUMBER ============
-      const WHATSAPP_NUMBER = '8801714673241';
-
-      // All DOM elements
-      const orderNowBtn = document.getElementById('orderNowBtn');
-      const modal = document.getElementById('paymentModal');
-      const modalCloseBtn = document.getElementById('modalCloseBtn');
-      const viewDetailsLink = document.getElementById('viewDetailsLink');
-      const categoryBtns = document.querySelectorAll('.payment-category-btn');
-      const methodItems = document.querySelectorAll('.payment-method');
-      const paymentMethods = document.getElementById('paymentMethods');
-      const txnBox = document.getElementById('txnBox');
-      const bankTransferInfo = document.getElementById('bankTransferInfo');
-      const methodInstructions = document.getElementById('methodInstructions');
-      const transactionInput = document.getElementById('transactionId');
-      const verifyBtn = document.getElementById('verifyBtn');
-      const verifyStatus = document.getElementById('verifyStatus');
-      const bankTransactionInput = document.getElementById('bankTransactionId');
-      const bankVerifyBtn = document.getElementById('bankVerifyBtn');
-      const bankVerifyStatus = document.getElementById('bankVerifyStatus');
-      const confirmBtn = document.getElementById('confirmPaymentBtn');
-
-      const fullNameInput = document.getElementById('fullName');
-      const whatsappInput = document.getElementById('whatsapp');
-      const emailInput = document.getElementById('email');
-
-      // Method data
-      const methodData = {
-        bkash: {
-          name: 'বিকাশ',
-          instructions: `*247# ডায়াল করে আপনার BKASH মোবাইল মেনুতে যান অথবা BKASH অ্যাপে যান।<br>
-          "Send Money" -এ ক্লিক করুন।<br>
-          প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুন:<br>
-          <span class="phone-number">01738347116</span><br>
-          পরিমাণ: <span class="amount">799 টাকা</span> দিয়ে SUBMIT করুন।`
-        },
-        nagad: {
-          name: 'নগদ',
-          instructions: `*167# ডায়াল করে আপনার NAGAD মোবাইল মেনুতে যান অথবা NAGAD অ্যাপে যান।<br>
-          "Send Money" -এ ক্লিক করুন।<br>
-          প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুন:<br>
-          <span class="phone-number">01738347116</span><br>
-          পরিমাণ: <span class="amount">799 টাকা</span> দিয়ে SUBMIT করুন।`
-        },
-        rocket: {
-          name: 'রকেট',
-          instructions: `*322# ডায়াল করে আপনার ROCKET মোবাইল মেনুতে যান অথবা ROCKET অ্যাপে যান।<br>
-          "Send Money" -এ ক্লিক করুন।<br>
-          প্রাপক নম্বর হিসেবে এই নম্বরটি লিখুন:<br>
-          <span class="phone-number">01738347116</span><br>
-          পরিমাণ: <span class="amount">799 টাকা</span> দিয়ে SUBMIT করুন।`
-        }
-      };
-
-      let selectedMethod = 'bkash';
-      let isVerified = false;
-      let verificationInProgress = false;
-      let currentCategory = 'mobile';
-
-      // ============ TELEGRAM SEND FUNCTION ============
-      function sendTelegramNotification(name, whatsapp, email, method, txnId) {
-        const message = `🆕 *নতুন অর্ডার!*\n\n` +
-                        `👤 *নাম:* ${name}\n` +
-                        `📱 *হোয়াটসঅ্যাপ:* ${whatsapp}\n` +
-                        `📧 *ইমেইল:* ${email}\n` +
-                        `💳 *পেমেন্ট মেথড:* ${method}\n` +
-                        `🆔 *ট্রানজেকশন আইডি:* ${txnId}\n` +
-                        `💰 *পরিমাণ:* ৭৯৯ টাকা\n\n` +
-                        `📅 *সময়:* ${new Date().toLocaleString('bn-BD')}`;
-
-        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-
-        fetch(url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            chat_id: CHAT_ID,
-            text: message,
-            parse_mode: 'Markdown'
-          })
-        })
-        .then(response => response.json())
-        .then(data => {
-          if (data.ok) {
-            console.log('✅ Telegram নোটিফিকেশন পাঠানো হয়েছে!');
-          } else {
-            console.error('❌ Telegram error:', data.description);
-          }
-        })
-        .catch(error => {
-          console.error('❌ Network error:', error);
-        });
-      }
-
-      // ============ WHATSAPP OPEN FUNCTION ============
-      function openWhatsApp() {
-        const phone = WHATSAPP_NUMBER;
-        const message = encodeURIComponent('আমি অর্ডার করেছি। প্রতিনিধির কেউ আমার সাথে যোগাযোগ করুন।');
-        const url = `https://wa.me/${phone}?text=${message}`;
-        window.open(url, '_blank');
-      }
-
-      // ORDER BUTTON - Opens payment modal
-      orderNowBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-
-        const fullName = fullNameInput.value.trim();
-        const whatsapp = whatsappInput.value.trim();
-        const email = emailInput.value.trim();
-
-        // Validation
-        if (!fullName || !whatsapp || !email) {
-          alert('⚠️ দয়া করে সব তথ্য পূরণ করুন।');
-          return;
-        }
-
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-          alert('⚠️ দয়া করে একটি বৈধ ইমেইল এড্রেস দিন।');
-          return;
-        }
-
-        if (!/^01[3-9]\d{8}$/.test(whatsapp.replace(/\s/g, ''))) {
-          alert('⚠️ দয়া করে একটি বৈধ বাংলাদেশি মোবাইল নাম্বার দিন (০১XXX-XXXXXX)');
-          return;
-        }
-
-        // Store order details
-        sessionStorage.setItem('orderName', fullName);
-        sessionStorage.setItem('orderWhatsapp', whatsapp);
-        sessionStorage.setItem('orderEmail', email);
-
-        // Reset all states
-        isVerified = false;
-        verificationInProgress = false;
-        transactionInput.value = '';
-        bankTransactionInput.value = '';
-        verifyStatus.textContent = '';
-        verifyStatus.className = 'verify-status';
-        bankVerifyStatus.textContent = '';
-        bankVerifyStatus.className = 'verify-status';
-        confirmBtn.disabled = true;
-        confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> পেমেন্ট কনফর্ম করুন';
-
-        // Reset to mobile category
-        currentCategory = 'mobile';
-        categoryBtns.forEach(b => b.classList.remove('active'));
-        document.querySelector('.payment-category-btn[data-category="mobile"]').classList.add('active');
-        paymentMethods.style.display = 'flex';
-        txnBox.style.display = 'block';
-        bankTransferInfo.style.display = 'none';
-
-        // Reset method selection
-        methodItems.forEach(m => m.classList.remove('selected'));
-        document.querySelector('.payment-method.method-bkash').classList.add('selected');
-        selectedMethod = 'bkash';
-        methodInstructions.innerHTML = methodData.bkash.instructions;
-
-        // SHOW MODAL
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      });
-
-      // Close modal
-      function closeModal() {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-
-      modalCloseBtn.addEventListener('click', closeModal);
-      modal.addEventListener('click', function(e) {
-        if (e.target === this) closeModal();
-      });
-
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-          closeModal();
-        }
-      });
-
-      // View details
-      let detailsVisible = false;
-      viewDetailsLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        detailsVisible = !detailsVisible;
-        const methodName = currentCategory === 'bank' ? 'ব্যাংক ট্রান্সফার' : (methodData[selectedMethod]?.name || selectedMethod);
-        if (detailsVisible) {
-          const name = sessionStorage.getItem('orderName') || 'গ্রাহক';
-          const whatsapp = sessionStorage.getItem('orderWhatsapp') || 'N/A';
-          const email = sessionStorage.getItem('orderEmail') || 'N/A';
-          alert(`📋 অর্ডার ডিটেলস:\n\n👤 নাম: ${name}\n📱 হোয়াটসঅ্যাপ: ${whatsapp}\n📧 ইমেইল: ${email}\n💳 পেমেন্ট মেথড: ${methodName}\n💰 পরিমাণ: ৳৭৯৯`);
-        }
-      });
-
-      // Category switching
-      categoryBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-          categoryBtns.forEach(b => b.classList.remove('active'));
-          this.classList.add('active');
-
-          currentCategory = this.dataset.category;
-          
-          if (currentCategory === 'mobile') {
-            paymentMethods.style.display = 'flex';
-            txnBox.style.display = 'block';
-            bankTransferInfo.style.display = 'none';
+    <!-- Checkout Modal -->
+    <div id="checkoutModal" class="fixed inset-0 bg-black/60 z-50 hidden backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl w-full max-w-lg p-6 max-h-[92vh] overflow-y-auto shadow-2xl">
+            <div class="flex justify-between items-center border-b pb-3 mb-4">
+                <h4 class="text-lg font-bold text-gray-900">পেমেন্ট ও অর্ডার বিবরণ</h4>
+                <button onclick="toggleCheckoutModal()" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+            </div>
             
-            bankVerifyStatus.textContent = '';
-            bankVerifyStatus.className = 'verify-status';
-            bankTransactionInput.value = '';
-            
-            if (!document.querySelector('.payment-method.selected')) {
-              document.querySelector('.payment-method.method-bkash').classList.add('selected');
-              selectedMethod = 'bkash';
-              methodInstructions.innerHTML = methodData.bkash.instructions;
+            <form id="orderForm" onsubmit="handlePlaceOrder(event)" class="space-y-4">
+                <div><input type="text" id="custName" required placeholder="আপনার পূর্ণ নাম *" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500"></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div><input type="email" id="custEmail" required placeholder="ইমেইল (ডেলিভারির জন্য) *" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500"></div>
+                    <div><input type="tel" id="custPhone" required placeholder="হোয়াটসঅ্যাপ নম্বর *" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500"></div>
+                </div>
+
+                <div id="apiPaymentInfo" class="hidden bg-emerald-50 border border-emerald-200 p-4 rounded-xl text-emerald-800">
+                    <p class="text-sm font-bold"><i class="fa-solid fa-credit-card mr-2"></i>অটোমেটিক অনলাইন পেমেন্ট চালু আছে। অর্ডার নিশ্চিত করলে পেমেন্ট পেজে নিয়ে যাওয়া হবে।</p>
+                </div>
+
+                <div id="manualPaymentSection">
+                    <span class="block text-xs font-bold text-gray-700 uppercase mb-2">পেমেন্ট মেথড সিলেক্ট করুন *</span>
+                    <div class="space-y-3">
+                        <div class="relative">
+                            <input type="radio" name="paymentMethod" id="payBkashRadio" value="bkash" class="payment-card-radio peer hidden" checked>
+                            <label for="payBkashRadio" class="block p-4 rounded-2xl border-2 border-gray-200 bg-white cursor-pointer transition-all hover:border-pink-300">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 rounded-lg bg-pink-600 text-white flex items-center justify-center font-bold text-xs shadow-sm">বিকাশ</div>
+                                        <span class="font-bold text-gray-900 text-sm">bKash Personal</span>
+                                    </div>
+                                    <span class="text-xs text-pink-600 font-semibold bg-pink-50 px-2 py-0.5 rounded-full">Send Money</span>
+                                </div>
+                                <div class="flex items-center justify-between bg-pink-50/60 p-2.5 rounded-xl border border-pink-100">
+                                    <span id="bkashNumText" class="font-mono font-bold text-pink-700 text-sm">লোড হচ্ছে...</span>
+                                    <button type="button" onclick="copyNumber('bkashNumText')" class="text-xs bg-pink-600 text-white px-2.5 py-1 rounded-lg hover:bg-pink-700 transition"><i class="fa-regular fa-copy mr-1"></i> কপি</button>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="relative">
+                            <input type="radio" name="paymentMethod" id="payNagadRadio" value="nagad" class="payment-card-radio peer hidden">
+                            <label for="payNagadRadio" class="block p-4 rounded-2xl border-2 border-gray-200 bg-white cursor-pointer transition-all hover:border-orange-300">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-8 h-8 rounded-lg bg-orange-500 text-white flex items-center justify-center font-bold text-xs shadow-sm">নগদ</div>
+                                        <span class="font-bold text-gray-900 text-sm">Nagad Personal</span>
+                                    </div>
+                                    <span class="text-xs text-orange-600 font-semibold bg-orange-50 px-2 py-0.5 rounded-full">Send Money</span>
+                                </div>
+                                <div class="flex items-center justify-between bg-orange-50/60 p-2.5 rounded-xl border border-orange-100">
+                                    <span id="nagadNumText" class="font-mono font-bold text-orange-700 text-sm">লোড হচ্ছে...</span>
+                                    <button type="button" onclick="copyNumber('nagadNumText')" class="text-xs bg-orange-500 text-white px-2.5 py-1 rounded-lg hover:bg-orange-600 transition"><i class="fa-regular fa-copy mr-1"></i> কপি</button>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="mt-4">
+                        <label class="block text-xs font-bold text-gray-700 uppercase mb-1">ট্রানজেকশন আইডি (TrxID) *</label>
+                        <input type="text" id="trxId" required placeholder="টাকা পাঠানোর পর প্রাপ্ত TrxID লিখুন" class="w-full border border-gray-200 rounded-xl px-3.5 py-2.5 text-sm focus:ring-2 focus:ring-indigo-500 outline-none uppercase font-mono">
+                    </div>
+                </div>
+
+                <button type="submit" id="submitOrderBtn" class="w-full bg-emerald-600 text-white font-bold py-3.5 rounded-2xl shadow-lg hover:bg-emerald-700 transition mt-2">অর্ডার নিশ্চিত করুন</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="trackModal" class="fixed inset-0 bg-black/60 z-50 hidden backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl w-full max-w-md p-6 shadow-2xl">
+            <div class="flex justify-between items-center border-b pb-3 mb-4">
+                <h4 class="text-lg font-bold">অর্ডার ট্র্যাকিং</h4>
+                <button onclick="toggleTrackModal()" class="w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-200 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="space-y-4">
+                <input type="tel" id="trackPhoneInput" placeholder="অর্ডারের সময় দেওয়া ফোন নম্বর দিন" class="w-full border rounded-xl px-3.5 py-2.5 text-sm outline-none focus:ring-2 focus:ring-indigo-500">
+                <button onclick="searchCustomerOrder()" class="w-full bg-indigo-600 text-white font-semibold py-2.5 rounded-xl hover:bg-indigo-700">খুঁজুন</button>
+                <div id="trackResult" class="pt-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Corrected WhatsApp Floating Button -->
+    <a id="waFloatBtn" href="#" target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white w-14 h-14 rounded-full shadow-2xl flex items-center justify-center z-40 transition transform hover:-translate-y-1 hover:scale-105 border-2 border-white">
+        <i class="fa-brands fa-whatsapp text-3xl"></i>
+    </a>
+
+    <!-- Improved and Centered Footer (Removed Quick Links) -->
+    <footer class="bg-gray-900 text-white py-14 mt-auto border-t border-gray-800">
+        <div class="max-w-3xl mx-auto px-4 flex flex-col items-center text-center">
+            <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-4">
+                <i class="fa-solid fa-bolt text-2xl text-indigo-400"></i>
+            </div>
+            <h2 id="footerSiteName" class="text-2xl font-black mb-3 text-white">Ahosan Service</h2>
+            <p id="footerDesc" class="text-gray-400 text-sm leading-relaxed mb-8 max-w-xl">
+                আমরা অত্যন্ত দ্রুত এবং নির্ভরযোগ্য ডিজিটাল সাবস্ক্রিপশন সার্ভিস প্রদান করে থাকি। ১০০% বিশ্বাসযোগ্য এবং দ্রুততম সেবায় আমরা প্রতিশ্রুতিবদ্ধ।
+            </p>
+            <div class="flex gap-4 mb-8">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 hover:bg-indigo-500 flex items-center justify-center transition text-gray-300"><i class="fa-brands fa-facebook-f"></i></a>
+                <a id="footerWaLink" href="#" class="w-10 h-10 rounded-full bg-white/5 hover:bg-emerald-500 flex items-center justify-center transition text-gray-300"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+            <div class="w-full border-t border-gray-800 pt-6 text-xs text-gray-500">
+                © <span id="currentYear"></span> All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, onSnapshot, addDoc, doc, getDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCUXPbQ0b8gRtnSx35H0kRRAYd6I3EYhBg", 
+            projectId: "digital-product-sell-emon", 
+            authDomain: "digital-product-sell-emon.firebaseapp.com", 
+            storageBucket: "digital-product-sell-emon.firebasestorage.app"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let products = [], cart = [], discount = 0;
+        let apiSettings = {};
+
+        document.getElementById('currentYear').innerText = new Date().getFullYear();
+
+        // Check Payment Failure status in URL
+        if(window.location.search.includes('payment=failed')) {
+            document.getElementById('paymentFailedModal').classList.remove('hidden');
+        }
+
+        // Load Dynamic Site Settings (Builder)
+        async function loadSiteSettings() {
+            const snap = await getDoc(doc(db, "settings", "site"));
+            if(snap.exists()) {
+                const s = snap.data();
+                document.getElementById('pageTitle').innerText = s.siteName || 'Shop';
+                document.getElementById('siteName').innerText = s.siteName || 'DigitalHub';
+                document.getElementById('footerSiteName').innerText = s.siteName || 'DigitalHub';
+                if(s.footerDesc) document.getElementById('footerDesc').innerText = s.footerDesc;
+                if(s.logoUrl) {
+                    document.getElementById('siteLogo').src = s.logoUrl;
+                    document.getElementById('siteLogo').classList.remove('hidden');
+                    document.getElementById('defaultLogoIcon').classList.add('hidden');
+                }
+                const waLink = `https://wa.me/${s.whatsapp || ''}`;
+                document.getElementById('waFloatBtn').href = waLink;
+                document.getElementById('failSupportBtn').href = waLink;
+                document.getElementById('footerWaLink').href = waLink;
+                
+                if(s.sliders && s.sliders.length > 0) {
+                    document.getElementById('sliderContainer').innerHTML = s.sliders.map(img => `
+                        <div class="swiper-slide"><img src="${img}"></div>`).join('');
+                }
+                new Swiper(".mySwiper", { loop: true, autoplay: { delay: 4000 }, pagination: { el: ".swiper-pagination", clickable: true } });
             }
-            
-            isVerified = false;
-            verifyStatus.textContent = '';
-            verifyStatus.className = 'verify-status';
-            transactionInput.value = '';
-            confirmBtn.disabled = true;
-            confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> পেমেন্ট কনফর্ম করুন';
-            
-          } else {
-            paymentMethods.style.display = 'none';
-            txnBox.style.display = 'none';
-            bankTransferInfo.style.display = 'block';
-            
-            verifyStatus.textContent = '';
-            verifyStatus.className = 'verify-status';
-            transactionInput.value = '';
-            
-            bankVerifyStatus.textContent = '';
-            bankVerifyStatus.className = 'verify-status';
-            bankTransactionInput.value = '';
-            isVerified = false;
-            confirmBtn.disabled = true;
-            confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> পেমেন্ট কনফর্ম করুন';
-          }
+        }
+        loadSiteSettings();
+
+        // Load Realtime Products
+        onSnapshot(collection(db, "products"), (snapshot) => {
+            products = [];
+            snapshot.forEach(doc => products.push({ id: doc.id, ...doc.data() }));
+            renderProducts(products);
         });
-      });
 
-      // Method selection
-      methodItems.forEach(item => {
-        item.addEventListener('click', function() {
-          if (paymentMethods.style.display === 'none') return;
-          
-          methodItems.forEach(m => m.classList.remove('selected'));
-          this.classList.add('selected');
-          selectedMethod = this.dataset.method;
-          methodInstructions.innerHTML = methodData[selectedMethod].instructions;
+        // Load Payment Info & API Rules
+        async function loadPaymentConfig() {
+            try {
+                const apiSnap = await getDoc(doc(db, "settings", "apiPayment"));
+                if(apiSnap.exists()) apiSettings = apiSnap.data();
+                
+                const numSnap = await getDoc(doc(db, "settings", "payments"));
+                if(numSnap.exists()) {
+                    const data = numSnap.data();
+                    document.getElementById('bkashNumText').innerText = data.bkash || 'নম্বর দেওয়া নেই';
+                    document.getElementById('nagadNumText').innerText = data.nagad || 'নম্বর দেওয়া নেই';
+                }
 
-          isVerified = false;
-          transactionInput.value = '';
-          verifyStatus.textContent = '';
-          verifyStatus.className = 'verify-status';
-          confirmBtn.disabled = true;
-          confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> পেমেন্ট কনফর্ম করুন';
+                if(apiSettings?.isActive) {
+                    document.getElementById('manualPaymentSection').classList.add('hidden');
+                    document.getElementById('apiPaymentInfo').classList.remove('hidden');
+                    document.getElementById('trxId').removeAttribute('required');
+                }
+            } catch(e) { console.error(e); }
+        }
+        loadPaymentConfig();
+
+        window.showToast = (msg, type = 'success') => {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `px-4 py-3 rounded-2xl shadow-xl text-xs font-semibold text-white flex items-center gap-2 transform transition-all duration-300 ${type === 'success' ? 'bg-emerald-600' : 'bg-red-600'}`;
+            toast.innerHTML = `<i class="fa-solid ${type === 'success' ? 'fa-circle-check' : 'fa-circle-xmark'} text-base"></i> ${msg}`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3500);
+        };
+        window.copyNumber = (elementId) => {
+            const num = document.getElementById(elementId).innerText;
+            if(num && num !== 'নম্বর দেওয়া নেই' && num !== 'লোড হচ্ছে...') {
+                navigator.clipboard.writeText(num);
+                showToast(`নম্বরটি কপি করা হয়েছে`);
+            }
+        };
+
+        function renderProducts(items) {
+            const grid = document.getElementById('productGrid');
+            if(items.length === 0) { grid.innerHTML = `<p class="col-span-full text-center py-10 text-gray-400 text-sm">প্রোডাক্ট এভেইলএবল নেই</p>`; return; }
+            grid.innerHTML = items.map(p => `
+                <div class="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-xl transition-all duration-300">
+                    <div>
+                        <div class="relative">
+                            <img src="${p.image}" class="w-full h-44 object-cover">
+                            <span class="absolute top-3 right-3 text-[10px] uppercase font-bold px-2.5 py-1 rounded-full ${p.inStock ? 'bg-emerald-500 text-white' : 'bg-red-500 text-white'} shadow-sm">
+                                ${p.inStock ? 'স্টকে আছে' : 'সোল্ড আউট'}
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <h4 class="font-bold text-gray-900 text-base mb-1">${p.name}</h4>
+                            <p class="text-xs text-gray-500 line-clamp-2">${p.description}</p>
+                        </div>
+                    </div>
+                    <div class="px-5 pb-5 pt-0 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-gray-400 block">মূল্য</span>
+                            <span class="text-lg font-black text-indigo-600">৳${p.price}</span>
+                        </div>
+                        <button onclick="addToCart('${p.id}')" ${!p.inStock ? 'disabled' : ''} class="bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white px-4 py-2 rounded-xl text-xs font-bold transition disabled:opacity-40">
+                            <i class="fa-solid fa-cart-plus"></i> যোগ করুন
+                        </button>
+                    </div>
+                </div>`).join('');
+        }
+
+        window.filterCategory = (cat) => {
+            document.querySelectorAll('.cat-btn').forEach(b => { b.classList.remove('bg-indigo-600', 'text-white'); b.classList.add('bg-gray-200', 'text-gray-700'); });
+            event.target.classList.remove('bg-gray-200', 'text-gray-700'); event.target.classList.add('bg-indigo-600', 'text-white');
+            if(cat === 'all') renderProducts(products); else renderProducts(products.filter(p => p.category === cat));
+        };
+
+        window.addToCart = (id) => { const item = products.find(p => p.id === id); if(item) { cart.push(item); updateCartUI(); showToast(`কার্টে যোগ করা হয়েছে`); } };
+        window.removeFromCart = (idx) => { cart.splice(idx, 1); updateCartUI(); };
+
+        function updateCartUI() {
+            document.getElementById('cartCount').innerText = cart.length;
+            const subtotal = cart.reduce((sum, item) => sum + Number(item.price), 0);
+            const total = Math.max(0, subtotal - discount);
+            document.getElementById('cartSubtotal').innerText = `৳${subtotal}`;
+            document.getElementById('cartDiscount').innerText = `- ৳${discount}`;
+            document.getElementById('cartTotal').innerText = `৳${total}`;
+            document.getElementById('checkoutBtn').disabled = cart.length === 0;
+            const container = document.getElementById('cartItems');
+            if (cart.length === 0) { container.innerHTML = `<p class="text-center text-xs text-gray-400 py-6">কার্ট খালি</p>`; return; }
+            container.innerHTML = cart.map((p, idx) => `
+                <div class="flex items-center justify-between border-b border-gray-100 pb-2">
+                    <div><p class="font-bold text-xs">${p.name}</p><span class="text-xs font-semibold text-indigo-600">৳${p.price}</span></div>
+                    <button onclick="removeFromCart(${idx})" class="text-red-400 hover:text-red-600 text-xs p-1"><i class="fa-solid fa-trash"></i></button>
+                </div>`).join('');
+        }
+
+        window.applyCoupon = async () => {
+            const code = document.getElementById('couponInput').value.trim().toUpperCase();
+            if(!code) return;
+            const q = query(collection(db, "coupons"), where("code", "==", code));
+            const snap = await getDocs(q);
+            if(!snap.empty) { discount = Number(snap.docs[0].data().amount) || 0; updateCartUI(); showToast(`কুপন এপ্লাই হয়েছে!`); } 
+            else { showToast("কুপন অবৈধ!", "error"); }
+        };
+
+        window.toggleCartModal = () => document.getElementById('cartModal').classList.toggle('hidden');
+        window.toggleCheckoutModal = () => document.getElementById('checkoutModal').classList.toggle('hidden');
+        window.openCheckoutModal = () => { toggleCartModal(); toggleCheckoutModal(); };
+        window.toggleTrackModal = () => document.getElementById('trackModal').classList.toggle('hidden');
+
+        // Advanced Order Placing Logic (Manual vs API Redirect)
+        window.handlePlaceOrder = async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('submitOrderBtn');
+            btn.innerText = "প্রসেসিং হচ্ছে..."; btn.disabled = true;
+
+            const total = Math.max(0, cart.reduce((sum, item) => sum + Number(item.price), 0) - discount);
+            const method = apiSettings?.isActive ? 'Online API' : (document.querySelector('input[name="paymentMethod"]:checked')?.value || 'Manual');
+
+            const order = {
+                customerName: document.getElementById('custName').value,
+                customerEmail: document.getElementById('custEmail').value,
+                customerPhone: document.getElementById('custPhone').value,
+                paymentMethod: method,
+                transactionId: apiSettings?.isActive ? 'API Pending' : document.getElementById('trxId').value,
+                items: cart, totalAmount: total, status: 'pending', createdAt: new Date().toISOString()
+            };
+
+            try {
+                const docRef = await addDoc(collection(db, "orders"), order);
+                
+                if(apiSettings?.isActive && apiSettings?.baseUrl) {
+                    window.location.href = `${apiSettings.baseUrl}?store_id=${apiSettings.storeId}&order_id=${docRef.id}&amount=${total}&cust_email=${order.customerEmail}`;
+                } else {
+                    showToast("অর্ডার সফলভাবে সম্পন্ন হয়েছে!");
+                    setTimeout(() => window.location.reload(), 2000);
+                }
+            } catch (err) {
+                showToast("সমস্যা হয়েছে: " + err.message, "error");
+                btn.innerText = "অর্ডার নিশ্চিত করুন"; btn.disabled = false;
+            }
+        };
+
+        window.searchCustomerOrder = async () => {
+            const phone = document.getElementById('trackPhoneInput').value.trim();
+            const resContainer = document.getElementById('trackResult');
+            if(!phone) return;
+            resContainer.innerHTML = `<p class="text-xs text-gray-400">খুঁজা হচ্ছে...</p>`;
+            try {
+                const q = query(collection(db, "orders"), where("customerPhone", "==", phone));
+                const snap = await getDocs(q);
+                if(snap.empty) { resContainer.innerHTML = `<p class="text-xs text-red-500 font-semibold">কোনো অর্ডার পাওয়া যায়নি!</p>`; } 
+                else {
+                    resContainer.innerHTML = snap.docs.map(doc => {
+                        const d = doc.data();
+                        return `<div class="p-3 bg-gray-50 rounded-xl border mb-2 text-xs">
+                                    <div class="flex justify-between font-bold mb-1">
+                                        <span>অর্ডার আইডি: #${doc.id.substring(0,6)}</span>
+                                        <span class="${d.status === 'completed' || d.status === 'delivered' ? 'text-emerald-600' : 'text-amber-600'} uppercase">${d.status === 'delivered' ? 'ডেলিভার্ড' : d.status}</span>
+                                    </div>
+                                    <p class="font-bold text-indigo-600 mt-1">মোট: ৳${d.totalAmount}</p>
+                                </div>`;
+                    }).join('');
+                }
+            } catch(e) { console.error(e); }
+        };
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            renderProducts(products.filter(p => p.name.toLowerCase().includes(e.target.value.toLowerCase())));
         });
-      });
-
-      // Verify mobile transaction
-      verifyBtn.addEventListener('click', function() {
-        const txnId = transactionInput.value.trim();
-        
-        if (!txnId) {
-          verifyStatus.textContent = '⚠️ দয়া করে আপনার ট্রান্সজেকশন আইডি লিখুন।';
-          verifyStatus.className = 'verify-status error';
-          return;
-        }
-
-        if (verificationInProgress) return;
-
-        verificationInProgress = true;
-        verifyBtn.disabled = true;
-        verifyStatus.textContent = '⏳ ভেরিফাই করা হচ্ছে... দয়া করে অপেক্ষা করুন।';
-        verifyStatus.className = 'verify-status loading';
-
-        const delay = 5000 + Math.random() * 5000;
-        setTimeout(function() {
-          verificationInProgress = false;
-          verifyBtn.disabled = false;
-          isVerified = true;
-          verifyStatus.textContent = '✅ ট্রান্সজেকশন সফলভাবে ভেরিফাই হয়েছে!';
-          verifyStatus.className = 'verify-status success';
-          confirmBtn.disabled = false;
-          confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> পেমেন্ট কনফর্ম করুন';
-        }, delay);
-      });
-
-      transactionInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-          verifyBtn.click();
-        }
-      });
-
-      // Verify bank transaction
-      bankVerifyBtn.addEventListener('click', function() {
-        const txnId = bankTransactionInput.value.trim();
-        
-        if (!txnId) {
-          bankVerifyStatus.textContent = '⚠️ দয়া করে আপনার ট্রান্সজেকশন আইডি লিখুন।';
-          bankVerifyStatus.className = 'verify-status error';
-          return;
-        }
-
-        if (verificationInProgress) return;
-
-        verificationInProgress = true;
-        bankVerifyBtn.disabled = true;
-        bankVerifyStatus.textContent = '⏳ ভেরিফাই করা হচ্ছে... দয়া করে অপেক্ষা করুন।';
-        bankVerifyStatus.className = 'verify-status loading';
-
-        const delay = 5000 + Math.random() * 5000;
-        setTimeout(function() {
-          verificationInProgress = false;
-          bankVerifyBtn.disabled = false;
-          isVerified = true;
-          bankVerifyStatus.textContent = '✅ ট্রান্সজেকশন সফলভাবে ভেরিফাই হয়েছে!';
-          bankVerifyStatus.className = 'verify-status success';
-          confirmBtn.disabled = false;
-          confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> পেমেন্ট কনফর্ম করুন';
-        }, delay);
-      });
-
-      bankTransactionInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-          bankVerifyBtn.click();
-        }
-      });
-
-      // ============ CONFIRM PAYMENT BUTTON (FIXED) ============
-      confirmBtn.addEventListener('click', function() {
-        if (!isVerified) {
-          alert('⚠️ দয়া করে প্রথমে আপনার ট্রান্সজেকশন আইডি ভেরিফাই করুন।');
-          return;
-        }
-
-        const name = sessionStorage.getItem('orderName') || 'গ্রাহক';
-        const whatsapp = sessionStorage.getItem('orderWhatsapp') || 'N/A';
-        const email = sessionStorage.getItem('orderEmail') || 'N/A';
-        const methodName = currentCategory === 'bank' ? 'ব্যাংক ট্রান্সফার' : (methodData[selectedMethod]?.name || selectedMethod);
-        const txnId = currentCategory === 'bank' ? bankTransactionInput.value : transactionInput.value;
-
-        // 🚀 SEND TELEGRAM NOTIFICATION
-        sendTelegramNotification(name, whatsapp, email, methodName, txnId);
-
-        confirmBtn.disabled = true;
-        confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> প্রক্রিয়াকরণ...';
-
-        setTimeout(function() {
-          // ✅ প্রথমে ধন্যবাদ মেসেজ
-          alert('🎉 ধন্যবাদ ' + name + '! আপনার পেমেন্ট ' + methodName + ' এর মাধ্যমে সফলভাবে সম্পন্ন হয়েছে।\n\n📋 অর্ডার সংক্ষিপ্তসার:\n👤 নাম: ' + name + '\n📱 হোয়াটসঅ্যাপ: ' + whatsapp + '\n📧 ইমেইল: ' + email + '\n💳 পেমেন্ট: ' + methodName + '\n💰 পরিমাণ: ৳৭৯৯\n\nআমরা শীঘ্রই আপনার সাথে যোগাযোগ করব।');
-          
-          confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> পেমেন্ট সম্পন্ন';
-          
-          // ✅ OK ক্লিক করার পর হোয়াটসঅ্যাপ ওপেন হবে
-          openWhatsApp();
-          
-          closeModal();
-          
-          fullNameInput.value = '';
-          whatsappInput.value = '';
-          emailInput.value = '';
-        }, 1500);
-      });
-    });
-  </script>
+    </script>
 </body>
 </html>
