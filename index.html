@@ -6,133 +6,46 @@
     <title>ShopPro - Premium E-Commerce</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- ===== FIREBASE SDK ===== -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+
     <style>
-        /* ===== RESET ===== */
+        /* ===== ALL STYLES SAME AS BEFORE ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background: #f0f4fc; color: #1a2634; overflow-x: hidden; }
 
         /* ===== NAVBAR ===== */
-        .navbar { 
-            background: #ffffff; 
-            padding: 8px 0; 
-            box-shadow: 0 2px 12px rgba(26,115,232,0.06); 
-            position: sticky; 
-            top: 0; 
-            z-index: 999; 
-            border-bottom: 1px solid #e8edf5; 
-        }
+        .navbar { background: #ffffff; padding: 8px 0; box-shadow: 0 2px 12px rgba(26,115,232,0.06); position: sticky; top: 0; z-index: 999; border-bottom: 1px solid #e8edf5; }
         .container { max-width: 1280px; margin: 0 auto; padding: 0 12px; }
-        .nav-wrapper { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            gap: 8px; 
-            flex-wrap: nowrap;
-        }
-
-        /* LOGO */
+        .nav-wrapper { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: nowrap; }
         .logo { flex-shrink: 0; }
         .logo img { height: 32px; width: auto; border-radius: 4px; }
 
-        /* SEARCH */
-        .search-wrapper { 
-            display: flex; 
-            align-items: center; 
-            gap: 6px; 
-            flex: 1; 
-            max-width: 420px; 
-            min-width: 100px;
-        }
-        .search-box { 
-            display: flex; 
-            background: #f0f4fc; 
-            border-radius: 30px; 
-            padding: 2px 2px 2px 12px; 
-            flex: 1; 
-            border: 2px solid #dce3ef; 
-            transition: 0.3s; 
-        }
+        .search-wrapper { display: flex; align-items: center; gap: 6px; flex: 1; max-width: 420px; min-width: 100px; }
+        .search-box { display: flex; background: #f0f4fc; border-radius: 30px; padding: 2px 2px 2px 12px; flex: 1; border: 2px solid #dce3ef; transition: 0.3s; }
         .search-box:focus-within { border-color: #1a73e8; box-shadow: 0 0 0 4px rgba(26,115,232,0.08); }
-        .search-box input { 
-            border: none; 
-            background: transparent; 
-            padding: 6px 0; 
-            flex: 1; 
-            font-size: 12px; 
-            outline: none; 
-            min-width: 40px; 
-        }
-        .search-box button { 
-            background: #1a73e8; 
-            border: none; 
-            padding: 5px 12px; 
-            border-radius: 30px; 
-            color: #fff; 
-            font-weight: 600; 
-            cursor: pointer; 
-            font-size: 12px; 
-            white-space: nowrap; 
-        }
+        .search-box input { border: none; background: transparent; padding: 6px 0; flex: 1; font-size: 12px; outline: none; min-width: 40px; }
+        .search-box button { background: #1a73e8; border: none; padding: 5px 12px; border-radius: 30px; color: #fff; font-weight: 600; cursor: pointer; font-size: 12px; white-space: nowrap; }
         .search-box button:hover { background: #1557b0; }
 
-        /* WHATSAPP */
-        .whatsapp-box { 
-            display: flex; 
-            align-items: center; 
-            gap: 4px; 
-            background: #25D366; 
-            padding: 4px 10px 4px 6px; 
-            border-radius: 30px; 
-            color: #fff; 
-            text-decoration: none; 
-            font-size: 10px; 
-            font-weight: 500; 
-            flex-shrink: 0; 
-        }
+        .whatsapp-box { display: flex; align-items: center; gap: 4px; background: #25D366; padding: 4px 10px 4px 6px; border-radius: 30px; color: #fff; text-decoration: none; font-size: 10px; font-weight: 500; flex-shrink: 0; }
         .whatsapp-box i { font-size: 13px; }
         .whatsapp-box .wa-text .wa-number { font-size: 8px; font-weight: 600; }
         .whatsapp-box .wa-text .wa-label { font-size: 6px; opacity: 0.8; }
 
-        /* NAV ICONS - Right aligned */
-        .nav-icons { 
-            display: flex; 
-            gap: 2px; 
-            align-items: center; 
-            flex-shrink: 0; 
-        }
-        .nav-icons .icon { 
-            position: relative; 
-            font-size: 12px; 
-            color: #1a2634; 
-            cursor: pointer; 
-            padding: 3px 5px; 
-            border-radius: 6px; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            text-decoration: none; 
-            min-width: 30px; 
-        }
+        .nav-icons { display: flex; gap: 2px; align-items: center; flex-shrink: 0; }
+        .nav-icons .icon { position: relative; font-size: 12px; color: #1a2634; cursor: pointer; padding: 3px 5px; border-radius: 6px; display: flex; flex-direction: column; align-items: center; text-decoration: none; min-width: 30px; }
         .nav-icons .icon:hover { color: #1a73e8; background: #f0f4fc; }
         .nav-icons .icon i { font-size: 16px; }
         .nav-icons .icon .icon-label { font-size: 7px; font-weight: 500; color: #5a6a7a; margin-top: 0px; }
-        .nav-icons .icon .badge { 
-            position: absolute; 
-            top: -3px; 
-            right: -2px; 
-            background: #1a73e8; 
-            color: #fff; 
-            font-size: 7px; 
-            font-weight: 700; 
-            padding: 1px 5px; 
-            border-radius: 30px; 
-            min-width: 14px; 
-            text-align: center; 
-        }
+        .nav-icons .icon .badge { position: absolute; top: -3px; right: -2px; background: #1a73e8; color: #fff; font-size: 7px; font-weight: 700; padding: 1px 5px; border-radius: 30px; min-width: 14px; text-align: center; }
         .nav-icons .icon .badge.message-badge { background: #dc2626; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
 
-        /* ===== RESPONSIVE HEADER ===== */
         @media (max-width: 600px) {
             .nav-wrapper { flex-wrap: wrap; gap: 4px; }
             .logo img { height: 26px; }
@@ -146,7 +59,6 @@
             .nav-icons .icon i { font-size: 14px; }
             .nav-icons .icon .icon-label { font-size: 6px; }
         }
-
         @media (max-width: 400px) {
             .logo img { height: 22px; }
             .search-box input { font-size: 10px; min-width: 30px; }
@@ -161,72 +73,17 @@
         .category-bar { background: #ffffff; border-top: 1px solid #e8edf5; border-bottom: 1px solid #e8edf5; padding: 5px 0; }
         .category-wrapper { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .all-department { position: relative; flex-shrink: 0; }
-        .all-department-btn { 
-            background: #1a73e8; 
-            color: #fff; 
-            border: none; 
-            padding: 5px 12px; 
-            border-radius: 30px; 
-            font-weight: 600; 
-            font-size: 11px; 
-            cursor: pointer; 
-            display: flex; 
-            align-items: center; 
-            gap: 4px; 
-            box-shadow: 0 2px 8px rgba(26,115,232,0.2); 
-            white-space: nowrap; 
-        }
+        .all-department-btn { background: #1a73e8; color: #fff; border: none; padding: 5px 12px; border-radius: 30px; font-weight: 600; font-size: 11px; cursor: pointer; display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 8px rgba(26,115,232,0.2); white-space: nowrap; }
         .all-department-btn i { font-size: 11px; }
-        .all-department-dropdown { 
-            display: none; 
-            position: absolute; 
-            top: 110%; 
-            left: 0; 
-            background: #ffffff; 
-            min-width: 200px; 
-            border-radius: 12px; 
-            box-shadow: 0 12px 40px rgba(0,0,0,0.12); 
-            border: 1px solid #e8edf5; 
-            padding: 4px 0; 
-            z-index: 100; 
-            overflow: hidden; 
-        }
+        .all-department-dropdown { display: none; position: absolute; top: 110%; left: 0; background: #ffffff; min-width: 200px; border-radius: 12px; box-shadow: 0 12px 40px rgba(0,0,0,0.12); border: 1px solid #e8edf5; padding: 4px 0; z-index: 100; overflow: hidden; }
         .all-department-dropdown.show { display: block; animation: dropdownFade 0.25s ease; }
         @keyframes dropdownFade { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
-        .all-department-dropdown a { 
-            display: block; 
-            padding: 7px 14px; 
-            color: #1a2634; 
-            text-decoration: none; 
-            font-size: 12px; 
-            font-weight: 500; 
-            transition: 0.2s; 
-            border-left: 3px solid transparent; 
-            cursor: pointer; 
-        }
+        .all-department-dropdown a { display: block; padding: 7px 14px; color: #1a2634; text-decoration: none; font-size: 12px; font-weight: 500; transition: 0.2s; border-left: 3px solid transparent; cursor: pointer; }
         .all-department-dropdown a:hover { background: #f0f4fc; border-left-color: #1a73e8; color: #1a73e8; }
         .all-department-dropdown a i { margin-right: 6px; width: 16px; color: #1a73e8; }
 
-        .category-list { 
-            display: flex; 
-            flex-wrap: wrap; 
-            gap: 4px 10px; 
-            list-style: none; 
-            align-items: center; 
-            flex: 1; 
-        }
-        .category-list li a { 
-            text-decoration: none; 
-            color: #1a2634; 
-            font-weight: 500; 
-            font-size: 11px; 
-            transition: 0.3s; 
-            display: flex; 
-            align-items: center; 
-            gap: 3px; 
-            cursor: pointer; 
-            white-space: nowrap; 
-        }
+        .category-list { display: flex; flex-wrap: wrap; gap: 4px 10px; list-style: none; align-items: center; flex: 1; }
+        .category-list li a { text-decoration: none; color: #1a2634; font-weight: 500; font-size: 11px; transition: 0.3s; display: flex; align-items: center; gap: 3px; cursor: pointer; white-space: nowrap; }
         .category-list li a:hover { color: #1a73e8; }
         .category-list li a i { font-size: 11px; }
 
@@ -239,46 +96,16 @@
 
         /* ===== HERO SLIDER ===== */
         .hero { margin: 12px 0; }
-        .slider { 
-            display: flex; 
-            overflow: hidden; 
-            border-radius: 14px; 
-            background: #e8f0fe; 
-            min-height: 120px; 
-            position: relative; 
-            border: 2px solid #dce3ef; 
-        }
+        .slider { display: flex; overflow: hidden; border-radius: 14px; background: #e8f0fe; min-height: 120px; position: relative; border: 2px solid #dce3ef; }
         .slide { display: none; width: 100%; height: 120px; align-items: center; justify-content: center; flex-shrink: 0; }
         .slide.active { display: flex; }
         .slide img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; }
-        .slider-dots { 
-            position: absolute; 
-            bottom: 6px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            display: flex; 
-            gap: 5px; 
-            z-index: 10; 
-        }
-        .slider-dots span { 
-            width: 7px; 
-            height: 7px; 
-            background: rgba(255,255,255,0.6); 
-            border-radius: 30px; 
-            cursor: pointer; 
-            transition: 0.3s; 
-            border: 2px solid rgba(255,255,255,0.8); 
-        }
+        .slider-dots { position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; z-index: 10; }
+        .slider-dots span { width: 7px; height: 7px; background: rgba(255,255,255,0.6); border-radius: 30px; cursor: pointer; transition: 0.3s; border: 2px solid rgba(255,255,255,0.8); }
         .slider-dots span.active { background: #1a73e8; width: 18px; border-color: #1a73e8; }
 
-        @media (min-width: 600px) {
-            .slider { min-height: 200px; }
-            .slide { height: 200px; }
-        }
-        @media (min-width: 992px) {
-            .slider { min-height: 300px; }
-            .slide { height: 300px; }
-        }
+        @media (min-width: 600px) { .slider { min-height: 200px; } .slide { height: 200px; } }
+        @media (min-width: 992px) { .slider { min-height: 300px; } .slide { height: 300px; } }
 
         /* ===== SECTION TITLE ===== */
         .section-title { display: flex; justify-content: space-between; align-items: center; margin: 16px 0 10px; }
@@ -287,110 +114,40 @@
 
         /* ===== PRODUCT GRID ===== */
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-        .product-card { 
-            background: #ffffff; 
-            border-radius: 12px; 
-            padding: 10px 8px 12px; 
-            box-shadow: 0 4px 12px rgba(26,115,232,0.06); 
-            border: 1px solid #e8edf5; 
-            position: relative; 
-            display: flex; 
-            flex-direction: column; 
-            cursor: pointer; 
-        }
+        .product-card { background: #ffffff; border-radius: 12px; padding: 10px 8px 12px; box-shadow: 0 4px 12px rgba(26,115,232,0.06); border: 1px solid #e8edf5; position: relative; display: flex; flex-direction: column; cursor: pointer; }
         .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,115,232,0.10); border-color: #1a73e8; }
         .product-card .product-image { width: 100%; height: 100px; object-fit: cover; border-radius: 8px; margin-bottom: 6px; background: #f0f4fc; }
         .product-card h4 { font-weight: 600; font-size: 12px; margin-bottom: 2px; color: #1a2634; line-height: 1.3; }
         .product-card .price { font-weight: 700; color: #1a2634; font-size: 13px; margin: 2px 0; }
         .product-card .price small { font-weight: 400; color: #888; font-size: 10px; text-decoration: line-through; margin-left: 3px; }
-        .badge-stock { 
-            position: absolute; 
-            top: 6px; 
-            left: 6px; 
-            padding: 2px 8px; 
-            border-radius: 30px; 
-            font-size: 9px; 
-            font-weight: 600; 
-            z-index: 2; 
-        }
+        .badge-stock { position: absolute; top: 6px; left: 6px; padding: 2px 8px; border-radius: 30px; font-size: 9px; font-weight: 600; z-index: 2; }
         .badge-stock.in-stock { background: #22c55e; color: #fff; }
         .badge-stock.out-of-stock { background: #dc2626; color: #fff; }
 
-        @media (min-width: 600px) {
-            .product-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
-            .product-card .product-image { height: 120px; }
-        }
-        @media (min-width: 992px) {
-            .product-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; }
-            .product-card .product-image { height: 140px; }
-        }
+        @media (min-width: 600px) { .product-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; } .product-card .product-image { height: 120px; } }
+        @media (min-width: 992px) { .product-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } .product-card .product-image { height: 140px; } }
 
         /* ===== FEATURES ===== */
-        .features { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 8px; 
-            margin: 14px 0; 
-            background: #ffffff; 
-            padding: 12px 10px; 
-            border-radius: 14px; 
-            border: 1px solid #e8edf5; 
-        }
+        .features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 14px 0; background: #ffffff; padding: 12px 10px; border-radius: 14px; border: 1px solid #e8edf5; }
         .feature-item { display: flex; align-items: center; gap: 8px; }
         .feature-item i { font-size: 18px; color: #1a73e8; min-width: 24px; text-align: center; }
         .feature-item h5 { font-weight: 600; color: #1a2634; font-size: 11px; }
         .feature-item p { font-size: 9px; color: #5a6a7a; }
-
-        @media (min-width: 600px) {
-            .features { grid-template-columns: repeat(4, 1fr); }
-        }
+        @media (min-width: 600px) { .features { grid-template-columns: repeat(4, 1fr); } }
 
         /* ===== ORDER TRACKING ===== */
-        .order-tracking-section { 
-            background: #ffffff; 
-            border-radius: 14px; 
-            padding: 16px; 
-            margin: 14px 0; 
-            border: 1px solid #e8edf5; 
-        }
+        .order-tracking-section { background: #ffffff; border-radius: 14px; padding: 16px; margin: 14px 0; border: 1px solid #e8edf5; }
         .order-tracking-section h3 { font-size: 16px; font-weight: 600; color: #1a2634; margin-bottom: 4px; }
         .order-tracking-section p { color: #5a6a7a; font-size: 12px; margin-bottom: 10px; }
         .tracking-form { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-        .tracking-form input { 
-            flex: 1; 
-            min-width: 120px; 
-            padding: 8px 12px; 
-            border: 2px solid #dce3ef; 
-            border-radius: 8px; 
-            font-size: 12px; 
-            background: #fafcff; 
-        }
+        .tracking-form input { flex: 1; min-width: 120px; padding: 8px 12px; border: 2px solid #dce3ef; border-radius: 8px; font-size: 12px; background: #fafcff; }
         .tracking-form input:focus { outline: none; border-color: #1a73e8; }
-        .tracking-form button { 
-            padding: 8px 16px; 
-            background: #1a73e8; 
-            color: #fff; 
-            border: none; 
-            border-radius: 8px; 
-            font-weight: 600; 
-            font-size: 12px; 
-            cursor: pointer; 
-            box-shadow: 0 4px 12px rgba(26,115,232,0.2); 
-            white-space: nowrap; 
-        }
+        .tracking-form button { padding: 8px 16px; background: #1a73e8; color: #fff; border: none; border-radius: 8px; font-weight: 600; font-size: 12px; cursor: pointer; box-shadow: 0 4px 12px rgba(26,115,232,0.2); white-space: nowrap; }
         .tracking-result { margin-top: 12px; padding: 12px; border-radius: 10px; display: none; }
         .tracking-result.show { display: block; animation: fadeIn 0.3s ease; }
         .tracking-result.success { background: #e6f7ed; border: 1px solid #22c55e; }
         .tracking-result.error { background: #fde8e8; border: 1px solid #dc2626; }
-        .tracking-result .order-item { 
-            padding: 5px 0; 
-            border-bottom: 1px solid rgba(0,0,0,0.05); 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            flex-wrap: wrap; 
-            font-size: 12px; 
-        }
+        .tracking-result .order-item { padding: 5px 0; border-bottom: 1px solid rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; font-size: 12px; }
         .tracking-result .order-item:last-child { border-bottom: none; }
         .tracking-result .status-badge { padding: 2px 8px; border-radius: 30px; font-size: 10px; font-weight: 600; }
         .tracking-result .status-badge.completed { background: #e6f7ed; color: #22c55e; }
@@ -398,13 +155,7 @@
         .tracking-result .status-badge.cancelled { background: #fde8e8; color: #dc2626; }
 
         /* ===== COUPON ===== */
-        .coupon-section { 
-            background: #f8fafc; 
-            border-radius: 10px; 
-            padding: 14px; 
-            margin-top: 12px; 
-            border: 2px dashed #dce3ef; 
-        }
+        .coupon-section { background: #f8fafc; border-radius: 10px; padding: 14px; margin-top: 12px; border: 2px dashed #dce3ef; }
         .coupon-section:hover { border-color: #1a73e8; }
         .coupon-section .coupon-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
         .coupon-section .coupon-header h4 { font-size: 13px; color: #1a2634; }
@@ -412,227 +163,60 @@
         .coupon-progress { margin: 8px 0; background: #e8edf5; border-radius: 30px; height: 6px; overflow: hidden; }
         .coupon-progress .bar { height: 100%; background: linear-gradient(90deg, #1a73e8, #22c55e); border-radius: 30px; transition: width 0.6s ease; }
         .coupon-section .coupon-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-        .coupon-section .coupon-actions button { 
-            padding: 6px 14px; 
-            border: none; 
-            border-radius: 6px; 
-            font-weight: 600; 
-            font-size: 11px; 
-            cursor: pointer; 
-            transition: 0.3s; 
-            flex: 1; 
-            min-width: 80px; 
-        }
+        .coupon-section .coupon-actions button { padding: 6px 14px; border: none; border-radius: 6px; font-weight: 600; font-size: 11px; cursor: pointer; transition: 0.3s; flex: 1; min-width: 80px; }
         .coupon-section .coupon-actions .claim-btn { background: #22c55e; color: #fff; }
         .coupon-section .coupon-actions .claim-btn:disabled { background: #94a9c2; cursor: not-allowed; }
         .coupon-section .coupon-actions .redeem-btn { background: #7c3aed; color: #fff; }
-        .coupon-section .coupon-code-display { 
-            background: #1a2634; 
-            color: #fff; 
-            padding: 6px 12px; 
-            border-radius: 6px; 
-            font-family: monospace; 
-            font-size: 14px; 
-            letter-spacing: 2px; 
-            display: inline-block; 
-            margin-top: 4px; 
-        }
+        .coupon-section .coupon-code-display { background: #1a2634; color: #fff; padding: 6px 12px; border-radius: 6px; font-family: monospace; font-size: 14px; letter-spacing: 2px; display: inline-block; margin-top: 4px; }
         .coupon-section .redeem-input-group { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
-        .coupon-section .redeem-input-group input { 
-            flex: 1; 
-            min-width: 100px; 
-            padding: 6px 10px; 
-            border: 2px solid #dce3ef; 
-            border-radius: 6px; 
-            font-size: 12px; 
-            background: #fff; 
-        }
-        .coupon-section .redeem-input-group button { 
-            padding: 6px 14px; 
-            background: #7c3aed; 
-            color: #fff; 
-            border: none; 
-            border-radius: 6px; 
-            font-weight: 600; 
-            cursor: pointer; 
-        }
+        .coupon-section .redeem-input-group input { flex: 1; min-width: 100px; padding: 6px 10px; border: 2px solid #dce3ef; border-radius: 6px; font-size: 12px; background: #fff; }
+        .coupon-section .redeem-input-group button { padding: 6px 14px; background: #7c3aed; color: #fff; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
 
         /* ===== COUPON PRODUCTS ===== */
-        .coupon-products-section { 
-            display: none; 
-            background: #ffffff; 
-            border-radius: 14px; 
-            padding: 16px; 
-            margin: 12px 0; 
-            border: 2px solid #7c3aed; 
-            animation: fadeIn 0.4s ease; 
-        }
+        .coupon-products-section { display: none; background: #ffffff; border-radius: 14px; padding: 16px; margin: 12px 0; border: 2px solid #7c3aed; animation: fadeIn 0.4s ease; }
         .coupon-products-section.active { display: block; }
         .coupon-products-section h3 { font-size: 15px; color: #1a2634; margin-bottom: 4px; }
-        .coupon-products-section .coupon-product-grid { 
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 10px; 
-            margin-top: 10px; 
-        }
-        .coupon-products-section .coupon-product-card { 
-            background: #f8fafc; 
-            border-radius: 10px; 
-            padding: 10px; 
-            border: 1px solid #e8edf5; 
-            text-align: center; 
-        }
+        .coupon-products-section .coupon-product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px; }
+        .coupon-products-section .coupon-product-card { background: #f8fafc; border-radius: 10px; padding: 10px; border: 1px solid #e8edf5; text-align: center; }
         .coupon-products-section .coupon-product-card img { width: 100%; height: 80px; object-fit: cover; border-radius: 6px; background: #e8edf5; }
         .coupon-products-section .coupon-product-card h4 { font-size: 12px; color: #1a2634; margin: 4px 0 2px; }
         .coupon-products-section .coupon-product-card .price { font-weight: 700; color: #7c3aed; font-size: 13px; }
         .coupon-products-section .coupon-product-card .original-price { font-size: 11px; color: #94a9c2; text-decoration: line-through; }
-        .coupon-products-section .coupon-product-card .coupon-buy-btn { 
-            margin-top: 6px; 
-            padding: 5px 12px; 
-            background: #7c3aed; 
-            color: #fff; 
-            border: none; 
-            border-radius: 6px; 
-            font-weight: 600; 
-            cursor: pointer; 
-            width: 100%; 
-            font-size: 11px; 
-        }
+        .coupon-products-section .coupon-product-card .coupon-buy-btn { margin-top: 6px; padding: 5px 12px; background: #7c3aed; color: #fff; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; width: 100%; font-size: 11px; }
 
-        @media (min-width: 600px) {
-            .coupon-products-section .coupon-product-grid { grid-template-columns: repeat(3, 1fr); }
-        }
-        @media (min-width: 992px) {
-            .coupon-products-section .coupon-product-grid { grid-template-columns: repeat(4, 1fr); }
-        }
+        @media (min-width: 600px) { .coupon-products-section .coupon-product-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (min-width: 992px) { .coupon-products-section .coupon-product-grid { grid-template-columns: repeat(4, 1fr); } }
 
         /* ===== MESSAGE PANEL ===== */
-        .message-panel { 
-            display: none; 
-            position: fixed; 
-            bottom: 70px; 
-            right: 10px; 
-            width: 280px; 
-            max-width: 90vw; 
-            max-height: 340px; 
-            background: #fff; 
-            border-radius: 16px; 
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2); 
-            z-index: 998; 
-            overflow: hidden; 
-            border: 1px solid #e8edf5; 
-            flex-direction: column; 
-        }
+        .message-panel { display: none; position: fixed; bottom: 70px; right: 10px; width: 280px; max-width: 90vw; max-height: 340px; background: #fff; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); z-index: 998; overflow: hidden; border: 1px solid #e8edf5; flex-direction: column; }
         .message-panel.open { display: flex; animation: fadeIn 0.3s ease; }
         .message-panel .msg-header { background: #1a73e8; color: #fff; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; }
         .message-panel .msg-header h4 { font-size: 13px; font-weight: 600; }
         .message-panel .msg-header .msg-close { background: none; border: none; color: #fff; font-size: 16px; cursor: pointer; }
         .message-panel .msg-body { padding: 12px 14px; flex: 1; overflow-y: auto; max-height: 220px; }
-        .message-panel .msg-body .message-item { 
-            padding: 6px 10px; 
-            background: #f0f4fc; 
-            border-radius: 8px; 
-            margin-bottom: 6px; 
-            font-size: 12px; 
-            border-left: 3px solid #1a73e8; 
-        }
+        .message-panel .msg-body .message-item { padding: 6px 10px; background: #f0f4fc; border-radius: 8px; margin-bottom: 6px; font-size: 12px; border-left: 3px solid #1a73e8; }
         .message-panel .msg-body .message-item .msg-time { font-size: 9px; color: #6a7a8a; display: block; margin-top: 2px; }
         .message-panel .msg-body .empty-msg { text-align: center; color: #94a9c2; padding: 14px 0; font-size: 12px; }
-        .message-toggle-btn { 
-            position: fixed; 
-            bottom: 16px; 
-            right: 10px; 
-            width: 44px; 
-            height: 44px; 
-            border-radius: 50%; 
-            background: #1a73e8; 
-            color: #fff; 
-            border: none; 
-            font-size: 18px; 
-            cursor: pointer; 
-            box-shadow: 0 4px 16px rgba(26,115,232,0.4); 
-            z-index: 997; 
-            display: none; 
-            align-items: center; 
-            justify-content: center; 
-        }
+        .message-toggle-btn { position: fixed; bottom: 16px; right: 10px; width: 44px; height: 44px; border-radius: 50%; background: #1a73e8; color: #fff; border: none; font-size: 18px; cursor: pointer; box-shadow: 0 4px 16px rgba(26,115,232,0.4); z-index: 997; display: none; align-items: center; justify-content: center; }
         .message-toggle-btn.show { display: flex; }
-        .message-toggle-btn .msg-count { 
-            position: absolute; 
-            top: -3px; 
-            right: -3px; 
-            background: #dc2626; 
-            color: #fff; 
-            font-size: 9px; 
-            font-weight: 700; 
-            padding: 2px 6px; 
-            border-radius: 30px; 
-            min-width: 16px; 
-            text-align: center; 
-        }
+        .message-toggle-btn .msg-count { position: absolute; top: -3px; right: -3px; background: #dc2626; color: #fff; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 30px; min-width: 16px; text-align: center; }
 
         /* ===== FOOTER ===== */
-        footer { 
-            background: #ffffff; 
-            color: #1a2634; 
-            padding: 24px 0 12px; 
-            margin-top: 24px; 
-            border-radius: 16px 16px 0 0; 
-            border-top: 2px solid #e8edf5; 
-        }
+        footer { background: #ffffff; color: #1a2634; padding: 24px 0 12px; margin-top: 24px; border-radius: 16px 16px 0 0; border-top: 2px solid #e8edf5; }
         .footer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
         .footer-grid h4 { color: #1a2634; margin-bottom: 6px; font-size: 13px; }
         .footer-grid a { display: block; color: #5a6a7a; text-decoration: none; margin-bottom: 3px; font-size: 11px; cursor: pointer; }
         .footer-grid a:hover { color: #1a73e8; }
         .footer-bottom { border-top: 1px solid #e8edf5; margin-top: 14px; padding-top: 10px; text-align: center; font-size: 11px; color: #5a6a7a; }
+        @media (min-width: 600px) { .footer-grid { grid-template-columns: repeat(4, 1fr); } }
 
-        @media (min-width: 600px) {
-            .footer-grid { grid-template-columns: repeat(4, 1fr); }
-        }
-
-        .scroll-top { 
-            position: fixed; 
-            bottom: 70px; 
-            right: 10px; 
-            width: 36px; 
-            height: 36px; 
-            background: #1a73e8; 
-            color: #fff; 
-            border: none; 
-            border-radius: 50%; 
-            font-size: 14px; 
-            cursor: pointer; 
-            box-shadow: 0 4px 12px rgba(26,115,232,0.3); 
-            display: none; 
-            z-index: 995; 
-        }
+        .scroll-top { position: fixed; bottom: 70px; right: 10px; width: 36px; height: 36px; background: #1a73e8; color: #fff; border: none; border-radius: 50%; font-size: 14px; cursor: pointer; box-shadow: 0 4px 12px rgba(26,115,232,0.3); display: none; z-index: 995; }
         .scroll-top.show { display: block; }
 
         /* ===== PRODUCT DETAIL ===== */
-        .product-detail-overlay { 
-            display: none; 
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.5); 
-            backdrop-filter: blur(4px); 
-            z-index: 10001; 
-            align-items: center; 
-            justify-content: center; 
-            padding: 12px; 
-        }
+        .product-detail-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 10001; align-items: center; justify-content: center; padding: 12px; }
         .product-detail-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
-        .product-detail-modal { 
-            background: #ffffff; 
-            border-radius: 20px; 
-            max-width: 900px; 
-            width: 100%; 
-            max-height: 90vh; 
-            overflow-y: auto; 
-            padding: 18px; 
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3); 
-            position: relative; 
-        }
+        .product-detail-modal { background: #ffffff; border-radius: 20px; max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 18px; box-shadow: 0 30px 60px rgba(0,0,0,0.3); position: relative; }
         .detail-close { position: absolute; top: 10px; right: 14px; background: none; border: none; font-size: 22px; color: #94a9c2; cursor: pointer; z-index: 5; }
         .detail-wrapper { display: flex; gap: 16px; flex-wrap: wrap; }
         .detail-image { flex: 1 1 100%; min-width: 150px; }
@@ -646,36 +230,9 @@
         .selector-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
         .selector-group { flex: 1; min-width: 100px; }
         .selector-group label { display: block; font-weight: 600; color: #1a2634; margin-bottom: 3px; font-size: 12px; }
-        .custom-select { 
-            position: relative; 
-            cursor: pointer; 
-            border: 2px solid #dce3ef; 
-            border-radius: 8px; 
-            background: #fafcff; 
-            padding: 8px 12px; 
-            font-weight: 500; 
-            font-size: 12px; 
-            color: #1a2634; 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-        }
+        .custom-select { position: relative; cursor: pointer; border: 2px solid #dce3ef; border-radius: 8px; background: #fafcff; padding: 8px 12px; font-weight: 500; font-size: 12px; color: #1a2634; display: flex; align-items: center; justify-content: space-between; }
         .custom-select .arrow { font-size: 10px; color: #94a9c2; }
-        .dropdown-list { 
-            display: none; 
-            position: absolute; 
-            top: calc(100% + 4px); 
-            left: 0; 
-            right: 0; 
-            background: #ffffff; 
-            border-radius: 8px; 
-            box-shadow: 0 12px 40px rgba(0,0,0,0.12); 
-            border: 1px solid #e8edf5; 
-            z-index: 50; 
-            overflow: hidden; 
-            max-height: 140px; 
-            overflow-y: auto; 
-        }
+        .dropdown-list { display: none; position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: #ffffff; border-radius: 8px; box-shadow: 0 12px 40px rgba(0,0,0,0.12); border: 1px solid #e8edf5; z-index: 50; overflow: hidden; max-height: 140px; overflow-y: auto; }
         .dropdown-list.show { display: block; animation: dropdownFade 0.2s ease; }
         .dropdown-list .dropdown-item { padding: 6px 12px; font-size: 12px; color: #1a2634; cursor: pointer; }
         .dropdown-list .dropdown-item:hover { background: #f0f4fc; color: #1a73e8; }
@@ -683,174 +240,50 @@
         .detail-total { margin-bottom: 10px; font-size: 14px; font-weight: 700; color: #1a2634; }
         .detail-total span { color: #1a73e8; font-size: 18px; }
         .detail-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-        .detail-actions .add-cart-btn { 
-            flex: 1; 
-            padding: 10px 16px; 
-            background: #1a73e8; 
-            color: #fff; 
-            border: none; 
-            border-radius: 30px; 
-            font-weight: 700; 
-            font-size: 13px; 
-            cursor: pointer; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 4px; 
-            min-width: 80px; 
-        }
-        .detail-actions .buy-now-btn { 
-            flex: 1; 
-            padding: 10px 16px; 
-            background: #0d47a1; 
-            color: #fff; 
-            border: none; 
-            border-radius: 30px; 
-            font-weight: 700; 
-            font-size: 13px; 
-            cursor: pointer; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            gap: 4px; 
-            min-width: 80px; 
-        }
+        .detail-actions .add-cart-btn { flex: 1; padding: 10px 16px; background: #1a73e8; color: #fff; border: none; border-radius: 30px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; min-width: 80px; }
+        .detail-actions .buy-now-btn { flex: 1; padding: 10px 16px; background: #0d47a1; color: #fff; border: none; border-radius: 30px; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px; min-width: 80px; }
 
-        @media (min-width: 600px) {
-            .detail-image { flex: 1 1 40%; }
-            .detail-image .img-box { height: 280px; }
-            .detail-info { flex: 1 1 50%; }
-            .detail-info .product-name { font-size: 22px; }
-        }
-        @media (min-width: 992px) {
-            .detail-image .img-box { height: 350px; }
-            .detail-info .product-name { font-size: 28px; }
-            .detail-info .product-price { font-size: 26px; }
-        }
+        @media (min-width: 600px) { .detail-image { flex: 1 1 40%; } .detail-image .img-box { height: 280px; } .detail-info { flex: 1 1 50%; } .detail-info .product-name { font-size: 22px; } }
+        @media (min-width: 992px) { .detail-image .img-box { height: 350px; } .detail-info .product-name { font-size: 28px; } .detail-info .product-price { font-size: 26px; } }
 
         /* ===== SIDE PANEL ===== */
-        .side-panel-overlay { 
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.4); 
-            z-index: 9998; 
-            display: none; 
-            opacity: 0; 
-            transition: opacity 0.3s ease; 
-        }
+        .side-panel-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 9998; display: none; opacity: 0; transition: opacity 0.3s ease; }
         .side-panel-overlay.active { display: block; opacity: 1; }
-        .side-panel { 
-            position: fixed; 
-            top: 0; 
-            right: -100%; 
-            width: 100%; 
-            max-width: 100%; 
-            height: 100%; 
-            background: #ffffff; 
-            z-index: 9999; 
-            transition: right 0.35s cubic-bezier(0.22,1,0.36,1); 
-            box-shadow: -10px 0 40px rgba(0,0,0,0.12); 
-            padding: 16px; 
-            overflow-y: auto; 
-        }
+        .side-panel { position: fixed; top: 0; right: -100%; width: 100%; max-width: 100%; height: 100%; background: #ffffff; z-index: 9999; transition: right 0.35s cubic-bezier(0.22,1,0.36,1); box-shadow: -10px 0 40px rgba(0,0,0,0.12); padding: 16px; overflow-y: auto; }
         .side-panel.open { right: 0; }
-        .side-panel-header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-bottom: 14px; 
-            padding-bottom: 10px; 
-            border-bottom: 2px solid #e8edf5; 
-        }
+        .side-panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 2px solid #e8edf5; }
         .side-panel-header h2 { font-size: 16px; font-weight: 700; color: #1a2634; display: flex; align-items: center; gap: 6px; }
         .side-panel-header h2 i { color: #1a73e8; }
         .side-panel-close { background: none; border: none; font-size: 20px; color: #94a9c2; cursor: pointer; padding: 4px 6px; border-radius: 6px; }
-
-        @media (min-width: 600px) {
-            .side-panel { width: 420px; max-width: 92%; }
-        }
+        @media (min-width: 600px) { .side-panel { width: 420px; max-width: 92%; } }
 
         /* ===== AUTH ===== */
         .auth-tabs { display: flex; gap: 6px; margin-bottom: 12px; border-bottom: 2px solid #e8edf5; padding-bottom: 6px; }
-        .auth-tab { 
-            padding: 5px 14px; 
-            border: none; 
-            background: none; 
-            font-weight: 600; 
-            font-size: 13px; 
-            color: #5a6a7a; 
-            cursor: pointer; 
-            border-radius: 30px; 
-        }
+        .auth-tab { padding: 5px 14px; border: none; background: none; font-weight: 600; font-size: 13px; color: #5a6a7a; cursor: pointer; border-radius: 30px; }
         .auth-tab.active { color: #1a73e8; background: #eef4ff; }
         .auth-form { display: flex; flex-direction: column; gap: 10px; }
         .auth-form .form-group { display: flex; flex-direction: column; gap: 2px; }
         .auth-form .form-group label { font-size: 11px; font-weight: 600; color: #2c4a6a; }
-        .auth-form .form-group input { 
-            padding: 8px 12px; 
-            border: 2px solid #dce3ef; 
-            border-radius: 8px; 
-            font-size: 13px; 
-            background: #fafcff; 
-        }
+        .auth-form .form-group input { padding: 8px 12px; border: 2px solid #dce3ef; border-radius: 8px; font-size: 13px; background: #fafcff; }
         .auth-form .form-group input:focus { outline: none; border-color: #1a73e8; }
-        .auth-form .auth-btn { 
-            padding: 10px; 
-            background: #1a73e8; 
-            color: #fff; 
-            border: none; 
-            border-radius: 30px; 
-            font-weight: 700; 
-            font-size: 14px; 
-            cursor: pointer; 
-        }
+        .auth-form .auth-btn { padding: 10px; background: #1a73e8; color: #fff; border: none; border-radius: 30px; font-weight: 700; font-size: 14px; cursor: pointer; }
         .auth-form .auth-error { color: #dc2626; font-size: 12px; text-align: center; padding: 4px; background: #fde8e8; border-radius: 6px; display: none; }
         .auth-form .auth-success { color: #16a34a; font-size: 12px; text-align: center; padding: 4px; background: #e6f7ed; border-radius: 6px; display: none; }
         .user-info { display: none; text-align: center; padding: 6px 0; }
-        .user-info .user-avatar-sm { 
-            width: 44px; 
-            height: 44px; 
-            border-radius: 50%; 
-            background: linear-gradient(135deg,#1a73e8,#0d47a1); 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 18px; 
-            color: #fff; 
-            margin: 0 auto 6px; 
-        }
+        .user-info .user-avatar-sm { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg,#1a73e8,#0d47a1); display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff; margin: 0 auto 6px; }
         .user-info .user-name-display { font-size: 15px; font-weight: 700; color: #1a2634; }
         .user-info .user-email-display { font-size: 12px; color: #5a6a7a; }
         .user-info .logout-btn-sm { margin-top: 8px; padding: 6px 18px; background: #dc2626; color: #fff; border: none; border-radius: 30px; font-weight: 600; cursor: pointer; }
 
         /* ===== CART ===== */
         .cart-items { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
-        .cart-item { 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            padding: 8px 10px; 
-            background: #f0f4fc; 
-            border-radius: 10px; 
-            border: 2px solid #e8edf5; 
-        }
+        .cart-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: #f0f4fc; border-radius: 10px; border: 2px solid #e8edf5; }
         .cart-item .cart-img { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; background: #e8edf5; }
         .cart-item .cart-info { flex: 1; }
         .cart-item .cart-info h4 { font-size: 12px; color: #1a2634; }
         .cart-item .cart-info p { font-size: 10px; color: #5a6a7a; }
         .cart-item .cart-qty { display: flex; align-items: center; gap: 4px; }
-        .cart-item .cart-qty button { 
-            width: 20px; 
-            height: 20px; 
-            border-radius: 50%; 
-            border: none; 
-            background: #1a73e8; 
-            color: #fff; 
-            font-weight: 700; 
-            cursor: pointer; 
-            font-size: 10px; 
-        }
+        .cart-item .cart-qty button { width: 20px; height: 20px; border-radius: 50%; border: none; background: #1a73e8; color: #fff; font-weight: 700; cursor: pointer; font-size: 10px; }
         .cart-item .cart-qty button.remove-btn { background: #dc2626; }
         .cart-item .cart-qty span { font-weight: 700; font-size: 12px; min-width: 16px; text-align: center; }
         .cart-item .cart-price { font-weight: 700; color: #1a2634; font-size: 13px; min-width: 50px; text-align: right; }
@@ -858,30 +291,11 @@
         .cart-empty i { font-size: 32px; margin-bottom: 6px; display: block; }
         .cart-total { margin-top: 12px; padding-top: 10px; border-top: 2px solid #e8edf5; display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 700; color: #1a2634; }
         .cart-total .total-amount { color: #1a73e8; font-size: 18px; }
-        .checkout-btn { 
-            width: 100%; 
-            padding: 10px; 
-            background: #1a73e8; 
-            color: #fff; 
-            border: none; 
-            border-radius: 30px; 
-            font-weight: 700; 
-            font-size: 14px; 
-            cursor: pointer; 
-            margin-top: 8px; 
-        }
+        .checkout-btn { width: 100%; padding: 10px; background: #1a73e8; color: #fff; border: none; border-radius: 30px; font-weight: 700; font-size: 14px; cursor: pointer; margin-top: 8px; }
 
         /* ===== FAVORITES ===== */
         .favorite-items { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
-        .favorite-item { 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            padding: 8px 10px; 
-            background: #f0f4fc; 
-            border-radius: 10px; 
-            border: 2px solid #e8edf5; 
-        }
+        .favorite-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: #f0f4fc; border-radius: 10px; border: 2px solid #e8edf5; }
         .favorite-item .fav-icon { font-size: 18px; color: #dc2626; }
         .favorite-item .fav-info { flex: 1; }
         .favorite-item .fav-info h4 { font-size: 12px; color: #1a2634; }
@@ -892,104 +306,25 @@
         .favorite-empty i { font-size: 32px; margin-bottom: 6px; display: block; }
 
         /* ===== PAYMENT MODAL ===== */
-        .payment-modal-overlay { 
-            display: none; 
-            position: fixed; 
-            top: 0; left: 0; 
-            width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.6); 
-            backdrop-filter: blur(6px); 
-            z-index: 10000; 
-            align-items: center; 
-            justify-content: center; 
-            padding: 12px; 
-        }
+        .payment-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); z-index: 10000; align-items: center; justify-content: center; padding: 12px; }
         .payment-modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
-        .payment-modal { 
-            background: white; 
-            border-radius: 20px; 
-            max-width: 480px; 
-            width: 100%; 
-            max-height: 90vh; 
-            overflow-y: auto; 
-            padding: 18px; 
-            box-shadow: 0 30px 60px rgba(0,0,0,0.3); 
-            position: relative; 
-        }
+        .payment-modal { background: white; border-radius: 20px; max-width: 480px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 18px; box-shadow: 0 30px 60px rgba(0,0,0,0.3); position: relative; }
         .payment-modal-close { position: absolute; top: 10px; right: 14px; background: none; border: none; font-size: 20px; color: #94a9c2; cursor: pointer; }
         .modal-header { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; }
-        .modal-header .brand-logo { 
-            width: 38px; 
-            height: 38px; 
-            background: linear-gradient(135deg,#0b5e42,#1a8a5c); 
-            border-radius: 10px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            color: white; 
-            font-size: 1.2rem; 
-            font-weight: 800; 
-            flex-shrink: 0; 
-        }
+        .modal-header .brand-logo { width: 38px; height: 38px; background: linear-gradient(135deg,#0b5e42,#1a8a5c); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 1.2rem; font-weight: 800; flex-shrink: 0; }
         .modal-header .brand-text { font-size: 1rem; font-weight: 700; color: #0a1e30; }
         .modal-header .brand-text small { font-weight: 400; color: #5a7a94; font-size: 0.6rem; display: block; }
-        .payment-category { 
-            display: flex; 
-            gap: 4px; 
-            margin: 8px 0 10px 0; 
-            background: #f2f7fd; 
-            padding: 4px; 
-            border-radius: 12px; 
-            border: 1px solid #dce7f5; 
-        }
-        .payment-category-btn { 
-            flex: 1; 
-            padding: 5px 8px; 
-            border: none; 
-            border-radius: 8px; 
-            font-weight: 600; 
-            font-size: 10px; 
-            cursor: pointer; 
-            background: transparent; 
-            color: #3d5a78; 
-        }
+        .payment-category { display: flex; gap: 4px; margin: 8px 0 10px 0; background: #f2f7fd; padding: 4px; border-radius: 12px; border: 1px solid #dce7f5; }
+        .payment-category-btn { flex: 1; padding: 5px 8px; border: none; border-radius: 8px; font-weight: 600; font-size: 10px; cursor: pointer; background: transparent; color: #3d5a78; }
         .payment-category-btn.active { background: white; color: #0a1e30; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
         .payment-methods { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
-        .payment-method { 
-            display: flex; 
-            align-items: center; 
-            gap: 8px; 
-            padding: 6px 10px; 
-            border-radius: 10px; 
-            border: 2px solid #e8f0f8; 
-            cursor: pointer; 
-            background: #fafcff; 
-        }
+        .payment-method { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 10px; border: 2px solid #e8f0f8; cursor: pointer; background: #fafcff; }
         .payment-method.selected { border-color: #2563eb; background: #eef4ff; }
-        .payment-method .method-icon { 
-            width: 28px; 
-            height: 28px; 
-            border-radius: 6px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 0.7rem; 
-            font-weight: 700; 
-            color: white; 
-            flex-shrink: 0; 
-        }
+        .payment-method .method-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; color: white; flex-shrink: 0; }
         .payment-method .method-info { flex: 1; }
         .payment-method .method-info h4 { font-size: 0.75rem; color: #0a1e30; }
         .payment-method .method-info p { font-size: 0.55rem; color: #5a7a94; }
-        .payment-method .check-mark { 
-            width: 18px; 
-            height: 18px; 
-            border-radius: 50%; 
-            border: 2px solid #cbdae8; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-        }
+        .payment-method .check-mark { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #cbdae8; display: flex; align-items: center; justify-content: center; }
         .payment-method.selected .check-mark { border-color: #2563eb; background: #2563eb; }
         .payment-method.selected .check-mark::after { content: '\f00c'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: white; font-size: 0.4rem; }
         .method-bkash .method-icon { background: #e2136e; }
@@ -1006,26 +341,9 @@
         .txn-box .instructions .phone-number { background: white; padding: 2px 4px; border-radius: 4px; font-weight: 700; color: #0a1e30; border: 1px dashed #b8d0e5; font-size: 11px; }
         .txn-box .instructions .amount { font-weight: 700; color: #dc2626; }
         .txn-input-group { display: flex; gap: 4px; margin-top: 4px; flex-wrap: wrap; }
-        .txn-input-group input { 
-            flex: 1; 
-            padding: 6px 10px; 
-            border: 1.5px solid #e2edf7; 
-            border-radius: 6px; 
-            font-size: 12px; 
-            min-width: 80px; 
-        }
+        .txn-input-group input { flex: 1; padding: 6px 10px; border: 1.5px solid #e2edf7; border-radius: 6px; font-size: 12px; min-width: 80px; }
         .txn-input-group input:focus { outline: none; border-color: #2563eb; }
-        .verify-btn { 
-            padding: 6px 14px; 
-            background: #0b1e33; 
-            color: white; 
-            border: none; 
-            border-radius: 6px; 
-            font-weight: 700; 
-            font-size: 11px; 
-            cursor: pointer; 
-            white-space: nowrap; 
-        }
+        .verify-btn { padding: 6px 14px; background: #0b1e33; color: white; border: none; border-radius: 6px; font-weight: 700; font-size: 11px; cursor: pointer; white-space: nowrap; }
         .verify-status { margin-top: 4px; font-size: 11px; font-weight: 600; padding: 4px; border-radius: 6px; text-align: center; }
         .verify-status.success { color: #16a34a; background: #e6f7ed; }
         .verify-status.error { color: #dc2626; background: #fde8e8; }
@@ -1035,43 +353,14 @@
         .modal-footer-total { margin-top: 8px; padding-top: 6px; border-top: 1px solid #e8f0f8; display: flex; justify-content: space-between; align-items: center; }
         .modal-footer-total .total-label { font-weight: 600; color: #3d5a78; font-size: 13px; }
         .modal-footer-total .total-price { font-size: 1rem; font-weight: 800; color: #0a1e30; }
-        .confirm-payment-btn { 
-            width: 100%; 
-            margin-top: 6px; 
-            padding: 10px; 
-            background: linear-gradient(135deg,#2563eb,#7c3aed); 
-            color: white; 
-            border: none; 
-            border-radius: 40px; 
-            font-size: 14px; 
-            font-weight: 700; 
-            cursor: pointer; 
-        }
+        .confirm-payment-btn { width: 100%; margin-top: 6px; padding: 10px; background: linear-gradient(135deg,#2563eb,#7c3aed); color: white; border: none; border-radius: 40px; font-size: 14px; font-weight: 700; cursor: pointer; }
         .confirm-payment-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
         /* ===== ANIMATIONS ===== */
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
 
         /* ===== TOAST ===== */
-        .toast-notification { 
-            position: fixed; 
-            bottom: 70px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            background: #ffffff; 
-            color: #1a2634; 
-            padding: 10px 16px; 
-            border-radius: 10px; 
-            box-shadow: 0 12px 40px rgba(0,0,0,0.12); 
-            border-left: 4px solid #1a73e8; 
-            z-index: 99999; 
-            font-weight: 500; 
-            max-width: 320px; 
-            font-size: 12px; 
-            border: 1px solid #e8edf5; 
-            width: 90%; 
-            text-align: center; 
-        }
+        .toast-notification { position: fixed; bottom: 70px; left: 50%; transform: translateX(-50%); background: #ffffff; color: #1a2634; padding: 10px 16px; border-radius: 10px; box-shadow: 0 12px 40px rgba(0,0,0,0.12); border-left: 4px solid #1a73e8; z-index: 99999; font-weight: 500; max-width: 320px; font-size: 12px; border: 1px solid #e8edf5; width: 90%; text-align: center; }
 
         /* ===== REFUND & REVIEWS ===== */
         .full-page-section { display: none; padding: 16px 0; }
@@ -1090,12 +379,8 @@
         .review-item .review-info .review-text { font-size: 12px; color: #5a6a7a; margin-top: 2px; }
         .review-item .review-info .review-stars { color: #f9a825; font-size: 12px; margin-top: 2px; }
 
-        @media (min-width: 600px) {
-            .reviews-gallery { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (min-width: 992px) {
-            .reviews-gallery { grid-template-columns: repeat(3, 1fr); }
-        }
+        @media (min-width: 600px) { .reviews-gallery { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 992px) { .reviews-gallery { grid-template-columns: repeat(3, 1fr); } }
     </style>
 </head>
 <body>
@@ -1321,6 +606,22 @@
     </footer>
 
     <script>
+    // ===== FIREBASE CONFIG =====
+    const firebaseConfig = {
+        apiKey: "AIzaSyCQR-VKY6MWOph4SHWLDDzTG40D5qFpOcg",
+        authDomain: "ahosan-service.firebaseapp.com",
+        projectId: "ahosan-service",
+        storageBucket: "ahosan-service.firebasestorage.app",
+        messagingSenderId: "347314671739",
+        appId: "1:347314671739:web:03e6a68267cc09fd2b12de",
+        measurementId: "G-P6T9JN7CQM"
+    };
+
+    // ===== INIT FIREBASE =====
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+
     // ===== COMPLETE JAVASCRIPT =====
     (function() {
         // ===== CONFIG =====
@@ -1329,19 +630,8 @@
         const WHATSAPP_NUMBER = '8801714673241';
         const COUPON_THRESHOLD = 1000;
 
-        // ===== PRODUCT DATA =====
-        const products = [
-            { id: 1, name: 'Wireless Earbuds', price: 2990, oldPrice: 4500, category: 'electronics', image: 'https://picsum.photos/400/400?random=10', stock: true, desc: 'Premium wireless earbuds with deep bass.' },
-            { id: 2, name: 'Smartwatch Pro', price: 5490, oldPrice: 7500, category: 'electronics', image: 'https://picsum.photos/400/400?random=11', stock: true, desc: 'Modern smartwatch with heart rate monitor.' },
-            { id: 3, name: 'Women\'s Saree', price: 1890, oldPrice: 2500, category: 'fashion', image: 'https://picsum.photos/400/400?random=12', stock: false, desc: 'Handwoven traditional saree.' },
-            { id: 4, name: 'Punjabi Collection', price: 1590, oldPrice: 2200, category: 'fashion', image: 'https://picsum.photos/400/400?random=13', stock: true, desc: 'Trendy Punjabi collection.' },
-            { id: 5, name: 'Ficus Plant', price: 850, oldPrice: 1200, category: 'home', image: 'https://picsum.photos/400/400?random=14', stock: false, desc: 'Beautiful indoor plant.' },
-            { id: 6, name: 'Wall Art Frame', price: 2450, oldPrice: 3200, category: 'home', image: 'https://picsum.photos/400/400?random=15', stock: true, desc: 'Modern wall art frame.' },
-            { id: 7, name: 'Kids Learning Tab', price: 3990, oldPrice: 5200, category: 'kids', image: 'https://picsum.photos/400/400?random=16', stock: true, desc: 'Educational tablet for kids.' },
-            { id: 8, name: 'Sports Shoes', price: 3200, oldPrice: 4000, category: 'footwear', image: 'https://picsum.photos/400/400?random=17', stock: false, desc: 'Comfortable sports shoes.' }
-        ];
-
-        // ===== COUPON PRODUCTS =====
+        // ===== PRODUCT DATA (Firebase) =====
+        let products = [];
         let couponProducts = [];
 
         // ===== REVIEWS =====
@@ -1365,7 +655,6 @@
         let selectedAccessMultiplier = 1;
         let currentDetailProductId = null;
         let couponClaimed = false;
-        let userMessages = [];
         let unreadCount = 0;
 
         // ===== DOM REFS =====
@@ -1460,38 +749,102 @@
         const confirmBtn = document.getElementById('confirmPaymentBtn');
         const modalTotalPrice = document.getElementById('modalTotalPrice');
 
-        // ===== STORAGE =====
-        const USERS_KEY = 'shoppro_users';
-        const CURRENT_USER_KEY = 'shoppro_current_user';
-        const MESSAGES_KEY = 'shoppro_messages';
-        const ORDERS_KEY = 'shoppro_orders';
-        const COUPONS_KEY = 'shoppro_coupons';
-        const COUPON_PRODUCTS_KEY = 'shoppro_coupon_products';
-        const SETTINGS_KEY = 'shoppro_admin_settings';
-        const SLIDER_KEY = 'shoppro_slider_images';
+        // ===== FIREBASE FUNCTIONS =====
 
-        function getUsers() { try { return JSON.parse(localStorage.getItem(USERS_KEY)) || {}; } catch { return {}; } }
-        function saveUsers(users) { localStorage.setItem(USERS_KEY, JSON.stringify(users)); }
-        function getCurrentUser() {
-            try { const data = JSON.parse(localStorage.getItem(CURRENT_USER_KEY)); if (data && data.email) { const users = getUsers(); return users[data.email] || null; } return null; } catch { return null; }
+        // ===== LOAD PRODUCTS =====
+        async function loadProducts() {
+            try {
+                const snapshot = await db.collection('products').orderBy('createdAt', 'desc').get();
+                if (snapshot.empty) {
+                    // If no products, add default ones
+                    await addDefaultProducts();
+                    return;
+                }
+                products = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    data.id = doc.id;
+                    products.push(data);
+                });
+                renderProducts();
+                updateCartBadge();
+                updateFavoriteBadge();
+            } catch (error) {
+                console.error('Error loading products:', error);
+                showToast('Error loading products. Please refresh.', 'error');
+            }
         }
-        function setCurrentUser(email) { if (email) localStorage.setItem(CURRENT_USER_KEY, JSON.stringify({ email: email })); else localStorage.removeItem(CURRENT_USER_KEY); }
-        function getMessages() { try { return JSON.parse(localStorage.getItem(MESSAGES_KEY)) || []; } catch { return []; } }
-        function saveMessages(messages) { localStorage.setItem(MESSAGES_KEY, JSON.stringify(messages)); updateMessageBadge(); }
-        function getOrders() { try { return JSON.parse(localStorage.getItem(ORDERS_KEY)) || []; } catch { return []; } }
-        function saveOrders(orders) { localStorage.setItem(ORDERS_KEY, JSON.stringify(orders)); }
-        function getCoupons() { try { return JSON.parse(localStorage.getItem(COUPONS_KEY)) || {}; } catch { return {}; } }
-        function saveCoupons(coupons) { localStorage.setItem(COUPONS_KEY, JSON.stringify(coupons)); }
-        function getCouponProducts() { try { return JSON.parse(localStorage.getItem(COUPON_PRODUCTS_KEY)) || []; } catch { return []; } }
-        function saveCouponProducts(products) { localStorage.setItem(COUPON_PRODUCTS_KEY, JSON.stringify(products)); }
-        function getSettings() { try { return JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {}; } catch { return {}; } }
-        function getSliderImages() { try { return JSON.parse(localStorage.getItem(SLIDER_KEY)) || ['https://picsum.photos/1200/400?random=1','https://picsum.photos/1200/400?random=2','https://picsum.photos/1200/400?random=3']; } catch { return ['https://picsum.photos/1200/400?random=1','https://picsum.photos/1200/400?random=2','https://picsum.photos/1200/400?random=3']; } }
 
-        // ===== LOAD SLIDER =====
-        function loadSlider() {
-            const images = getSliderImages();
+        // ===== ADD DEFAULT PRODUCTS =====
+        async function addDefaultProducts() {
+            const defaultProducts = [
+                { name: 'Wireless Earbuds', basePrice: 2990, oldPrice: 4500, category: 'electronics', image: 'https://picsum.photos/400/400?random=10', stock: true, desc: 'Premium wireless earbuds with deep bass.', durations: [{ label: '1 Month', price: 0 }, { label: '3 Months', price: 500 }, { label: '6 Months', price: 900 }, { label: '12 Months', price: 1500 }], accessTypes: ['personal'], createdAt: firebase.firestore.FieldValue.serverTimestamp() },
+                { name: 'Smartwatch Pro', basePrice: 5490, oldPrice: 7500, category: 'electronics', image: 'https://picsum.photos/400/400?random=11', stock: true, desc: 'Modern smartwatch with heart rate monitor.', durations: [{ label: '1 Month', price: 0 }, { label: '3 Months', price: 700 }, { label: '6 Months', price: 1200 }, { label: '12 Months', price: 2000 }], accessTypes: ['personal', 'shared'], createdAt: firebase.firestore.FieldValue.serverTimestamp() },
+                { name: 'Women\'s Saree', basePrice: 1890, oldPrice: 2500, category: 'fashion', image: 'https://picsum.photos/400/400?random=12', stock: false, desc: 'Handwoven traditional saree.', durations: [{ label: '1 Month', price: 0 }, { label: '3 Months', price: 300 }, { label: '6 Months', price: 500 }], accessTypes: ['personal'], createdAt: firebase.firestore.FieldValue.serverTimestamp() },
+                { name: 'Punjabi Collection', basePrice: 1590, oldPrice: 2200, category: 'fashion', image: 'https://picsum.photos/400/400?random=13', stock: true, desc: 'Trendy Punjabi collection.', durations: [{ label: '1 Month', price: 0 }, { label: '3 Months', price: 200 }, { label: '6 Months', price: 400 }, { label: '12 Months', price: 700 }], accessTypes: ['personal', 'shared'], createdAt: firebase.firestore.FieldValue.serverTimestamp() },
+                { name: 'Ficus Plant', basePrice: 850, oldPrice: 1200, category: 'home', image: 'https://picsum.photos/400/400?random=14', stock: false, desc: 'Beautiful indoor plant.', durations: [{ label: '1 Month', price: 0 }, { label: '3 Months', price: 150 }, { label: '6 Months', price: 250 }], accessTypes: ['personal'], createdAt: firebase.firestore.FieldValue.serverTimestamp() },
+                { name: 'Wall Art Frame', basePrice: 2450, oldPrice: 3200, category: 'home', image: 'https://picsum.photos/400/400?random=15', stock: true, desc: 'Modern wall art frame.', durations: [{ label: '1 Month', price: 0 }, { label: '3 Months', price: 400 }, { label: '6 Months', price: 700 }, { label: '12 Months', price: 1100 }], accessTypes: ['personal', 'shared'], createdAt: firebase.firestore.FieldValue.serverTimestamp() },
+                { name: 'Kids Learning Tab', basePrice: 3990, oldPrice: 5200, category: 'kids', image: 'https://picsum.photos/400/400?random=16', stock: true, desc: 'Educational tablet for kids.', durations: [{ label: '1 Month', price: 0 }, { label: '3 Months', price: 600 }, { label: '6 Months', price: 1000 }, { label: '12 Months', price: 1600 }], accessTypes: ['personal'], createdAt: firebase.firestore.FieldValue.serverTimestamp() },
+                { name: 'Sports Shoes', basePrice: 3200, oldPrice: 4000, category: 'footwear', image: 'https://picsum.photos/400/400?random=17', stock: false, desc: 'Comfortable sports shoes.', durations: [{ label: '1 Month', price: 0 }, { label: '3 Months', price: 400 }, { label: '6 Months', price: 700 }], accessTypes: ['personal', 'shared'], createdAt: firebase.firestore.FieldValue.serverTimestamp() }
+            ];
+
+            try {
+                const batch = db.batch();
+                defaultProducts.forEach(product => {
+                    const docRef = db.collection('products').doc();
+                    batch.set(docRef, product);
+                });
+                await batch.commit();
+                console.log('Default products added successfully!');
+                loadProducts();
+            } catch (error) {
+                console.error('Error adding default products:', error);
+            }
+        }
+
+        // ===== LOAD COUPON PRODUCTS =====
+        async function loadCouponProducts() {
+            try {
+                const snapshot = await db.collection('couponProducts').orderBy('createdAt', 'desc').get();
+                couponProducts = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    data.id = doc.id;
+                    couponProducts.push(data);
+                });
+                renderCouponProducts();
+            } catch (error) {
+                console.error('Error loading coupon products:', error);
+            }
+        }
+
+        // ===== LOAD SLIDER IMAGES =====
+        async function loadSliderImages() {
+            try {
+                const doc = await db.collection('settings').doc('slider').get();
+                if (doc.exists) {
+                    const images = doc.data().images || [];
+                    updateSlider(images);
+                } else {
+                    // Default slider images
+                    const defaultImages = [
+                        'https://picsum.photos/1200/400?random=1',
+                        'https://picsum.photos/1200/400?random=2',
+                        'https://picsum.photos/1200/400?random=3'
+                    ];
+                    await db.collection('settings').doc('slider').set({ images: defaultImages });
+                    updateSlider(defaultImages);
+                }
+            } catch (error) {
+                console.error('Error loading slider:', error);
+            }
+        }
+
+        // ===== UPDATE SLIDER =====
+        function updateSlider(images) {
             const slides = document.querySelectorAll('.slide');
             const dots = document.querySelectorAll('#sliderDots span');
+            
             slides.forEach((slide, index) => {
                 if (index < images.length) {
                     slide.querySelector('img').src = images[index];
@@ -1500,8 +853,12 @@
                     slide.style.display = 'none';
                 }
             });
+            
+            // Reset active state
             slides.forEach((s, i) => s.classList.toggle('active', i === 0));
             dots.forEach((d, i) => d.classList.toggle('active', i === 0));
+            
+            // Update dots
             const dotContainer = document.getElementById('sliderDots');
             dotContainer.innerHTML = '';
             images.forEach((_, index) => {
@@ -1514,13 +871,182 @@
             currentSlide = 0;
         }
 
-        // ===== LOAD LOGO =====
-        function loadLogo() {
-            const settings = getSettings();
-            if (settings.logoUrl && settings.logoUrl.trim() !== '') {
-                siteLogo.src = settings.logoUrl;
-            } else {
-                siteLogo.src = 'https://via.placeholder.com/150x40/1a73e8/ffffff?text=ShopPro';
+        // ===== LOAD SETTINGS =====
+        async function loadSettings() {
+            try {
+                const doc = await db.collection('settings').doc('site').get();
+                if (doc.exists) {
+                    const data = doc.data();
+                    if (data.logoUrl) {
+                        siteLogo.src = data.logoUrl;
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading settings:', error);
+            }
+        }
+
+        // ===== LOAD ORDERS =====
+        async function loadOrders() {
+            try {
+                const snapshot = await db.collection('orders').orderBy('createdAt', 'desc').get();
+                const orders = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    data.id = doc.id;
+                    orders.push(data);
+                });
+                return orders;
+            } catch (error) {
+                console.error('Error loading orders:', error);
+                return [];
+            }
+        }
+
+        // ===== SAVE ORDER =====
+        async function saveOrderToFirebase(orderData) {
+            try {
+                orderData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+                await db.collection('orders').add(orderData);
+                return true;
+            } catch (error) {
+                console.error('Error saving order:', error);
+                return false;
+            }
+        }
+
+        // ===== UPDATE ORDER STATUS =====
+        async function updateOrderStatus(orderId, status) {
+            try {
+                await db.collection('orders').doc(orderId).update({ status: status });
+                return true;
+            } catch (error) {
+                console.error('Error updating order:', error);
+                return false;
+            }
+        }
+
+        // ===== GET USER ORDERS =====
+        async function getUserOrders(phone) {
+            try {
+                const snapshot = await db.collection('orders').where('phone', '==', phone).orderBy('createdAt', 'desc').get();
+                const orders = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    data.id = doc.id;
+                    orders.push(data);
+                });
+                return orders;
+            } catch (error) {
+                console.error('Error getting user orders:', error);
+                return [];
+            }
+        }
+
+        // ===== MESSAGE FUNCTIONS =====
+        async function sendMessageToUser(email, subject, message, fromAdmin = true) {
+            try {
+                await db.collection('messages').add({
+                    email: email,
+                    subject: subject,
+                    message: message,
+                    fromAdmin: fromAdmin,
+                    read: false,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                return true;
+            } catch (error) {
+                console.error('Error sending message:', error);
+                return false;
+            }
+        }
+
+        async function getUserMessages(email) {
+            try {
+                const snapshot = await db.collection('messages').where('email', '==', email).orderBy('timestamp', 'desc').get();
+                const messages = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    data.id = doc.id;
+                    messages.push(data);
+                });
+                return messages;
+            } catch (error) {
+                console.error('Error getting messages:', error);
+                return [];
+            }
+        }
+
+        async function markMessageAsRead(messageId) {
+            try {
+                await db.collection('messages').doc(messageId).update({ read: true });
+                return true;
+            } catch (error) {
+                console.error('Error marking message as read:', error);
+                return false;
+            }
+        }
+
+        async function markAllMessagesAsRead(email) {
+            try {
+                const snapshot = await db.collection('messages').where('email', '==', email).where('read', '==', false).get();
+                const batch = db.batch();
+                snapshot.forEach(doc => {
+                    batch.update(doc.ref, { read: true });
+                });
+                await batch.commit();
+                return true;
+            } catch (error) {
+                console.error('Error marking messages as read:', error);
+                return false;
+            }
+        }
+
+        async function getUnreadMessageCount(email) {
+            try {
+                const snapshot = await db.collection('messages').where('email', '==', email).where('read', '==', false).get();
+                return snapshot.size;
+            } catch (error) {
+                console.error('Error getting unread count:', error);
+                return 0;
+            }
+        }
+
+        // ===== COUPON FUNCTIONS =====
+        async function getCouponByPhone(phone) {
+            try {
+                const snapshot = await db.collection('coupons').where('phone', '==', phone).limit(1).get();
+                if (!snapshot.empty) {
+                    const doc = snapshot.docs[0];
+                    const data = doc.data();
+                    data.id = doc.id;
+                    return data;
+                }
+                return null;
+            } catch (error) {
+                console.error('Error getting coupon:', error);
+                return null;
+            }
+        }
+
+        async function saveCoupon(couponData) {
+            try {
+                couponData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+                await db.collection('coupons').add(couponData);
+                return true;
+            } catch (error) {
+                console.error('Error saving coupon:', error);
+                return false;
+            }
+        }
+
+        async function markCouponAsUsed(couponId) {
+            try {
+                await db.collection('coupons').doc(couponId).update({ used: true });
+                return true;
+            } catch (error) {
+                console.error('Error marking coupon as used:', error);
+                return false;
             }
         }
 
@@ -1534,304 +1060,140 @@
             currentSlide = index;
         }
 
-        // ===== MESSAGE FUNCTIONS =====
-        function sendMessageToUser(email, subject, message, fromAdmin = true) {
-            const messages = getMessages();
-            messages.push({ id: Date.now(), email, subject, message, fromAdmin, read: false, timestamp: new Date().toISOString() });
-            saveMessages(messages);
-            return messages;
+        // ===== TOAST =====
+        function showToast(message, type = 'info') {
+            const existing = document.querySelector('.toast-notification');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            const colors = { success: '#1a73e8', info: '#0d47a1', error: '#d32f2f' };
+            toast.style.borderLeftColor = colors[type] || '#1a73e8';
+            toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'info' ? 'info-circle' : 'exclamation-circle'}" style="color:${colors[type] || '#1a73e8'}; margin-right:6px;"></i> ${message}`;
+            document.body.appendChild(toast);
+            setTimeout(() => { if (toast.parentNode) toast.remove(); }, 3000);
         }
 
-        function getUserMessages(email) { const all = getMessages(); return all.filter(m => m.email === email); }
-
-        function markAllMessagesAsRead(email) {
-            const messages = getMessages();
-            let changed = false;
-            messages.forEach(m => { if (m.email === email && !m.read) { m.read = true; changed = true; } });
-            if (changed) saveMessages(messages);
-            updateMessageBadge();
-        }
-
-        function updateMessageBadge() {
-            const user = getCurrentUser();
-            let count = 0;
-            if (user) { const messages = getMessages(); count = messages.filter(m => m.email === user.email && !m.read).length; }
-            unreadCount = count;
-            msgCountBadge.textContent = count;
-            if (count > 0) { msgCountBadge.style.display = 'block'; headerMsgCount.style.display = 'block'; headerMsgCount.textContent = count; messageToggleBtn.classList.add('show'); } 
-            else { msgCountBadge.style.display = 'none'; headerMsgCount.style.display = 'none'; if (!messagePanel.classList.contains('open')) messageToggleBtn.classList.remove('show'); }
-        }
-
-        function renderMessages() {
-            const user = getCurrentUser();
-            if (!user) { msgBody.innerHTML = `<div class="empty-msg">Please login to see messages.</div>`; return; }
-            const messages = getUserMessages(user.email);
-            if (messages.length === 0) { msgBody.innerHTML = `<div class="empty-msg">No messages yet.</div>`; return; }
-            msgBody.innerHTML = messages.map(m => `
-                <div class="message-item"><strong>${m.subject}</strong><p>${m.message}</p><span class="msg-time">${new Date(m.timestamp).toLocaleString()} ${m.fromAdmin ? '📨 Admin' : '📤 You'}</span>${!m.read ? '<span style="color:#1a73e8; font-size:9px;">● New</span>' : ''}</div>
-            `).join('');
-            markAllMessagesAsRead(user.email);
-        }
-
-        // ===== TRACKING =====
-        function trackOrders(phone) {
-            const orders = getOrders();
-            const user = getCurrentUser();
-            let searchPhone = phone;
-            if (user && user.whatsapp) searchPhone = user.whatsapp;
-            const userOrders = orders.filter(o => o.phone === searchPhone);
-            const resultDiv = trackingResult;
-            if (userOrders.length === 0) {
-                resultDiv.className = 'tracking-result show error';
-                resultDiv.innerHTML = `<p><i class="fas fa-exclamation-circle"></i> No orders found.</p>`;
-                return;
+        // ===== RENDER PRODUCTS =====
+        function renderProducts(filterText = '', category = '') {
+            let filtered = products;
+            if (filterText.trim() !== '') {
+                filtered = filtered.filter(p => p.name.toLowerCase().includes(filterText.toLowerCase()));
             }
-            let totalSpent = 0;
-            resultDiv.className = 'tracking-result show success';
-            resultDiv.innerHTML = `
-                <h4 style="margin-bottom:6px;">📦 ${userOrders.length} Order(s)</h4>
-                ${userOrders.map(o => { if (o.status === 'completed') totalSpent += parseInt(o.price) || 0; return `
-                    <div class="order-item"><div><strong>${o.product}</strong><div style="font-size:11px; color:#6a7a8a;">৳${o.price} • ${o.duration || 'N/A'}</div></div><span class="status-badge ${o.status || 'pending'}">${(o.status || 'Pending').toUpperCase()}</span></div>
-                `; }).join('')}
-                <div style="margin-top:6px; padding-top:6px; border-top:1px solid #e8edf5;"><p style="font-size:11px; color:#6a7a8a;"><i class="fas fa-envelope"></i> <a href="#" onclick="sendTrackingMessage('${searchPhone}')" style="color:#1a73e8; text-decoration:none;">Send message to admin</a></p></div>
-            `;
-            updateCouponProgress(searchPhone);
-        }
-
-        // ===== COUPON =====
-        function updateCouponProgress(phone) {
-            const orders = getOrders();
-            const userOrders = orders.filter(o => o.phone === phone && o.status === 'completed');
-            let totalSpent = 0;
-            userOrders.forEach(o => totalSpent += parseInt(o.price) || 0);
-            const progress = Math.min((totalSpent / COUPON_THRESHOLD) * 100, 100);
-            couponProgressBar.style.width = progress + '%';
-            totalSpentDisplay.textContent = '৳' + totalSpent.toLocaleString();
-            if (totalSpent >= COUPON_THRESHOLD) {
-                couponProgressText.textContent = '🎉 You\'re eligible!';
-                remainingForCoupon.textContent = '✅ Ready to claim!';
-                claimCouponBtn.disabled = false;
-                claimCouponBtn.innerHTML = '<i class="fas fa-ticket-alt"></i> Claim Coupon';
-            } else {
-                const remaining = COUPON_THRESHOLD - totalSpent;
-                couponProgressText.textContent = 'Spend ৳' + COUPON_THRESHOLD;
-                remainingForCoupon.textContent = 'Need ৳' + remaining.toLocaleString() + ' more';
-                claimCouponBtn.disabled = true;
-                claimCouponBtn.innerHTML = '<i class="fas fa-ticket-alt"></i> Claim Coupon';
+            if (category) {
+                filtered = filtered.filter(p => p.category === category);
             }
-            const coupons = getCoupons();
-            if (coupons[phone]) {
-                couponClaimed = true;
-                claimCouponBtn.disabled = true;
-                claimCouponBtn.innerHTML = '<i class="fas fa-check"></i> Claimed';
-                couponCodeDisplay.style.display = 'block';
-                couponCodeText.textContent = coupons[phone].code;
-            } else { couponClaimed = false; couponCodeDisplay.style.display = 'none'; }
-        }
+            
+            // Convert product data for display
+            const displayProducts = filtered.map(p => ({
+                id: p.id || p._id,
+                name: p.name,
+                price: p.basePrice || p.price,
+                oldPrice: p.oldPrice || 0,
+                category: p.category,
+                image: p.image,
+                stock: p.stock !== undefined ? p.stock : true,
+                desc: p.desc || 'Product description here.',
+                durations: p.durations || [{ label: '1 Month', price: 0 }],
+                accessTypes: p.accessTypes || ['personal']
+            }));
 
-        function generateCouponCode() { const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; let code = 'CPN-'; for (let i = 0; i < 8; i++) code += chars.charAt(Math.floor(Math.random() * chars.length)); return code; }
-
-        function claimCoupon() {
-            const user = getCurrentUser();
-            if (!user) { alert('Please login first!'); return; }
-            const phone = user.whatsapp;
-            const orders = getOrders();
-            const userOrders = orders.filter(o => o.phone === phone && o.status === 'completed');
-            let totalSpent = 0;
-            userOrders.forEach(o => totalSpent += parseInt(o.price) || 0);
-            if (totalSpent < COUPON_THRESHOLD) { alert('Spend at least ৳' + COUPON_THRESHOLD + ' to claim!'); return; }
-            const coupons = getCoupons();
-            if (coupons[phone]) { alert('You already have a coupon!'); return; }
-            const code = generateCouponCode();
-            coupons[phone] = { code, claimedAt: new Date().toISOString(), used: false };
-            saveCoupons(coupons);
-            sendMessageToUser('admin@shoppro.bd', '🎫 Coupon Claim Request', `Customer ${user.name} (${phone}) requested a coupon.\nTotal spent: ৳${totalSpent}\nCode: ${code}`);
-            sendMessageToUser(user.email, '🎉 Your Coupon Code', `Congratulations! Your coupon: ${code}\n\nUse this code for exclusive discounts!`);
-            couponClaimed = true;
-            claimCouponBtn.disabled = true;
-            claimCouponBtn.innerHTML = '<i class="fas fa-check"></i> Claimed';
-            couponCodeDisplay.style.display = 'block';
-            couponCodeText.textContent = code;
-            showToast('🎉 Coupon claimed! Check messages.', 'success');
-            renderMessages();
-            updateCouponProgress(phone);
-        }
-
-        function redeemCoupon() { redeemInputGroup.style.display = redeemInputGroup.style.display === 'none' ? 'flex' : 'none'; if (redeemInputGroup.style.display === 'flex') redeemInputGroup.scrollIntoView({ behavior: 'smooth' }); }
-
-        function applyCoupon() {
-            const code = redeemCodeInput.value.trim().toUpperCase();
-            if (!code) { showToast('Enter a coupon code!', 'error'); return; }
-            const coupons = getCoupons(); let found = false; let phone = '';
-            for (let key in coupons) { if (coupons[key].code === code && !coupons[key].used) { found = true; phone = key; break; } }
-            if (!found) { showToast('❌ Invalid or used coupon!', 'error'); return; }
-            coupons[phone].used = true;
-            saveCoupons(coupons);
-            const couponProducts = getCouponProducts();
-            if (couponProducts.length === 0) { showToast('⚠️ No coupon products!', 'error'); return; }
-            couponProductsSection.classList.add('active');
-            renderCouponProducts();
-            showToast('✅ Coupon applied! Check exclusive products.', 'success');
-            redeemInputGroup.style.display = 'none';
-            redeemCodeInput.value = '';
-            couponCodeDisplay.style.display = 'none';
-            couponProductsSection.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function renderCouponProducts() {
-            const products = getCouponProducts();
-            if (products.length === 0) { couponProductGrid.innerHTML = '<p style="color:#6a7a8a; text-align:center; padding:12px;">No coupon products.</p>'; return; }
-            couponProductGrid.innerHTML = products.map(p => `
-                <div class="coupon-product-card"><img src="${p.image}" alt="${p.name}" /><h4>${p.name}</h4><div><span class="price">৳${p.price}</span> <span class="original-price">৳${p.oldPrice}</span></div><button class="coupon-buy-btn" onclick="buyCouponProduct(${p.id})"><i class="fas fa-shopping-bag"></i> Buy Now</button></div>
+            grid.innerHTML = displayProducts.map(p => `
+                <div class="product-card" data-id="${p.id}" onclick="openProductDetail('${p.id}')">
+                    <span class="badge-stock ${p.stock ? 'in-stock' : 'out-of-stock'}">${p.stock ? 'In Stock' : 'Out of Stock'}</span>
+                    <img src="${p.image}" alt="${p.name}" class="product-image" />
+                    <h4>${p.name}</h4>
+                    <div class="price">৳${p.price} <small>৳${p.oldPrice}</small></div>
+                </div>
             `).join('');
         }
 
-        window.buyCouponProduct = function(id) {
-            const products = getCouponProducts();
+        // ===== OPEN PRODUCT DETAIL =====
+        window.openProductDetail = function(id) {
             const product = products.find(p => p.id === id);
             if (!product) return;
-            const user = getCurrentUser();
-            if (!user) { alert('Please login first!'); return; }
-            const coupons = getCoupons();
-            let hasValidCoupon = false;
-            let userPhone = user.whatsapp;
-            if (coupons[userPhone] && !coupons[userPhone].used) hasValidCoupon = true;
-            if (!hasValidCoupon) { alert('Need a valid coupon code!'); return; }
-            const existing = cart.find(item => item.id === product.id);
-            if (existing) existing.qty += 1;
-            else cart.push({ ...product, qty: 1, totalPrice: product.price });
-            updateCartBadge();
-            showToast(product.name + ' added to cart!', 'success');
-            openPanel('cart');
-        };
+            currentDetailProductId = id;
+            
+            detailName.textContent = product.name;
+            detailPrice.innerHTML = `৳${product.basePrice || product.price} <small>৳${product.oldPrice || 0}</small>`;
+            detailDescription.textContent = product.desc || 'Description here.';
+            detailImage.innerHTML = `<img src="${product.image}" alt="${product.name}" />`;
 
-        // ===== ACCOUNT =====
-        function registerUser(name, email, whatsapp, password) {
-            const users = getUsers();
-            if (users[email]) return { success: false, message: 'Email already registered!' };
-            users[email] = { name, email, whatsapp, password, orders: [], registeredAt: new Date().toISOString() };
-            saveUsers(users);
-            return { success: true, message: 'Account created!' };
-        }
+            selectedDuration = '1 Month';
+            selectedAccess = 'personal';
+            selectedAccessMultiplier = 1;
 
-        function loginUser(email, password) {
-            const users = getUsers();
-            const user = users[email];
-            if (!user) return { success: false, message: 'No account found!' };
-            if (user.password !== password) return { success: false, message: 'Incorrect password!' };
-            setCurrentUser(email);
-            return { success: true, message: 'Login successful!', user: user };
-        }
-
-        function logoutUser() {
-            setCurrentUser(null);
-            messagePanel.classList.remove('open');
-            messageToggleBtn.classList.remove('show');
-            updateMessageBadge();
-        }
-
-        // ===== RENDER ACCOUNT =====
-        function renderAccountPanel() {
-            const user = getCurrentUser();
-            if (user) {
-                panelTitle.innerHTML = '<i class="fas fa-user-circle"></i> My Account';
-                panelContent.innerHTML = `
-                    <div class="user-info" style="display:block;"><div class="user-avatar-sm"><i class="fas fa-user"></i></div>
-                    <div class="user-name-display">${user.name}</div><div class="user-email-display">${user.email}</div>
-                    <div style="margin-top:4px; font-size:11px; color:#5a6a7a;"><i class="fab fa-whatsapp"></i> ${user.whatsapp || 'N/A'}</div>
-                    <div style="margin-top:10px; text-align:left; background:#f0f4fc; padding:8px; border-radius:8px;">
-                        <h4 style="font-size:12px;"><i class="fas fa-clock"></i> Order History</h4>
-                        ${(user.orders && user.orders.length > 0) ? user.orders.map(order => `
-                            <div style="display:flex; justify-content:space-between; padding:3px 0; border-bottom:1px solid #dce3ef; font-size:11px;">
-                                <span>${order.product}</span><span>৳${order.price}</span>
-                                <span style="font-size:9px; color:${order.status === 'completed' ? '#22c55e' : order.status === 'cancelled' ? '#dc2626' : '#d97706'};">${(order.status || 'Pending').toUpperCase()}</span>
-                            </div>
-                        `).join('') : '<p style="color:#94a9c2; font-size:11px; margin-top:4px;">No orders</p>'}
-                    </div>
-                    <div style="margin-top:8px; text-align:left; background:#eef4ff; padding:8px; border-radius:8px;">
-                        <h4 style="font-size:12px;"><i class="fas fa-envelope"></i> Messages</h4>
-                        <p style="font-size:11px;">You have <strong>${unreadCount}</strong> unread</p>
-                        <button style="padding:4px 14px; font-size:11px; background:#1a73e8; color:#fff; border:none; border-radius:4px; cursor:pointer;" onclick="document.getElementById('messageToggleBtn').click();"><i class="fas fa-envelope"></i> Open</button>
-                    </div>
-                    <div style="margin-top:8px; text-align:left; background:#fef3c7; padding:8px; border-radius:8px;">
-                        <h4 style="font-size:12px;"><i class="fas fa-gift"></i> Coupon Info</h4>
-                        <p style="font-size:11px;">Spend ৳1000 to get a FREE coupon!</p>
-                        <a href="#orderTrackingSection" style="color:#1a73e8; font-size:11px; text-decoration:none;" onclick="closePanel();"><i class="fas fa-arrow-right"></i> Check progress</a>
-                    </div>
-                    <button class="logout-btn-sm" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
-                `;
-                document.getElementById('logoutBtn').addEventListener('click', function() { logoutUser(); renderAccountPanel(); showToast('Logged out.', 'info'); });
-            } else {
-                panelTitle.innerHTML = '<i class="fas fa-user-circle"></i> Account';
-                panelContent.innerHTML = `
-                    <div class="auth-tabs"><button class="auth-tab active" data-tab="login">Login</button><button class="auth-tab" data-tab="register">Register</button></div>
-                    <div id="authFormContainer">
-                        <div id="loginForm" class="auth-form">
-                            <div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="Enter email" /></div>
-                            <div class="form-group"><label>Password</label><div style="position:relative;"><input type="password" id="loginPassword" placeholder="Enter password" style="padding-right:40px;" /><button onclick="togglePass('loginPassword',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:#94a9c2;cursor:pointer;"><i class="fas fa-eye"></i></button></div></div>
-                            <div class="auth-error" id="loginError"></div><div class="auth-success" id="loginSuccess"></div>
-                            <button class="auth-btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
-                        </div>
-                        <div id="registerForm" class="auth-form" style="display:none;">
-                            <div class="form-group"><label>Full Name</label><input type="text" id="registerName" placeholder="Enter full name" /></div>
-                            <div class="form-group"><label>Email</label><input type="email" id="registerEmail" placeholder="Enter email" /></div>
-                            <div class="form-group"><label>WhatsApp Number</label><input type="tel" id="registerWhatsapp" placeholder="Enter WhatsApp number" /></div>
-                            <div class="form-group"><label>Password</label><div style="position:relative;"><input type="password" id="registerPassword" placeholder="Create password (min 6)" style="padding-right:40px;" /><button onclick="togglePass('registerPassword',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:#94a9c2;cursor:pointer;"><i class="fas fa-eye"></i></button></div></div>
-                            <div class="auth-error" id="registerError"></div><div class="auth-success" id="registerSuccess"></div>
-                            <button class="auth-btn" id="registerBtn"><i class="fas fa-user-plus"></i> Create Account</button>
-                        </div>
-                    </div>
-                `;
-
-                window.togglePass = function(id, btn) {
-                    const input = document.getElementById(id);
-                    if (input.type === 'password') { input.type = 'text'; btn.innerHTML = '<i class="fas fa-eye-slash"></i>'; } 
-                    else { input.type = 'password'; btn.innerHTML = '<i class="fas fa-eye"></i>'; }
-                };
-
-                document.querySelectorAll('.auth-tab').forEach(tab => {
-                    tab.addEventListener('click', function() {
-                        document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
-                        this.classList.add('active');
-                        const tabName = this.dataset.tab;
-                        if (tabName === 'login') { document.getElementById('loginForm').style.display = 'flex'; document.getElementById('registerForm').style.display = 'none'; } 
-                        else { document.getElementById('loginForm').style.display = 'none'; document.getElementById('registerForm').style.display = 'flex'; }
+            // Update duration options
+            const durationDropdown = document.getElementById('durationDropdown');
+            durationDropdown.innerHTML = '';
+            if (product.durations && product.durations.length > 0) {
+                product.durations.forEach((d, index) => {
+                    const item = document.createElement('div');
+                    item.className = `dropdown-item ${index === 0 ? 'selected' : ''}`;
+                    item.dataset.value = d.label;
+                    item.textContent = d.label;
+                    item.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        selectedDuration = selectDropdownItem(this, durationDropdown, durationSelected, durationSelect);
+                        updateDetailTotal();
                     });
-                });
-
-                document.getElementById('loginBtn').addEventListener('click', function() {
-                    const email = document.getElementById('loginEmail').value.trim();
-                    const password = document.getElementById('loginPassword').value.trim();
-                    const errorEl = document.getElementById('loginError'); const successEl = document.getElementById('loginSuccess');
-                    errorEl.style.display = 'none'; successEl.style.display = 'none';
-                    if (!email || !password) { errorEl.textContent = 'Please enter email and password.'; errorEl.style.display = 'block'; return; }
-                    const result = loginUser(email, password);
-                    if (result.success) {
-                        successEl.textContent = result.message; successEl.style.display = 'block';
-                        setTimeout(() => { renderAccountPanel(); updateMessageBadge(); showToast('✅ ' + result.message, 'success'); const user = getCurrentUser(); if (user && user.whatsapp) updateCouponProgress(user.whatsapp); }, 1000);
-                    } else { errorEl.textContent = result.message; errorEl.style.display = 'block'; }
-                });
-
-                document.getElementById('registerBtn').addEventListener('click', function() {
-                    const name = document.getElementById('registerName').value.trim();
-                    const email = document.getElementById('registerEmail').value.trim();
-                    const whatsapp = document.getElementById('registerWhatsapp').value.trim();
-                    const password = document.getElementById('registerPassword').value.trim();
-                    const errorEl = document.getElementById('registerError'); const successEl = document.getElementById('registerSuccess');
-                    errorEl.style.display = 'none'; successEl.style.display = 'none';
-                    if (!name || !email || !whatsapp || !password) { errorEl.textContent = 'Fill all fields.'; errorEl.style.display = 'block'; return; }
-                    if (password.length < 6) { errorEl.textContent = 'Password must be 6+ characters.'; errorEl.style.display = 'block'; return; }
-                    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errorEl.textContent = 'Valid email required.'; errorEl.style.display = 'block'; return; }
-                    if (!/^01[3-9]\d{8}$/.test(whatsapp.replace(/\s/g, ''))) { errorEl.textContent = 'Valid BD number (01XXXXXXXXX).'; errorEl.style.display = 'block'; return; }
-                    const result = registerUser(name, email, whatsapp, password);
-                    if (result.success) {
-                        successEl.textContent = result.message + ' You can now login!'; successEl.style.display = 'block';
-                        document.getElementById('registerName').value = ''; document.getElementById('registerEmail').value = ''; document.getElementById('registerWhatsapp').value = ''; document.getElementById('registerPassword').value = '';
-                        document.querySelector('.auth-tab[data-tab="login"]').click();
-                        showToast('✅ ' + result.message, 'success');
-                    } else { errorEl.textContent = result.message; errorEl.style.display = 'block'; }
+                    durationDropdown.appendChild(item);
                 });
             }
+
+            // Update access options
+            const accessDropdown = document.getElementById('accessDropdown');
+            accessDropdown.innerHTML = '';
+            if (product.accessTypes && product.accessTypes.length > 0) {
+                const accessOptions = [
+                    { value: 'personal', label: 'Personal', multiplier: 1 },
+                    { value: 'shared', label: 'Shared', multiplier: 0.6 }
+                ];
+                accessOptions.forEach((a, index) => {
+                    if (product.accessTypes.includes(a.value)) {
+                        const item = document.createElement('div');
+                        item.className = `dropdown-item ${index === 0 ? 'selected' : ''}`;
+                        item.dataset.value = a.value;
+                        item.dataset.priceMultiplier = a.multiplier;
+                        item.textContent = a.label;
+                        item.addEventListener('click', function(e) {
+                            e.stopPropagation();
+                            selectedAccess = selectDropdownItem(this, accessDropdown, accessSelected, accessSelect);
+                            selectedAccessMultiplier = parseFloat(this.dataset.priceMultiplier) || 1;
+                            updateDetailTotal();
+                        });
+                        accessDropdown.appendChild(item);
+                    }
+                });
+            }
+
+            sessionStorage.setItem('detailProductId', id);
+            sessionStorage.setItem('detailProductName', product.name);
+            sessionStorage.setItem('detailProductPrice', product.basePrice || product.price);
+
+            updateDetailTotal();
+            detailOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        // ===== UPDATE DETAIL TOTAL =====
+        function updateDetailTotal() {
+            const productId = sessionStorage.getItem('detailProductId');
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            const basePrice = product.basePrice || product.price;
+            const durationPrices = {
+                '1 Month': 0,
+                '3 Months': Math.round(basePrice * 0.9),
+                '6 Months': Math.round(basePrice * 0.8),
+                '12 Months': Math.round(basePrice * 0.7)
+            };
+            const durationPrice = durationPrices[selectedDuration] || 0;
+            const finalPrice = Math.round((basePrice + durationPrice) * selectedAccessMultiplier);
+            detailTotalPrice.textContent = `৳${finalPrice.toLocaleString()}`;
+            sessionStorage.setItem('detailTotalPrice', finalPrice);
+            sessionStorage.setItem('detailDuration', selectedDuration);
+            sessionStorage.setItem('detailAccess', selectedAccess);
         }
 
         // ===== CUSTOM SELECT =====
@@ -1839,7 +1201,10 @@
             const isActive = selectElement.classList.contains('active');
             document.querySelectorAll('.custom-select').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.dropdown-list').forEach(el => el.classList.remove('show'));
-            if (!isActive) { selectElement.classList.add('active'); dropdown.classList.add('show'); }
+            if (!isActive) {
+                selectElement.classList.add('active');
+                dropdown.classList.add('show');
+            }
         }
 
         function selectDropdownItem(item, dropdown, selectedElement, selectElement) {
@@ -1853,99 +1218,58 @@
             return value;
         }
 
-        durationSelect.addEventListener('click', function(e) { e.stopPropagation(); toggleDropdown(this, durationDropdown); });
-        durationItems.forEach(item => { item.addEventListener('click', function(e) { e.stopPropagation(); selectedDuration = selectDropdownItem(this, durationDropdown, durationSelected, durationSelect); updateDetailTotal(); }); });
+        durationSelect.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleDropdown(this, durationDropdown);
+        });
 
-        accessSelect.addEventListener('click', function(e) { e.stopPropagation(); toggleDropdown(this, accessDropdown); });
-        accessItems.forEach(item => { item.addEventListener('click', function(e) { e.stopPropagation(); selectedAccess = selectDropdownItem(this, accessDropdown, accessSelected, accessSelect); selectedAccessMultiplier = parseFloat(this.dataset.priceMultiplier) || 1; updateDetailTotal(); }); });
+        accessSelect.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleDropdown(this, accessDropdown);
+        });
 
-        document.addEventListener('click', function() { document.querySelectorAll('.custom-select').forEach(el => el.classList.remove('active')); document.querySelectorAll('.dropdown-list').forEach(el => el.classList.remove('show')); });
+        document.addEventListener('click', function() {
+            document.querySelectorAll('.custom-select').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.dropdown-list').forEach(el => el.classList.remove('show'));
+        });
 
-        // ===== NAVIGATION =====
-        function showHome() { homeSection.style.display = 'block'; document.querySelector('.features').style.display = 'grid'; shopSection.style.display = 'block'; refundSection.style.display = 'none'; reviewsSection.style.display = 'none'; document.getElementById('orderTrackingSection').style.display = 'block'; window.scrollTo({ top: 0, behavior: 'smooth' }); renderProducts(); }
-        function showShop() { homeSection.style.display = 'block'; document.querySelector('.features').style.display = 'grid'; shopSection.style.display = 'block'; refundSection.style.display = 'none'; reviewsSection.style.display = 'none'; document.getElementById('orderTrackingSection').style.display = 'block'; document.getElementById('shopSection').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-        function showRefund() { homeSection.style.display = 'block'; document.querySelector('.features').style.display = 'grid'; shopSection.style.display = 'block'; refundSection.style.display = 'block'; reviewsSection.style.display = 'none'; document.getElementById('orderTrackingSection').style.display = 'block'; refundSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
-        function showReviews() { homeSection.style.display = 'block'; document.querySelector('.features').style.display = 'grid'; shopSection.style.display = 'block'; refundSection.style.display = 'none'; reviewsSection.style.display = 'block'; document.getElementById('orderTrackingSection').style.display = 'block'; reviewsSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+        // ===== DETAIL BUTTONS =====
+        detailCloseBtn.addEventListener('click', function() {
+            detailOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
 
-        navHome.addEventListener('click', (e) => { e.preventDefault(); showHome(); });
-        navRefund.addEventListener('click', (e) => { e.preventDefault(); showRefund(); });
-        navReviews.addEventListener('click', (e) => { e.preventDefault(); showReviews(); });
-        footerShopLink.addEventListener('click', (e) => { e.preventDefault(); showShop(); });
-        footerRefundLink.addEventListener('click', (e) => { e.preventDefault(); showRefund(); });
-
-        // ===== RENDER REVIEWS =====
-        function renderReviews() {
-            reviewsGallery.innerHTML = reviewsData.map(review => {
-                if (review.type === 'video') {
-                    return `<div class="review-item"><video class="review-media-video" controls><source src="${review.src}" type="video/mp4"></video><div class="review-info"><div class="review-name">${review.name}</div><div class="review-stars">${'★'.repeat(review.stars)}${'☆'.repeat(5 - review.stars)}</div><div class="review-text">"${review.text}"</div></div></div>`;
-                } else {
-                    return `<div class="review-item"><img src="${review.src}" alt="${review.name}" class="review-media" /><div class="review-info"><div class="review-name">${review.name}</div><div class="review-stars">${'★'.repeat(review.stars)}${'☆'.repeat(5 - review.stars)}</div><div class="review-text">"${review.text}"</div></div></div>`;
-                }
-            }).join('');
-        }
-
-        // ===== RENDER PRODUCTS =====
-        function renderProducts(filterText = '', category = '') {
-            let filtered = products;
-            if (filterText.trim() !== '') filtered = filtered.filter(p => p.name.toLowerCase().includes(filterText.toLowerCase()));
-            if (category) filtered = filtered.filter(p => p.category === category);
-            grid.innerHTML = filtered.map(p => `
-                <div class="product-card" data-id="${p.id}" onclick="openProductDetail(${p.id})">
-                    <span class="badge-stock ${p.stock ? 'in-stock' : 'out-of-stock'}">${p.stock ? 'In Stock' : 'Out of Stock'}</span>
-                    <img src="${p.image}" alt="${p.name}" class="product-image" />
-                    <h4>${p.name}</h4>
-                    <div class="price">৳${p.price} <small>৳${p.oldPrice}</small></div>
-                </div>
-            `).join('');
-        }
-
-        // ===== UPDATE DETAIL TOTAL =====
-        function updateDetailTotal() {
-            const productId = parseInt(sessionStorage.getItem('detailProductId'));
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
-            const durationPrices = { '1 Month': 0, '3 Months': Math.round(product.price * 0.9), '6 Months': Math.round(product.price * 0.8), '12 Months': Math.round(product.price * 0.7) };
-            const durationPrice = durationPrices[selectedDuration] || 0;
-            const basePrice = product.price + durationPrice;
-            const finalPrice = Math.round(basePrice * selectedAccessMultiplier);
-            detailTotalPrice.textContent = `৳${finalPrice.toLocaleString()}`;
-            sessionStorage.setItem('detailTotalPrice', finalPrice);
-            sessionStorage.setItem('detailDuration', selectedDuration);
-            sessionStorage.setItem('detailAccess', selectedAccess);
-        }
-
-        // ===== OPEN PRODUCT DETAIL =====
-        window.openProductDetail = function(id) {
-            const product = products.find(p => p.id === id);
-            if (!product) return;
-            currentDetailProductId = id;
-            detailName.textContent = product.name;
-            detailPrice.innerHTML = `৳${product.price.toLocaleString()} <small>৳${product.oldPrice.toLocaleString()}</small>`;
-            detailDescription.textContent = product.desc || 'Description here.';
-            detailImage.innerHTML = `<img src="${product.image}" alt="${product.name}" />`;
-            selectedDuration = '1 Month'; selectedAccess = 'personal'; selectedAccessMultiplier = 1;
-            durationItems.forEach(el => el.classList.remove('selected')); durationDropdown.querySelector('[data-value="1 Month"]').classList.add('selected'); durationSelected.textContent = '1 Month';
-            accessItems.forEach(el => el.classList.remove('selected')); accessDropdown.querySelector('[data-value="personal"]').classList.add('selected'); accessSelected.textContent = 'Personal';
-            sessionStorage.setItem('detailProductId', product.id);
-            sessionStorage.setItem('detailProductName', product.name);
-            sessionStorage.setItem('detailProductPrice', product.price);
-            updateDetailTotal();
-            detailOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        };
-
-        detailCloseBtn.addEventListener('click', function() { detailOverlay.classList.remove('active'); document.body.style.overflow = ''; });
-        detailOverlay.addEventListener('click', function(e) { if (e.target === this) { detailOverlay.classList.remove('active'); document.body.style.overflow = ''; } });
+        detailOverlay.addEventListener('click', function(e) {
+            if (e.target === this) {
+                detailOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
 
         detailAddCart.addEventListener('click', function() {
-            const productId = parseInt(sessionStorage.getItem('detailProductId'));
+            const productId = sessionStorage.getItem('detailProductId');
             const product = products.find(p => p.id === productId);
             if (!product) return;
-            if (!product.stock) { showToast('⚠️ Out of stock!', 'error'); return; }
-            const totalPrice = parseInt(sessionStorage.getItem('detailTotalPrice')) || product.price;
+            if (!product.stock) {
+                showToast('⚠️ Out of stock!', 'error');
+                return;
+            }
+            const totalPrice = parseInt(sessionStorage.getItem('detailTotalPrice')) || (product.basePrice || product.price);
             const existing = cart.find(item => item.id === productId);
-            if (existing) existing.qty += 1;
-            else cart.push({ ...product, qty: 1, duration: selectedDuration, access: selectedAccess, totalPrice: totalPrice });
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: product.name,
+                    price: product.basePrice || product.price,
+                    image: product.image,
+                    qty: 1,
+                    duration: selectedDuration,
+                    access: selectedAccess,
+                    totalPrice: totalPrice
+                });
+            }
             updateCartBadge();
             showToast(`${product.name} added to cart!`, 'success');
             detailOverlay.classList.remove('active');
@@ -1953,33 +1277,49 @@
         });
 
         detailBuyNow.addEventListener('click', function() {
-            const productId = parseInt(sessionStorage.getItem('detailProductId'));
+            const productId = sessionStorage.getItem('detailProductId');
             const product = products.find(p => p.id === productId);
             if (!product) return;
-            if (!product.stock) { showToast('⚠️ Out of stock!', 'error'); return; }
-            const totalPrice = parseInt(sessionStorage.getItem('detailTotalPrice')) || product.price;
+            if (!product.stock) {
+                showToast('⚠️ Out of stock!', 'error');
+                return;
+            }
+            const totalPrice = parseInt(sessionStorage.getItem('detailTotalPrice')) || (product.basePrice || product.price);
             sessionStorage.setItem('orderProduct', product.name);
             sessionStorage.setItem('orderPrice', totalPrice);
             sessionStorage.setItem('orderDuration', selectedDuration);
             sessionStorage.setItem('orderAccess', selectedAccess);
             detailOverlay.classList.remove('active');
             document.body.style.overflow = '';
-            setTimeout(() => { openPaymentWithPrice(productId, totalPrice); }, 300);
+            setTimeout(() => {
+                openPaymentWithPrice(productId, totalPrice);
+            }, 300);
         });
 
         // ===== CART =====
-        function updateCartBadge() { const total = cart.reduce((sum, item) => sum + item.qty, 0); cartCountEl.textContent = total; }
+        function updateCartBadge() {
+            const total = cart.reduce((sum, item) => sum + item.qty, 0);
+            cartCountEl.textContent = total;
+        }
 
         // ===== FAVORITES =====
         function toggleFavorite(id) {
             const product = products.find(p => p.id === id);
             if (!product) return;
             const idx = favorites.findIndex(item => item.id === id);
-            if (idx !== -1) { favorites.splice(idx, 1); showToast(`${product.name} removed from favorites.`, 'info'); } 
-            else { favorites.push(product); showToast(`${product.name} added to favorites!`, 'success'); }
+            if (idx !== -1) {
+                favorites.splice(idx, 1);
+                showToast(`${product.name} removed from favorites.`, 'info');
+            } else {
+                favorites.push({ id: product.id, name: product.name, price: product.basePrice || product.price, image: product.image, stock: product.stock });
+                showToast(`${product.name} added to favorites!`, 'success');
+            }
             updateFavoriteBadge();
         }
-        function updateFavoriteBadge() { favoriteCountEl.textContent = favorites.length; }
+
+        function updateFavoriteBadge() {
+            favoriteCountEl.textContent = favorites.length;
+        }
 
         // ===== SIDE PANEL =====
         function openPanel(type) {
@@ -1987,10 +1327,21 @@
             sidePanelOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
             if (type === 'account') renderAccountPanel();
-            else if (type === 'cart') { panelTitle.innerHTML = '<i class="fas fa-shopping-bag"></i> My Cart'; renderCartContent(); }
-            else if (type === 'favorites') { panelTitle.innerHTML = '<i class="fas fa-heart" style="color:#dc2626;"></i> My Favorites'; renderFavoritesContent(); }
+            else if (type === 'cart') {
+                panelTitle.innerHTML = '<i class="fas fa-shopping-bag"></i> My Cart';
+                renderCartContent();
+            } else if (type === 'favorites') {
+                panelTitle.innerHTML = '<i class="fas fa-heart" style="color:#dc2626;"></i> My Favorites';
+                renderFavoritesContent();
+            }
         }
-        function closePanel() { sidePanel.classList.remove('open'); sidePanelOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+
+        function closePanel() {
+            sidePanel.classList.remove('open');
+            sidePanelOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         sidePanelClose.addEventListener('click', closePanel);
         sidePanelOverlay.addEventListener('click', closePanel);
 
@@ -2023,15 +1374,40 @@
                 <button class="checkout-btn" id="checkoutBtn"><i class="fas fa-credit-card"></i> Checkout</button>
             `;
             document.querySelectorAll('.qty-plus').forEach(btn => {
-                btn.addEventListener('click', function() { const id = parseInt(this.dataset.id); const item = cart.find(i => i.id === id); if (item) { item.qty += 1; updateCartBadge(); renderCartContent(); } });
+                btn.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    const item = cart.find(i => i.id === id);
+                    if (item) { item.qty += 1; updateCartBadge(); renderCartContent(); }
+                });
             });
             document.querySelectorAll('.qty-minus').forEach(btn => {
-                btn.addEventListener('click', function() { const id = parseInt(this.dataset.id); const item = cart.find(i => i.id === id); if (item) { if (item.qty > 1) item.qty -= 1; else cart = cart.filter(i => i.id !== id); updateCartBadge(); renderCartContent(); } });
+                btn.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    const item = cart.find(i => i.id === id);
+                    if (item) {
+                        if (item.qty > 1) item.qty -= 1;
+                        else cart = cart.filter(i => i.id !== id);
+                        updateCartBadge();
+                        renderCartContent();
+                    }
+                });
             });
             document.querySelectorAll('.remove-btn').forEach(btn => {
-                btn.addEventListener('click', function() { const id = parseInt(this.dataset.id); cart = cart.filter(i => i.id !== id); updateCartBadge(); renderCartContent(); showToast('Product removed.', 'info'); });
+                btn.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    cart = cart.filter(i => i.id !== id);
+                    updateCartBadge();
+                    renderCartContent();
+                    showToast('Product removed.', 'info');
+                });
             });
-            document.getElementById('checkoutBtn').addEventListener('click', function() { if (cart.length > 0) { const firstItem = cart[0]; const price = firstItem.totalPrice || firstItem.price; openPaymentWithPrice(firstItem.id, price); } });
+            document.getElementById('checkoutBtn').addEventListener('click', function() {
+                if (cart.length > 0) {
+                    const firstItem = cart[0];
+                    const price = firstItem.totalPrice || firstItem.price;
+                    openPaymentWithPrice(firstItem.id, price);
+                }
+            });
         }
 
         // ===== FAVORITES CONTENT =====
@@ -2050,8 +1426,180 @@
                 `).join('')}</div>
             `;
             document.querySelectorAll('.fav-remove').forEach(btn => {
-                btn.addEventListener('click', function() { const id = parseInt(this.dataset.id); const idx = favorites.findIndex(item => item.id === id); if (idx !== -1) { favorites.splice(idx, 1); updateFavoriteBadge(); renderFavoritesContent(); showToast('Product removed.', 'info'); } });
+                btn.addEventListener('click', function() {
+                    const id = this.dataset.id;
+                    const idx = favorites.findIndex(item => item.id === id);
+                    if (idx !== -1) {
+                        favorites.splice(idx, 1);
+                        updateFavoriteBadge();
+                        renderFavoritesContent();
+                        showToast('Product removed.', 'info');
+                    }
+                });
             });
+        }
+
+        // ===== RENDER ACCOUNT =====
+        function renderAccountPanel() {
+            const user = currentUser;
+            if (user) {
+                panelTitle.innerHTML = '<i class="fas fa-user-circle"></i> My Account';
+                panelContent.innerHTML = `
+                    <div class="user-info" style="display:block;">
+                        <div class="user-avatar-sm"><i class="fas fa-user"></i></div>
+                        <div class="user-name-display">${user.displayName || 'User'}</div>
+                        <div class="user-email-display">${user.email}</div>
+                        <button class="logout-btn-sm" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                    </div>
+                `;
+                document.getElementById('logoutBtn').addEventListener('click', function() {
+                    auth.signOut().then(() => {
+                        currentUser = null;
+                        isLoggedIn = false;
+                        renderAccountPanel();
+                        showToast('Logged out.', 'info');
+                    });
+                });
+            } else {
+                panelTitle.innerHTML = '<i class="fas fa-user-circle"></i> Account';
+                panelContent.innerHTML = `
+                    <div class="auth-tabs">
+                        <button class="auth-tab active" data-tab="login">Login</button>
+                        <button class="auth-tab" data-tab="register">Register</button>
+                    </div>
+                    <div id="authFormContainer">
+                        <div id="loginForm" class="auth-form">
+                            <div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="Enter email" /></div>
+                            <div class="form-group"><label>Password</label><div style="position:relative;"><input type="password" id="loginPassword" placeholder="Enter password" style="padding-right:40px;" /><button onclick="togglePass('loginPassword',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:#94a9c2;cursor:pointer;"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="auth-error" id="loginError"></div>
+                            <div class="auth-success" id="loginSuccess"></div>
+                            <button class="auth-btn" id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
+                        </div>
+                        <div id="registerForm" class="auth-form" style="display:none;">
+                            <div class="form-group"><label>Full Name</label><input type="text" id="registerName" placeholder="Enter full name" /></div>
+                            <div class="form-group"><label>Email</label><input type="email" id="registerEmail" placeholder="Enter email" /></div>
+                            <div class="form-group"><label>WhatsApp Number</label><input type="tel" id="registerWhatsapp" placeholder="Enter WhatsApp number" /></div>
+                            <div class="form-group"><label>Password</label><div style="position:relative;"><input type="password" id="registerPassword" placeholder="Create password (min 6)" style="padding-right:40px;" /><button onclick="togglePass('registerPassword',this)" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;color:#94a9c2;cursor:pointer;"><i class="fas fa-eye"></i></button></div></div>
+                            <div class="auth-error" id="registerError"></div>
+                            <div class="auth-success" id="registerSuccess"></div>
+                            <button class="auth-btn" id="registerBtn"><i class="fas fa-user-plus"></i> Create Account</button>
+                        </div>
+                    </div>
+                `;
+
+                window.togglePass = function(id, btn) {
+                    const input = document.getElementById(id);
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        btn.innerHTML = '<i class="fas fa-eye-slash"></i>';
+                    } else {
+                        input.type = 'password';
+                        btn.innerHTML = '<i class="fas fa-eye"></i>';
+                    }
+                };
+
+                document.querySelectorAll('.auth-tab').forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+                        this.classList.add('active');
+                        const tabName = this.dataset.tab;
+                        if (tabName === 'login') {
+                            document.getElementById('loginForm').style.display = 'flex';
+                            document.getElementById('registerForm').style.display = 'none';
+                        } else {
+                            document.getElementById('loginForm').style.display = 'none';
+                            document.getElementById('registerForm').style.display = 'flex';
+                        }
+                    });
+                });
+
+                document.getElementById('loginBtn').addEventListener('click', function() {
+                    const email = document.getElementById('loginEmail').value.trim();
+                    const password = document.getElementById('loginPassword').value.trim();
+                    const errorEl = document.getElementById('loginError');
+                    const successEl = document.getElementById('loginSuccess');
+                    errorEl.style.display = 'none';
+                    successEl.style.display = 'none';
+                    if (!email || !password) {
+                        errorEl.textContent = 'Please enter email and password.';
+                        errorEl.style.display = 'block';
+                        return;
+                    }
+                    auth.signInWithEmailAndPassword(email, password)
+                        .then((userCredential) => {
+                            currentUser = userCredential.user;
+                            isLoggedIn = true;
+                            successEl.textContent = 'Login successful!';
+                            successEl.style.display = 'block';
+                            setTimeout(() => {
+                                renderAccountPanel();
+                                showToast('✅ Login successful!', 'success');
+                            }, 1000);
+                        })
+                        .catch((error) => {
+                            errorEl.textContent = error.message;
+                            errorEl.style.display = 'block';
+                        });
+                });
+
+                document.getElementById('registerBtn').addEventListener('click', function() {
+                    const name = document.getElementById('registerName').value.trim();
+                    const email = document.getElementById('registerEmail').value.trim();
+                    const whatsapp = document.getElementById('registerWhatsapp').value.trim();
+                    const password = document.getElementById('registerPassword').value.trim();
+                    const errorEl = document.getElementById('registerError');
+                    const successEl = document.getElementById('registerSuccess');
+                    errorEl.style.display = 'none';
+                    successEl.style.display = 'none';
+                    if (!name || !email || !whatsapp || !password) {
+                        errorEl.textContent = 'Fill all fields.';
+                        errorEl.style.display = 'block';
+                        return;
+                    }
+                    if (password.length < 6) {
+                        errorEl.textContent = 'Password must be 6+ characters.';
+                        errorEl.style.display = 'block';
+                        return;
+                    }
+                    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                        errorEl.textContent = 'Valid email required.';
+                        errorEl.style.display = 'block';
+                        return;
+                    }
+                    if (!/^01[3-9]\d{8}$/.test(whatsapp.replace(/\s/g, ''))) {
+                        errorEl.textContent = 'Valid BD number (01XXXXXXXXX).';
+                        errorEl.style.display = 'block';
+                        return;
+                    }
+                    auth.createUserWithEmailAndPassword(email, password)
+                        .then((userCredential) => {
+                            const user = userCredential.user;
+                            return user.updateProfile({ displayName: name }).then(() => {
+                                // Save additional user data to Firestore
+                                return db.collection('users').doc(user.uid).set({
+                                    name: name,
+                                    email: email,
+                                    whatsapp: whatsapp,
+                                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                                });
+                            });
+                        })
+                        .then(() => {
+                            successEl.textContent = 'Account created! You can now login.';
+                            successEl.style.display = 'block';
+                            document.getElementById('registerName').value = '';
+                            document.getElementById('registerEmail').value = '';
+                            document.getElementById('registerWhatsapp').value = '';
+                            document.getElementById('registerPassword').value = '';
+                            document.querySelector('.auth-tab[data-tab="login"]').click();
+                            showToast('✅ Account created! Please login.', 'success');
+                        })
+                        .catch((error) => {
+                            errorEl.textContent = error.message;
+                            errorEl.style.display = 'block';
+                        });
+                });
+            }
         }
 
         // ===== PAYMENT =====
@@ -2101,9 +1649,15 @@
             document.body.style.overflow = 'hidden';
         }
 
-        function closePaymentModal() { modal.classList.remove('active'); document.body.style.overflow = ''; }
+        function closePaymentModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
         modalCloseBtn.addEventListener('click', closePaymentModal);
-        modal.addEventListener('click', function(e) { if (e.target === this) closePaymentModal(); });
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) closePaymentModal();
+        });
 
         categoryBtns.forEach(btn => {
             btn.addEventListener('click', function() {
@@ -2119,7 +1673,11 @@
                     bankVerifyStatus.textContent = '';
                     bankVerifyStatus.className = 'verify-status';
                     bankTransactionInput.value = '';
-                    if (!document.querySelector('.payment-method.selected')) { document.querySelector('.payment-method.method-bkash').classList.add('selected'); selectedMethod = 'bkash'; methodInstructions.innerHTML = methodData.bkash.instructions(price); }
+                    if (!document.querySelector('.payment-method.selected')) {
+                        document.querySelector('.payment-method.method-bkash').classList.add('selected');
+                        selectedMethod = 'bkash';
+                        methodInstructions.innerHTML = methodData.bkash.instructions(price);
+                    }
                     isVerified = false;
                     verifyStatus.textContent = '';
                     verifyStatus.className = 'verify-status';
@@ -2163,16 +1721,22 @@
 
         verifyBtn.addEventListener('click', function() {
             const txnId = transactionInput.value.trim();
-            if (!txnId) { verifyStatus.textContent = '⚠️ Enter transaction ID.'; verifyStatus.className = 'verify-status error'; return; }
+            if (!txnId) {
+                verifyStatus.textContent = '⚠️ Enter transaction ID.';
+                verifyStatus.className = 'verify-status error';
+                return;
+            }
             if (verificationInProgress) return;
             verificationInProgress = true;
             verifyBtn.disabled = true;
-            verifyStatus.textContent = '⏳ Verifying...'; verifyStatus.className = 'verify-status loading';
+            verifyStatus.textContent = '⏳ Verifying...';
+            verifyStatus.className = 'verify-status loading';
             setTimeout(function() {
                 verificationInProgress = false;
                 verifyBtn.disabled = false;
                 isVerified = true;
-                verifyStatus.textContent = '✅ Verified!'; verifyStatus.className = 'verify-status success';
+                verifyStatus.textContent = '✅ Verified!';
+                verifyStatus.className = 'verify-status success';
                 confirmBtn.disabled = false;
                 confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> Confirm Payment';
             }, 4000 + Math.random() * 3000);
@@ -2180,61 +1744,339 @@
 
         bankVerifyBtn.addEventListener('click', function() {
             const txnId = bankTransactionInput.value.trim();
-            if (!txnId) { bankVerifyStatus.textContent = '⚠️ Enter transaction ID.'; bankVerifyStatus.className = 'verify-status error'; return; }
+            if (!txnId) {
+                bankVerifyStatus.textContent = '⚠️ Enter transaction ID.';
+                bankVerifyStatus.className = 'verify-status error';
+                return;
+            }
             if (verificationInProgress) return;
             verificationInProgress = true;
             bankVerifyBtn.disabled = true;
-            bankVerifyStatus.textContent = '⏳ Verifying...'; bankVerifyStatus.className = 'verify-status loading';
+            bankVerifyStatus.textContent = '⏳ Verifying...';
+            bankVerifyStatus.className = 'verify-status loading';
             setTimeout(function() {
                 verificationInProgress = false;
                 bankVerifyBtn.disabled = false;
                 isVerified = true;
-                bankVerifyStatus.textContent = '✅ Verified!'; bankVerifyStatus.className = 'verify-status success';
+                bankVerifyStatus.textContent = '✅ Verified!';
+                bankVerifyStatus.className = 'verify-status success';
                 confirmBtn.disabled = false;
                 confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> Confirm Payment';
             }, 4000 + Math.random() * 3000);
         });
 
         confirmBtn.addEventListener('click', function() {
-            if (!isVerified) { alert('⚠️ Verify your transaction ID first.'); return; }
+            if (!isVerified) {
+                alert('⚠️ Verify your transaction ID first.');
+                return;
+            }
             const productName = sessionStorage.getItem('orderProduct') || 'Product';
             const price = sessionStorage.getItem('orderPrice') || '0';
             const methodName = currentCategory === 'bank' ? 'Bank Transfer' : (methodData[selectedMethod]?.name || selectedMethod);
             const txnId = currentCategory === 'bank' ? bankTransactionInput.value : transactionInput.value;
             const duration = sessionStorage.getItem('orderDuration') || 'N/A';
             const access = sessionStorage.getItem('orderAccess') || 'N/A';
-            const user = getCurrentUser();
-            const userPhone = user ? user.whatsapp : 'N/A';
-            const orders = getOrders();
-            orders.push({ id: Date.now(), product: productName, price: price, duration: duration, access: access, phone: userPhone, customer: user ? user.name : 'Guest', status: 'pending', date: new Date().toISOString(), transactionId: txnId });
-            saveOrders(orders);
-            if (user) { const users = getUsers(); if (users[user.email]) { if (!users[user.email].orders) users[user.email].orders = []; users[user.email].orders.push({ product: productName, price: price, duration: duration, access: access, status: 'pending', date: new Date().toISOString() }); saveUsers(users); } }
-            const message = `🆕 *New Order!*\n\n📦 *Product:* ${productName}\n💰 *Price:* ৳${formatPrice(Number(price))}\n⏰ *Duration:* ${duration}\n👥 *Access:* ${access}\n💳 *Payment:* ${methodName}\n🆔 *Transaction:* ${txnId}\n👤 *Customer:* ${user ? user.name : 'Guest'}\n📱 *Phone:* ${userPhone}`;
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'Markdown' }) }).catch(e => console.error('Telegram error:', e));
-            confirmBtn.disabled = true;
-            confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-            setTimeout(function() {
-                alert(`🎉 Order Successful!\n\n📦 ${productName}\n💰 ৳${formatPrice(Number(price))}\n⏰ ${duration}\n👥 ${access}\n💳 ${methodName}\n🆔 ${txnId}`);
-                confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> Payment Completed';
-                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('I have placed an order for ' + productName)}`, '_blank');
-                closePaymentModal();
-                cart = [];
-                updateCartBadge();
-                renderCartContent();
-            }, 1500);
+            const userPhone = currentUser ? currentUser.phoneNumber || 'N/A' : 'N/A';
+            const customerName = currentUser ? currentUser.displayName || 'Guest' : 'Guest';
+
+            const orderData = {
+                product: productName,
+                price: price,
+                duration: duration,
+                access: access,
+                phone: userPhone,
+                customer: customerName,
+                status: 'pending',
+                transactionId: txnId,
+                paymentMethod: methodName
+            };
+
+            saveOrderToFirebase(orderData).then(() => {
+                // Send to Telegram
+                const message = `🆕 *New Order!*\n\n📦 *Product:* ${productName}\n💰 *Price:* ৳${formatPrice(Number(price))}\n⏰ *Duration:* ${duration}\n👥 *Access:* ${access}\n💳 *Payment:* ${methodName}\n🆔 *Transaction:* ${txnId}\n👤 *Customer:* ${customerName}\n📱 *Phone:* ${userPhone}`;
+                fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'Markdown' })
+                }).catch(e => console.error('Telegram error:', e));
+
+                confirmBtn.disabled = true;
+                confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+                setTimeout(function() {
+                    alert(`🎉 Order Successful!\n\n📦 ${productName}\n💰 ৳${formatPrice(Number(price))}\n⏰ ${duration}\n👥 ${access}\n💳 ${methodName}\n🆔 ${txnId}`);
+                    confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> Payment Completed';
+                    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('I have placed an order for ' + productName)}`, '_blank');
+                    closePaymentModal();
+                    cart = [];
+                    updateCartBadge();
+                    renderCartContent();
+                }, 1500);
+            });
         });
 
         // ===== COUPON EVENT LISTENERS =====
         claimCouponBtn.addEventListener('click', claimCoupon);
         redeemCouponBtn.addEventListener('click', redeemCoupon);
         applyCouponBtn.addEventListener('click', applyCoupon);
-        redeemCodeInput.addEventListener('keyup', function(e) { if (e.key === 'Enter') applyCouponBtn.click(); });
+        redeemCodeInput.addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') applyCouponBtn.click();
+        });
 
-        // ===== SEND TRACKING MESSAGE =====
-        window.sendTrackingMessage = function(phone) {
-            const user = getCurrentUser();
-            if (!user) { alert('Please login first!'); return; }
-            sendMessageToUser(user.email, 'Order Inquiry - ' + phone, `Hello, I want to know about my order status. My phone: ${phone}.`);
+        // ===== COUPON FUNCTIONS =====
+        async function claimCoupon() {
+            if (!currentUser) {
+                alert('Please login first!');
+                return;
+            }
+            const phone = currentUser.phoneNumber || 'N/A';
+            const orders = await getUserOrders(phone);
+            let totalSpent = 0;
+            orders.forEach(o => {
+                if (o.status === 'completed') totalSpent += parseInt(o.price) || 0;
+            });
+            if (totalSpent < COUPON_THRESHOLD) {
+                alert('Spend at least ৳' + COUPON_THRESHOLD + ' to claim!');
+                return;
+            }
+            const existingCoupon = await getCouponByPhone(phone);
+            if (existingCoupon) {
+                alert('You already have a coupon!');
+                return;
+            }
+            const code = generateCouponCode();
+            await saveCoupon({
+                code: code,
+                phone: phone,
+                discount: 200,
+                used: false
+            });
+            await sendMessageToUser(currentUser.email, '🎉 Your Coupon Code', `Congratulations! Your coupon: ${code}\n\nUse this code for exclusive discounts!`);
+            couponClaimed = true;
+            claimCouponBtn.disabled = true;
+            claimCouponBtn.innerHTML = '<i class="fas fa-check"></i> Claimed';
+            couponCodeDisplay.style.display = 'block';
+            couponCodeText.textContent = code;
+            showToast('🎉 Coupon claimed! Check messages.', 'success');
+            renderMessages();
+            updateCouponProgress(phone);
+        }
+
+        async function updateCouponProgress(phone) {
+            const orders = await getUserOrders(phone);
+            let totalSpent = 0;
+            orders.forEach(o => {
+                if (o.status === 'completed') totalSpent += parseInt(o.price) || 0;
+            });
+            const progress = Math.min((totalSpent / COUPON_THRESHOLD) * 100, 100);
+            couponProgressBar.style.width = progress + '%';
+            totalSpentDisplay.textContent = '৳' + totalSpent.toLocaleString();
+            if (totalSpent >= COUPON_THRESHOLD) {
+                couponProgressText.textContent = '🎉 You\'re eligible!';
+                remainingForCoupon.textContent = '✅ Ready to claim!';
+                claimCouponBtn.disabled = false;
+                claimCouponBtn.innerHTML = '<i class="fas fa-ticket-alt"></i> Claim Coupon';
+            } else {
+                const remaining = COUPON_THRESHOLD - totalSpent;
+                couponProgressText.textContent = 'Spend ৳' + COUPON_THRESHOLD;
+                remainingForCoupon.textContent = 'Need ৳' + remaining.toLocaleString() + ' more';
+                claimCouponBtn.disabled = true;
+                claimCouponBtn.innerHTML = '<i class="fas fa-ticket-alt"></i> Claim Coupon';
+            }
+            const existingCoupon = await getCouponByPhone(phone);
+            if (existingCoupon) {
+                couponClaimed = true;
+                claimCouponBtn.disabled = true;
+                claimCouponBtn.innerHTML = '<i class="fas fa-check"></i> Claimed';
+                couponCodeDisplay.style.display = 'block';
+                couponCodeText.textContent = existingCoupon.code;
+            } else {
+                couponClaimed = false;
+                couponCodeDisplay.style.display = 'none';
+            }
+        }
+
+        function generateCouponCode() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let code = 'CPN-';
+            for (let i = 0; i < 8; i++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+            return code;
+        }
+
+        function redeemCoupon() {
+            redeemInputGroup.style.display = redeemInputGroup.style.display === 'none' ? 'flex' : 'none';
+            if (redeemInputGroup.style.display === 'flex') {
+                redeemInputGroup.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        async function applyCoupon() {
+            const code = redeemCodeInput.value.trim().toUpperCase();
+            if (!code) {
+                showToast('Enter a coupon code!', 'error');
+                return;
+            }
+            try {
+                const snapshot = await db.collection('coupons').where('code', '==', code).where('used', '==', false).limit(1).get();
+                if (snapshot.empty) {
+                    showToast('❌ Invalid or used coupon!', 'error');
+                    return;
+                }
+                const doc = snapshot.docs[0];
+                await markCouponAsUsed(doc.id);
+                const couponProducts = [];
+                const cpSnapshot = await db.collection('couponProducts').get();
+                cpSnapshot.forEach(d => {
+                    const data = d.data();
+                    data.id = d.id;
+                    couponProducts.push(data);
+                });
+                if (couponProducts.length === 0) {
+                    showToast('⚠️ No coupon products!', 'error');
+                    return;
+                }
+                couponProductsSection.classList.add('active');
+                renderCouponProducts();
+                showToast('✅ Coupon applied! Check exclusive products.', 'success');
+                redeemInputGroup.style.display = 'none';
+                redeemCodeInput.value = '';
+                couponCodeDisplay.style.display = 'none';
+                couponProductsSection.scrollIntoView({ behavior: 'smooth' });
+            } catch (error) {
+                console.error('Error applying coupon:', error);
+                showToast('Error applying coupon. Please try again.', 'error');
+            }
+        }
+
+        function renderCouponProducts() {
+            if (couponProducts.length === 0) {
+                couponProductGrid.innerHTML = '<p style="color:#6a7a8a; text-align:center; padding:12px;">No coupon products.</p>';
+                return;
+            }
+            couponProductGrid.innerHTML = couponProducts.map(p => `
+                <div class="coupon-product-card">
+                    <img src="${p.image}" alt="${p.name}" />
+                    <h4>${p.name}</h4>
+                    <div><span class="price">৳${p.price}</span> <span class="original-price">৳${p.oldPrice}</span></div>
+                    <button class="coupon-buy-btn" onclick="buyCouponProduct('${p.id}')"><i class="fas fa-shopping-bag"></i> Buy Now</button>
+                </div>
+            `).join('');
+        }
+
+        window.buyCouponProduct = function(id) {
+            const product = couponProducts.find(p => p.id === id);
+            if (!product) return;
+            if (!currentUser) {
+                alert('Please login first!');
+                return;
+            }
+            const existing = cart.find(item => item.id === id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({
+                    id: id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    qty: 1,
+                    totalPrice: product.price
+                });
+            }
+            updateCartBadge();
+            showToast(product.name + ' added to cart!', 'success');
+            openPanel('cart');
+        };
+
+        // ===== MESSAGES =====
+        async function renderMessages() {
+            if (!currentUser) {
+                msgBody.innerHTML = `<div class="empty-msg">Please login to see messages.</div>`;
+                return;
+            }
+            const messages = await getUserMessages(currentUser.email);
+            if (messages.length === 0) {
+                msgBody.innerHTML = `<div class="empty-msg">No messages yet.</div>`;
+                return;
+            }
+            msgBody.innerHTML = messages.map(m => `
+                <div class="message-item">
+                    <strong>${m.subject}</strong>
+                    <p>${m.message}</p>
+                    <span class="msg-time">${m.timestamp ? new Date(m.timestamp.toDate()).toLocaleString() : 'Just now'} ${m.fromAdmin ? '📨 Admin' : '📤 You'}</span>
+                    ${!m.read ? '<span style="color:#1a73e8; font-size:9px;">● New</span>' : ''}
+                </div>
+            `).join('');
+            await markAllMessagesAsRead(currentUser.email);
+            updateMessageBadge();
+        }
+
+        async function updateMessageBadge() {
+            if (!currentUser) {
+                msgCountBadge.textContent = '0';
+                msgCountBadge.style.display = 'none';
+                headerMsgCount.style.display = 'none';
+                messageToggleBtn.classList.remove('show');
+                return;
+            }
+            const count = await getUnreadMessageCount(currentUser.email);
+            unreadCount = count;
+            msgCountBadge.textContent = count;
+            if (count > 0) {
+                msgCountBadge.style.display = 'block';
+                headerMsgCount.style.display = 'block';
+                headerMsgCount.textContent = count;
+                messageToggleBtn.classList.add('show');
+            } else {
+                msgCountBadge.style.display = 'none';
+                headerMsgCount.style.display = 'none';
+                if (!messagePanel.classList.contains('open')) {
+                    messageToggleBtn.classList.remove('show');
+                }
+            }
+        }
+
+        // ===== TRACKING =====
+        async function trackOrders(phone) {
+            const userOrders = await getUserOrders(phone);
+            const resultDiv = trackingResult;
+            if (userOrders.length === 0) {
+                resultDiv.className = 'tracking-result show error';
+                resultDiv.innerHTML = `<p><i class="fas fa-exclamation-circle"></i> No orders found.</p>`;
+                return;
+            }
+            let totalSpent = 0;
+            resultDiv.className = 'tracking-result show success';
+            resultDiv.innerHTML = `
+                <h4 style="margin-bottom:6px;">📦 ${userOrders.length} Order(s)</h4>
+                ${userOrders.map(o => {
+                    if (o.status === 'completed') totalSpent += parseInt(o.price) || 0;
+                    return `
+                        <div class="order-item">
+                            <div>
+                                <strong>${o.product}</strong>
+                                <div style="font-size:11px; color:#6a7a8a;">৳${o.price} • ${o.duration || 'N/A'}</div>
+                            </div>
+                            <span class="status-badge ${o.status || 'pending'}">${(o.status || 'Pending').toUpperCase()}</span>
+                        </div>
+                    `;
+                }).join('')}
+                <div style="margin-top:6px; padding-top:6px; border-top:1px solid #e8edf5;">
+                    <p style="font-size:11px; color:#6a7a8a;">
+                        <i class="fas fa-envelope"></i>
+                        <a href="#" onclick="sendTrackingMessage('${phone}')" style="color:#1a73e8; text-decoration:none;">Send message to admin</a>
+                    </p>
+                </div>
+            `;
+            updateCouponProgress(phone);
+        }
+
+        window.sendTrackingMessage = async function(phone) {
+            if (!currentUser) {
+                alert('Please login first!');
+                return;
+            }
+            await sendMessageToUser(currentUser.email, 'Order Inquiry - ' + phone, `Hello, I want to know about my order status. My phone: ${phone}.`);
             showToast('✅ Message sent to admin!', 'success');
             renderMessages();
         };
@@ -2242,63 +2084,99 @@
         // ===== COPY COUPON CODE =====
         window.copyCouponCode = function() {
             const code = couponCodeText.textContent;
-            navigator.clipboard.writeText(code).then(() => showToast('✅ Coupon code copied!', 'success')).catch(() => { const textarea = document.createElement('textarea'); textarea.value = code; document.body.appendChild(textarea); textarea.select(); document.execCommand('copy'); document.body.removeChild(textarea); showToast('✅ Coupon code copied!', 'success'); });
+            navigator.clipboard.writeText(code).then(() => {
+                showToast('✅ Coupon code copied!', 'success');
+            }).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = code;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                showToast('✅ Coupon code copied!', 'success');
+            });
         };
 
         // ===== ICON CLICKS =====
         document.getElementById('accountIcon').addEventListener('click', () => openPanel('account'));
         document.getElementById('cartIcon').addEventListener('click', () => openPanel('cart'));
         document.getElementById('favoriteIcon').addEventListener('click', () => openPanel('favorites'));
-        document.getElementById('footerAccountLink').addEventListener('click', (e) => { e.preventDefault(); openPanel('account'); });
-        document.getElementById('footerFavoriteLink').addEventListener('click', (e) => { e.preventDefault(); openPanel('favorites'); });
+        document.getElementById('footerAccountLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            openPanel('account');
+        });
+        document.getElementById('footerFavoriteLink').addEventListener('click', (e) => {
+            e.preventDefault();
+            openPanel('favorites');
+        });
 
         // ===== MESSAGE ICON =====
-        messageIcon.addEventListener('click', function() { messageToggleBtn.click(); });
+        messageIcon.addEventListener('click', function() {
+            messageToggleBtn.click();
+        });
         messageToggleBtn.addEventListener('click', function() {
             messagePanel.classList.toggle('open');
-            if (messagePanel.classList.contains('open')) { renderMessages(); this.style.display = 'none'; } 
-            else { this.style.display = 'flex'; }
+            if (messagePanel.classList.contains('open')) {
+                renderMessages();
+                this.style.display = 'none';
+            } else {
+                this.style.display = 'flex';
+            }
         });
-        msgPanelClose.addEventListener('click', function() { messagePanel.classList.remove('open'); messageToggleBtn.style.display = 'flex'; });
+        msgPanelClose.addEventListener('click', function() {
+            messagePanel.classList.remove('open');
+            messageToggleBtn.style.display = 'flex';
+        });
 
         // ===== TRACKING BUTTON =====
         trackOrderBtn.addEventListener('click', function() {
-            const user = getCurrentUser();
             let phone = trackingPhone.value.trim();
-            if (user && user.whatsapp) { phone = user.whatsapp; trackingPhone.value = phone; }
-            if (!phone) { trackingResult.className = 'tracking-result show error'; trackingResult.innerHTML = '<p><i class="fas fa-exclamation-circle"></i> Enter number or login.</p>'; return; }
+            if (currentUser && currentUser.phoneNumber) {
+                phone = currentUser.phoneNumber;
+                trackingPhone.value = phone;
+            }
+            if (!phone) {
+                trackingResult.className = 'tracking-result show error';
+                trackingResult.innerHTML = '<p><i class="fas fa-exclamation-circle"></i> Enter number or login.</p>';
+                return;
+            }
             trackOrders(phone);
         });
-        trackingPhone.addEventListener('keyup', function(e) { if (e.key === 'Enter') trackOrderBtn.click(); });
-
-        // ===== SHOW TOAST =====
-        function showToast(message, type = 'info') {
-            const existing = document.querySelector('.toast-notification');
-            if (existing) existing.remove();
-            const toast = document.createElement('div');
-            toast.className = 'toast-notification';
-            const colors = { success: '#1a73e8', info: '#0d47a1', error: '#d32f2f' };
-            toast.style.borderLeftColor = colors[type] || '#1a73e8';
-            toast.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : type === 'info' ? 'info-circle' : 'exclamation-circle'}" style="color:${colors[type] || '#1a73e8'}; margin-right:6px;"></i> ${message}`;
-            document.body.appendChild(toast);
-            setTimeout(() => { if (toast.parentNode) toast.remove(); }, 3000);
-        }
+        trackingPhone.addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') trackOrderBtn.click();
+        });
 
         // ===== SCROLL TO TOP =====
-        window.addEventListener('scroll', function() { scrollTopBtn.classList.toggle('show', window.pageYOffset > 300); });
-        scrollTopBtn.addEventListener('click', function() { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        window.addEventListener('scroll', function() {
+            scrollTopBtn.classList.toggle('show', window.pageYOffset > 300);
+        });
+        scrollTopBtn.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
 
         // ===== SEARCH =====
-        function handleSearch() { renderProducts(searchInput.value); }
+        function handleSearch() {
+            renderProducts(searchInput.value);
+        }
         searchBtn.addEventListener('click', handleSearch);
-        searchInput.addEventListener('keyup', function(e) { if (e.key === 'Enter') handleSearch(); });
-        document.getElementById('showAllProducts').addEventListener('click', function(e) { e.preventDefault(); renderProducts(); });
+        searchInput.addEventListener('keyup', function(e) {
+            if (e.key === 'Enter') handleSearch();
+        });
+        document.getElementById('showAllProducts').addEventListener('click', function(e) {
+            e.preventDefault();
+            renderProducts();
+        });
 
         // ===== ALL DEPARTMENT DROPDOWN =====
         const allDeptBtn = document.getElementById('allDeptBtn');
         const allDeptDropdown = document.getElementById('allDeptDropdown');
-        allDeptBtn.addEventListener('click', function(e) { e.stopPropagation(); allDeptDropdown.classList.toggle('show'); });
-        document.addEventListener('click', function() { allDeptDropdown.classList.remove('show'); });
+        allDeptBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            allDeptDropdown.classList.toggle('show');
+        });
+        document.addEventListener('click', function() {
+            allDeptDropdown.classList.remove('show');
+        });
         document.querySelectorAll('.all-department-dropdown a[data-category]').forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -2311,6 +2189,80 @@
             });
         });
 
+        // ===== NAVIGATION =====
+        function showHome() {
+            homeSection.style.display = 'block';
+            document.querySelector('.features').style.display = 'grid';
+            shopSection.style.display = 'block';
+            refundSection.style.display = 'none';
+            reviewsSection.style.display = 'none';
+            document.getElementById('orderTrackingSection').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            renderProducts();
+        }
+
+        function showShop() {
+            homeSection.style.display = 'block';
+            document.querySelector('.features').style.display = 'grid';
+            shopSection.style.display = 'block';
+            refundSection.style.display = 'none';
+            reviewsSection.style.display = 'none';
+            document.getElementById('orderTrackingSection').style.display = 'block';
+            document.getElementById('shopSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function showRefund() {
+            homeSection.style.display = 'block';
+            document.querySelector('.features').style.display = 'grid';
+            shopSection.style.display = 'block';
+            refundSection.style.display = 'block';
+            reviewsSection.style.display = 'none';
+            document.getElementById('orderTrackingSection').style.display = 'block';
+            refundSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        function showReviews() {
+            homeSection.style.display = 'block';
+            document.querySelector('.features').style.display = 'grid';
+            shopSection.style.display = 'block';
+            refundSection.style.display = 'none';
+            reviewsSection.style.display = 'block';
+            document.getElementById('orderTrackingSection').style.display = 'block';
+            reviewsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        navHome.addEventListener('click', (e) => {
+            e.preventDefault();
+            showHome();
+        });
+        navRefund.addEventListener('click', (e) => {
+            e.preventDefault();
+            showRefund();
+        });
+        navReviews.addEventListener('click', (e) => {
+            e.preventDefault();
+            showReviews();
+        });
+        footerShopLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showShop();
+        });
+        footerRefundLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            showRefund();
+        });
+
+        // ===== RENDER REVIEWS =====
+        function renderReviews() {
+            reviewsGallery.innerHTML = reviewsData.map(review => {
+                if (review.type === 'video') {
+                    return `<div class="review-item"><video class="review-media-video" controls><source src="${review.src}" type="video/mp4"></video><div class="review-info"><div class="review-name">${review.name}</div><div class="review-stars">${'★'.repeat(review.stars)}${'☆'.repeat(5 - review.stars)}</div><div class="review-text">"${review.text}"</div></div></div>`;
+                } else {
+                    return `<div class="review-item"><img src="${review.src}" alt="${review.name}" class="review-media" /><div class="review-info"><div class="review-name">${review.name}</div><div class="review-stars">${'★'.repeat(review.stars)}${'☆'.repeat(5 - review.stars)}</div><div class="review-text">"${review.text}"</div></div></div>`;
+                }
+            }).join('');
+        }
+
         // ===== SLIDER AUTO =====
         setInterval(() => {
             const slides = document.querySelectorAll('.slide');
@@ -2321,30 +2273,103 @@
             currentSlide = next;
         }, 5000);
 
-        // ===== INIT =====
-        loadLogo();
-        loadSlider();
-        renderProducts();
-        updateCartBadge();
-        updateFavoriteBadge();
-        renderReviews();
-        updateMessageBadge();
-        renderCouponProducts();
-        refundSection.style.display = 'none';
-        reviewsSection.style.display = 'none';
+        // ===== AUTH STATE =====
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                currentUser = user;
+                isLoggedIn = true;
+                // Get user data from Firestore
+                try {
+                    const doc = await db.collection('users').doc(user.uid).get();
+                    if (doc.exists) {
+                        const data = doc.data();
+                        if (data.whatsapp && !user.phoneNumber) {
+                            // Update phone number if available
+                            user.phoneNumber = data.whatsapp;
+                        }
+                        if (data.name && !user.displayName) {
+                            // Update display name if available
+                            user.displayName = data.name;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error getting user data:', error);
+                }
+                updateMessageBadge();
+                messageToggleBtn.classList.add('show');
+                if (user.phoneNumber) {
+                    updateCouponProgress(user.phoneNumber);
+                    trackingPhone.value = user.phoneNumber;
+                }
+                // Check for unread messages
+                const count = await getUnreadMessageCount(user.email);
+                if (count > 0) {
+                    messageToggleBtn.style.display = 'flex';
+                }
+            } else {
+                currentUser = null;
+                isLoggedIn = false;
+                updateMessageBadge();
+            }
+        });
 
-        const loggedInUser = getCurrentUser();
-        if (loggedInUser) {
-            isLoggedIn = true;
-            currentUser = loggedInUser;
-            updateMessageBadge();
-            messageToggleBtn.classList.add('show');
-            if (loggedInUser.whatsapp) { updateCouponProgress(loggedInUser.whatsapp); trackingPhone.value = loggedInUser.whatsapp; }
+        // ===== INIT =====
+        async function init() {
+            await loadSettings();
+            await loadSliderImages();
+            await loadProducts();
+            await loadCouponProducts();
+            renderReviews();
+            updateCartBadge();
+            updateFavoriteBadge();
+            refundSection.style.display = 'none';
+            reviewsSection.style.display = 'none';
+
+            // Listen for real-time product updates
+            db.collection('products').onSnapshot((snapshot) => {
+                products = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    data.id = doc.id;
+                    products.push(data);
+                });
+                renderProducts();
+            });
+
+            // Listen for real-time coupon product updates
+            db.collection('couponProducts').onSnapshot((snapshot) => {
+                couponProducts = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    data.id = doc.id;
+                    couponProducts.push(data);
+                });
+                renderCouponProducts();
+            });
+
+            // Listen for real-time slider updates
+            db.collection('settings').doc('slider').onSnapshot((doc) => {
+                if (doc.exists) {
+                    const images = doc.data().images || [];
+                    updateSlider(images);
+                }
+            });
+
+            // Listen for real-time message updates
+            if (currentUser) {
+                db.collection('messages').where('email', '==', currentUser.email).onSnapshot(() => {
+                    updateMessageBadge();
+                    if (messagePanel.classList.contains('open')) {
+                        renderMessages();
+                    }
+                });
+            }
+
+            console.log('✅ ShopPro loaded with Firebase!');
         }
 
-        setInterval(() => { updateMessageBadge(); if (messagePanel.classList.contains('open')) renderMessages(); }, 10000);
-        console.log('✅ ShopPro loaded!');
+        init();
     })();
     </script>
 </body>
-    </html>
+</html>
