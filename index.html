@@ -14,10 +14,11 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
 
     <style>
-        /* ===== ALL YOUR EXISTING STYLES (UNCHANGED) ===== */
+        /* ===== RESET ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
         body { background: #f0f4fc; color: #1a2634; overflow-x: hidden; }
 
+        /* ===== NAVBAR ===== */
         .navbar { background: #ffffff; padding: 8px 0; box-shadow: 0 2px 12px rgba(26,115,232,0.06); position: sticky; top: 0; z-index: 999; border-bottom: 1px solid #e8edf5; }
         .container { max-width: 1280px; margin: 0 auto; padding: 0 12px; }
         .nav-wrapper { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: nowrap; }
@@ -65,6 +66,7 @@
             .nav-icons .icon { min-width: 22px; padding: 2px 3px; }
         }
 
+        /* ===== CATEGORY BAR ===== */
         .category-bar { background: #ffffff; border-top: 1px solid #e8edf5; border-bottom: 1px solid #e8edf5; padding: 5px 0; }
         .category-wrapper { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .all-department { position: relative; flex-shrink: 0; }
@@ -88,6 +90,7 @@
             .category-list { gap: 3px 8px; }
         }
 
+        /* ===== HERO SLIDER ===== */
         .hero { margin: 12px 0; }
         .slider { display: flex; overflow: hidden; border-radius: 14px; background: #e8f0fe; min-height: 120px; position: relative; border: 2px solid #dce3ef; }
         .slide { display: none; width: 100%; height: 120px; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -100,10 +103,12 @@
         @media (min-width: 600px) { .slider { min-height: 200px; } .slide { height: 200px; } }
         @media (min-width: 992px) { .slider { min-height: 300px; } .slide { height: 300px; } }
 
+        /* ===== SECTION TITLE ===== */
         .section-title { display: flex; justify-content: space-between; align-items: center; margin: 16px 0 10px; }
         .section-title h3 { font-size: 16px; font-weight: 600; color: #1a2634; }
         .section-title a { color: #1a73e8; text-decoration: none; font-weight: 500; font-size: 12px; cursor: pointer; }
 
+        /* ===== PRODUCT GRID ===== */
         .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
         .product-card { background: #ffffff; border-radius: 12px; padding: 10px 8px 12px; box-shadow: 0 4px 12px rgba(26,115,232,0.06); border: 1px solid #e8edf5; position: relative; display: flex; flex-direction: column; cursor: pointer; }
         .product-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,115,232,0.10); border-color: #1a73e8; }
@@ -118,6 +123,7 @@
         @media (min-width: 600px) { .product-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; } .product-card .product-image { height: 120px; } }
         @media (min-width: 992px) { .product-grid { grid-template-columns: repeat(4, 1fr); gap: 20px; } .product-card .product-image { height: 140px; } }
 
+        /* ===== FEATURES ===== */
         .features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 14px 0; background: #ffffff; padding: 12px 10px; border-radius: 14px; border: 1px solid #e8edf5; }
         .feature-item { display: flex; align-items: center; gap: 8px; }
         .feature-item i { font-size: 18px; color: #1a73e8; min-width: 24px; text-align: center; }
@@ -125,6 +131,7 @@
         .feature-item p { font-size: 9px; color: #5a6a7a; }
         @media (min-width: 600px) { .features { grid-template-columns: repeat(4, 1fr); } }
 
+        /* ===== ORDER TRACKING ===== */
         .order-tracking-section { background: #ffffff; border-radius: 14px; padding: 16px; margin: 14px 0; border: 1px solid #e8edf5; }
         .order-tracking-section h3 { font-size: 16px; font-weight: 600; color: #1a2634; margin-bottom: 4px; }
         .order-tracking-section p { color: #5a6a7a; font-size: 12px; margin-bottom: 10px; }
@@ -143,6 +150,7 @@
         .tracking-result .status-badge.pending { background: #fef3c7; color: #d97706; }
         .tracking-result .status-badge.cancelled { background: #fde8e8; color: #dc2626; }
 
+        /* ===== COUPON ===== */
         .coupon-section { background: #f8fafc; border-radius: 10px; padding: 14px; margin-top: 12px; border: 2px dashed #dce3ef; }
         .coupon-section:hover { border-color: #1a73e8; }
         .coupon-section .coupon-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; }
@@ -160,6 +168,7 @@
         .coupon-section .redeem-input-group input { flex: 1; min-width: 100px; padding: 6px 10px; border: 2px solid #dce3ef; border-radius: 6px; font-size: 12px; background: #fff; }
         .coupon-section .redeem-input-group button { padding: 6px 14px; background: #7c3aed; color: #fff; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; }
 
+        /* ===== COUPON PRODUCTS ===== */
         .coupon-products-section { display: none; background: #ffffff; border-radius: 14px; padding: 16px; margin: 12px 0; border: 2px solid #7c3aed; animation: fadeIn 0.4s ease; }
         .coupon-products-section.active { display: block; }
         .coupon-products-section h3 { font-size: 15px; color: #1a2634; margin-bottom: 4px; }
@@ -174,6 +183,7 @@
         @media (min-width: 600px) { .coupon-products-section .coupon-product-grid { grid-template-columns: repeat(3, 1fr); } }
         @media (min-width: 992px) { .coupon-products-section .coupon-product-grid { grid-template-columns: repeat(4, 1fr); } }
 
+        /* ===== MESSAGE PANEL ===== */
         .message-panel { display: none; position: fixed; bottom: 70px; right: 10px; width: 280px; max-width: 90vw; max-height: 340px; background: #fff; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); z-index: 998; overflow: hidden; border: 1px solid #e8edf5; flex-direction: column; }
         .message-panel.open { display: flex; animation: fadeIn 0.3s ease; }
         .message-panel .msg-header { background: #1a73e8; color: #fff; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; }
@@ -187,6 +197,7 @@
         .message-toggle-btn.show { display: flex; }
         .message-toggle-btn .msg-count { position: absolute; top: -3px; right: -3px; background: #dc2626; color: #fff; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 30px; min-width: 16px; text-align: center; }
 
+        /* ===== FOOTER ===== */
         footer { background: #ffffff; color: #1a2634; padding: 24px 0 12px; margin-top: 24px; border-radius: 16px 16px 0 0; border-top: 2px solid #e8edf5; }
         .footer-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
         .footer-grid h4 { color: #1a2634; margin-bottom: 6px; font-size: 13px; }
@@ -198,6 +209,7 @@
         .scroll-top { position: fixed; bottom: 70px; right: 10px; width: 36px; height: 36px; background: #1a73e8; color: #fff; border: none; border-radius: 50%; font-size: 14px; cursor: pointer; box-shadow: 0 4px 12px rgba(26,115,232,0.3); display: none; z-index: 995; }
         .scroll-top.show { display: block; }
 
+        /* ===== PRODUCT DETAIL ===== */
         .product-detail-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); z-index: 10001; align-items: center; justify-content: center; padding: 12px; }
         .product-detail-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
         .product-detail-modal { background: #ffffff; border-radius: 20px; max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 18px; box-shadow: 0 30px 60px rgba(0,0,0,0.3); position: relative; }
@@ -230,6 +242,7 @@
         @media (min-width: 600px) { .detail-image { flex: 1 1 40%; } .detail-image .img-box { height: 280px; } .detail-info { flex: 1 1 50%; } .detail-info .product-name { font-size: 22px; } }
         @media (min-width: 992px) { .detail-image .img-box { height: 350px; } .detail-info .product-name { font-size: 28px; } .detail-info .product-price { font-size: 26px; } }
 
+        /* ===== SIDE PANEL ===== */
         .side-panel-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); z-index: 9998; display: none; opacity: 0; transition: opacity 0.3s ease; }
         .side-panel-overlay.active { display: block; opacity: 1; }
         .side-panel { position: fixed; top: 0; right: -100%; width: 100%; max-width: 100%; height: 100%; background: #ffffff; z-index: 9999; transition: right 0.35s cubic-bezier(0.22,1,0.36,1); box-shadow: -10px 0 40px rgba(0,0,0,0.12); padding: 16px; overflow-y: auto; }
@@ -240,6 +253,7 @@
         .side-panel-close { background: none; border: none; font-size: 20px; color: #94a9c2; cursor: pointer; padding: 4px 6px; border-radius: 6px; }
         @media (min-width: 600px) { .side-panel { width: 420px; max-width: 92%; } }
 
+        /* ===== AUTH ===== */
         .auth-tabs { display: flex; gap: 6px; margin-bottom: 12px; border-bottom: 2px solid #e8edf5; padding-bottom: 6px; }
         .auth-tab { padding: 5px 14px; border: none; background: none; font-weight: 600; font-size: 13px; color: #5a6a7a; cursor: pointer; border-radius: 30px; }
         .auth-tab.active { color: #1a73e8; background: #eef4ff; }
@@ -257,6 +271,7 @@
         .user-info .user-email-display { font-size: 12px; color: #5a6a7a; }
         .user-info .logout-btn-sm { margin-top: 8px; padding: 6px 18px; background: #dc2626; color: #fff; border: none; border-radius: 30px; font-weight: 600; cursor: pointer; }
 
+        /* ===== CART ===== */
         .cart-items { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
         .cart-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: #f0f4fc; border-radius: 10px; border: 2px solid #e8edf5; }
         .cart-item .cart-img { width: 40px; height: 40px; border-radius: 6px; object-fit: cover; background: #e8edf5; }
@@ -274,6 +289,7 @@
         .cart-total .total-amount { color: #1a73e8; font-size: 18px; }
         .checkout-btn { width: 100%; padding: 10px; background: #1a73e8; color: #fff; border: none; border-radius: 30px; font-weight: 700; font-size: 14px; cursor: pointer; margin-top: 8px; }
 
+        /* ===== FAVORITES ===== */
         .favorite-items { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
         .favorite-item { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: #f0f4fc; border-radius: 10px; border: 2px solid #e8edf5; }
         .favorite-item .fav-icon { font-size: 18px; color: #dc2626; }
@@ -285,6 +301,7 @@
         .favorite-empty { text-align: center; padding: 20px 0; color: #94a9c2; }
         .favorite-empty i { font-size: 32px; margin-bottom: 6px; display: block; }
 
+        /* ===== PAYMENT MODAL ===== */
         .payment-modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); z-index: 10000; align-items: center; justify-content: center; padding: 12px; }
         .payment-modal-overlay.active { display: flex; animation: fadeIn 0.3s ease; }
         .payment-modal { background: white; border-radius: 20px; max-width: 480px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 18px; box-shadow: 0 30px 60px rgba(0,0,0,0.3); position: relative; }
@@ -598,7 +615,7 @@
     const db = firebase.firestore();
     const auth = firebase.auth();
 
-    // ===== YOUR EXISTING JAVASCRIPT (UNCHANGED) =====
+    // ===== COMPLETE JAVASCRIPT =====
     (function() {
         // ===== CONFIG =====
         const BOT_TOKEN = '8734192435:AAHooD6euA6DtBQ1nvkChjUssj_OkJUCQ6Y';
@@ -642,7 +659,6 @@
         let selectedAccessMultiplier = 1;
         let currentDetailProductId = null;
         let couponClaimed = false;
-        let userMessages = [];
         let unreadCount = 0;
 
         // ===== DOM REFS =====
@@ -1474,31 +1490,96 @@
 
         confirmBtn.addEventListener('click', function() {
             if (!isVerified) { alert('⚠️ Verify your transaction ID first.'); return; }
+            
             const productName = sessionStorage.getItem('orderProduct') || 'Product';
             const price = sessionStorage.getItem('orderPrice') || '0';
             const methodName = currentCategory === 'bank' ? 'Bank Transfer' : (methodData[selectedMethod]?.name || selectedMethod);
             const txnId = currentCategory === 'bank' ? bankTransactionInput.value : transactionInput.value;
             const duration = sessionStorage.getItem('orderDuration') || 'N/A';
             const access = sessionStorage.getItem('orderAccess') || 'N/A';
+            
             const user = getCurrentUser();
             const userPhone = user ? user.whatsapp : 'N/A';
-            const orders = getOrders();
-            orders.push({ id: Date.now(), product: productName, price: price, duration: duration, access: access, phone: userPhone, customer: user ? user.name : 'Guest', status: 'pending', date: new Date().toISOString(), transactionId: txnId });
-            saveOrders(orders);
-            if (user) { const users = getUsers(); if (users[user.email]) { if (!users[user.email].orders) users[user.email].orders = []; users[user.email].orders.push({ product: productName, price: price, duration: duration, access: access, status: 'pending', date: new Date().toISOString() }); saveUsers(users); } }
-            const message = `🆕 *New Order!*\n\n📦 *Product:* ${productName}\n💰 *Price:* ৳${formatPrice(Number(price))}\n⏰ *Duration:* ${duration}\n👥 *Access:* ${access}\n💳 *Payment:* ${methodName}\n🆔 *Transaction:* ${txnId}\n👤 *Customer:* ${user ? user.name : 'Guest'}\n📱 *Phone:* ${userPhone}`;
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'Markdown' }) }).catch(e => console.error('Telegram error:', e));
-            confirmBtn.disabled = true;
-            confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
-            setTimeout(function() {
-                alert(`🎉 Order Successful!\n\n📦 ${productName}\n💰 ৳${formatPrice(Number(price))}\n⏰ ${duration}\n👥 ${access}\n💳 ${methodName}\n🆔 ${txnId}`);
-                confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> Payment Completed';
-                window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('I have placed an order for ' + productName)}`, '_blank');
-                closePaymentModal();
-                cart = [];
-                updateCartBadge();
-                renderCartContent();
-            }, 1500);
+            const userEmail = user ? user.email : 'guest@shoppro.bd';
+            const customerName = user ? user.name : 'Guest';
+
+            // ===== ORDER DATA FOR FIREBASE =====
+            const orderData = {
+                product: productName,
+                price: price,
+                duration: duration,
+                access: access,
+                phone: userPhone,
+                customer: customerName,
+                email: userEmail,
+                status: 'pending',
+                transactionId: txnId,
+                paymentMethod: methodName,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
+            // ===== SAVE ORDER TO FIREBASE =====
+            db.collection('orders').add(orderData)
+                .then((docRef) => {
+                    console.log('Order saved with ID: ', docRef.id);
+                    
+                    // Update user's order history (localStorage backup)
+                    if (user) {
+                        const users = getUsers();
+                        if (users[user.email]) {
+                            if (!users[user.email].orders) users[user.email].orders = [];
+                            users[user.email].orders.push({
+                                product: productName,
+                                price: price,
+                                duration: duration,
+                                access: access,
+                                status: 'pending',
+                                date: new Date().toISOString()
+                            });
+                            saveUsers(users);
+                        }
+                    }
+
+                    // ===== SEND TO TELEGRAM =====
+                    const message = `🆕 *New Order!*\n\n📦 *Product:* ${productName}\n💰 *Price:* ৳${formatPrice(Number(price))}\n⏰ *Duration:* ${duration}\n👥 *Access:* ${access}\n💳 *Payment:* ${methodName}\n🆔 *Transaction:* ${txnId}\n👤 *Customer:* ${customerName}\n📱 *Phone:* ${userPhone}\n📅 *Time:* ${new Date().toLocaleString('en-US')}`;
+                    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'Markdown' })
+                    }).catch(e => console.error('Telegram error:', e));
+
+                    // ===== SUCCESS =====
+                    confirmBtn.disabled = true;
+                    confirmBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+                    setTimeout(function() {
+                        alert(`🎉 Order Successful!\n\n📦 ${productName}\n💰 ৳${formatPrice(Number(price))}\n⏰ ${duration}\n👥 ${access}\n💳 ${methodName}\n🆔 ${txnId}`);
+                        confirmBtn.innerHTML = '<i class="fas fa-check-circle"></i> Payment Completed';
+                        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent('I have placed an order for ' + productName)}`, '_blank');
+                        closePaymentModal();
+                        cart = [];
+                        updateCartBadge();
+                        renderCartContent();
+                    }, 1500);
+                })
+                .catch((error) => {
+                    console.error('Error saving order:', error);
+                    alert('⚠️ Order placed but there was an error saving. Please contact support.');
+                    showToast('Error saving order!', 'error');
+                    
+                    // Still send to Telegram even if Firebase fails
+                    const message = `🆕 *New Order! (Firebase Error)*\n\n📦 *Product:* ${productName}\n💰 *Price:* ৳${formatPrice(Number(price))}\n⏰ *Duration:* ${duration}\n👥 *Access:* ${access}\n💳 *Payment:* ${methodName}\n🆔 *Transaction:* ${txnId}\n👤 *Customer:* ${customerName}\n📱 *Phone:* ${userPhone}`;
+                    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ chat_id: CHAT_ID, text: message, parse_mode: 'Markdown' })
+                    }).catch(e => console.error('Telegram error:', e));
+                    
+                    closePaymentModal();
+                    cart = [];
+                    updateCartBadge();
+                    renderCartContent();
+                });
         });
 
         // ===== COUPON EVENT LISTENERS =====
@@ -1610,18 +1691,120 @@
         refundSection.style.display = 'none';
         reviewsSection.style.display = 'none';
 
-        const loggedInUser = getCurrentUser();
-        if (loggedInUser) {
-            isLoggedIn = true;
-            currentUser = loggedInUser;
-            updateMessageBadge();
-            messageToggleBtn.classList.add('show');
-            if (loggedInUser.whatsapp) { updateCouponProgress(loggedInUser.whatsapp); trackingPhone.value = loggedInUser.whatsapp; }
+        // ===== AUTH STATE =====
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                currentUser = user;
+                isLoggedIn = true;
+                // Get user data from Firestore
+                try {
+                    const doc = await db.collection('users').doc(user.uid).get();
+                    if (doc.exists) {
+                        const data = doc.data();
+                        if (data.whatsapp && !user.phoneNumber) {
+                            user.phoneNumber = data.whatsapp;
+                        }
+                        if (data.name && !user.displayName) {
+                            user.displayName = data.name;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error getting user data:', error);
+                }
+                updateMessageBadge();
+                messageToggleBtn.classList.add('show');
+                if (user.phoneNumber) {
+                    updateCouponProgress(user.phoneNumber);
+                    trackingPhone.value = user.phoneNumber;
+                }
+                const count = await db.collection('messages').where('email', '==', user.email).where('read', '==', false).get();
+                if (count.size > 0) {
+                    messageToggleBtn.style.display = 'flex';
+                }
+            } else {
+                currentUser = null;
+                isLoggedIn = false;
+                updateMessageBadge();
+            }
+        });
+
+        // ===== REAL-TIME LISTENERS =====
+        // Listen for products from Firebase
+        db.collection('products').onSnapshot((snapshot) => {
+            // Products are managed by admin, just update local products
+            const fbProducts = [];
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                data.id = doc.id;
+                fbProducts.push(data);
+            });
+            if (fbProducts.length > 0) {
+                // Update products array with Firebase data
+                // For now, keep local products
+            }
+        });
+
+        // Listen for coupon products from Firebase
+        db.collection('couponProducts').onSnapshot((snapshot) => {
+            const fbCouponProducts = [];
+            snapshot.forEach(doc => {
+                const data = doc.data();
+                data.id = doc.id;
+                fbCouponProducts.push(data);
+            });
+            if (fbCouponProducts.length > 0) {
+                couponProducts = fbCouponProducts;
+                renderCouponProducts();
+            }
+        });
+
+        // Listen for slider updates from Firebase
+        db.collection('settings').doc('slider').onSnapshot((doc) => {
+            if (doc.exists) {
+                const images = doc.data().images || [];
+                const slides = document.querySelectorAll('.slide');
+                const dots = document.querySelectorAll('#sliderDots span');
+                slides.forEach((slide, index) => {
+                    if (index < images.length) {
+                        slide.querySelector('img').src = images[index];
+                        slide.style.display = 'flex';
+                    } else {
+                        slide.style.display = 'none';
+                    }
+                });
+                const dotContainer = document.getElementById('sliderDots');
+                dotContainer.innerHTML = '';
+                images.forEach((_, index) => {
+                    const span = document.createElement('span');
+                    span.className = index === 0 ? 'active' : '';
+                    span.dataset.index = index;
+                    span.addEventListener('click', function() { goToSlide(parseInt(this.dataset.index)); });
+                    dotContainer.appendChild(span);
+                });
+                currentSlide = 0;
+            }
+        });
+
+        // Listen for messages from Firebase
+        if (currentUser) {
+            db.collection('messages').where('email', '==', currentUser.email).onSnapshot(() => {
+                updateMessageBadge();
+                if (messagePanel.classList.contains('open')) {
+                    renderMessages();
+                }
+            });
         }
 
-        setInterval(() => { updateMessageBadge(); if (messagePanel.classList.contains('open')) renderMessages(); }, 10000);
-        console.log('✅ ShopPro loaded!');
+        // ===== PERIODIC MESSAGE CHECK =====
+        setInterval(() => {
+            updateMessageBadge();
+            if (messagePanel.classList.contains('open')) {
+                renderMessages();
+            }
+        }, 10000);
+
+        console.log('✅ ShopPro loaded with Firebase!');
     })();
     </script>
 </body>
-</html>
+    </html>
